@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión - Blackjack</title>
+
+    <!-- Colores globales -->
+    <link rel="stylesheet" href="../info/coloresGlobales.css">
+
+    <!-- Estilos de esta página -->
+    <link rel="stylesheet" href="../archivos_css/login.css">
+
+    <!-- Script -->
+    <script src="../archivos_js/login.js" defer></script>
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>INICIAR SESIÓN</h1>
+
+        <input type="text" id="nombre" name="usuario" placeholder="Usuario" class="input">
+
+        <input type="password" id="contraseña" name="password" placeholder="Contraseña" class="input">
+
+        <button id="btnAceptar" class="btn">Entrar</button>
+
+        <button id="btnMenu" class="btn">Volver al menú</button>
+
+        <div class="info">
+            Accede a tu cuenta para jugar al Blackjack online
+        </div>
+
+        <div id="errores" class="errores"></div>
+    </div>
+
+</body>
+</html>

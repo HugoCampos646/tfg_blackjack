@@ -1,0 +1,16 @@
+:root {
+    --color-fondo: #0B3D2E;
+    --color-mesa: #145A32;
+
+    --color-primario: #D4AF37;
+    --color-secundario: #1C1C1C;
+
+    --color-texto: #FFFFFF;
+    --color-texto-secundario: #CCCCCC;
+
+    --color-boton: #D4AF37;
+    --color-boton-hover: #B8962E;
+
+    --color-error: #C0392B;
+    --color-exito: #27AE60;
+}

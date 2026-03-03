@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - Blackjack</title>
+
+    <!-- Colores globales -->
+    <link rel="stylesheet" href="../info/coloresGlobales.css">
+
+    <!-- Estilos de esta página -->
+    <link rel="stylesheet" href="../archivos_css/registro.css">
+
+    <!-- Script -->
+    <script src="../archivos_js/registro.js" defer></script>
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>REGISTRO</h1>
+
+        <input type="text" id="nombre" name="usuario" placeholder="Usuario" class="input">
+
+        <input type="password" id="contraseña" name="password" placeholder="Contraseña" class="input">
+
+        <input type="password" id="contraseñaRepetida" name="confirmar" placeholder="Confirmar contraseña" class="input">
+
+        <button id="btnAceptar" class="btn">Crear cuenta</button>
+
+        <button id="btnMenu" class="btn">Volver al menú</button>
+
+        <div class="info">
+            Crea una cuenta y empieza con 1000 puntos iniciales
+        </div>
+
+        <div id="errores" class="errores"></div>
+    </div>
+
+</body>
+</html>
