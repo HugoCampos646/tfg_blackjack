@@ -47,6 +47,7 @@ async function comprobaciones() {
 
         if (data.success) {
             info.innerHTML = "Usuario registrado correctamente";
+            window.location.href = "../archivos_html/principal.html";
         } else {
             errores.innerHTML = data.mensaje;
         }
