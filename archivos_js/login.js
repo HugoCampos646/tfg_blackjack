@@ -3,6 +3,7 @@ const contraseña = document.getElementById("contraseña");
 const btnAceptar = document.getElementById("btnAceptar");
 const btnMenu = document.getElementById("btnMenu");
 const errores = document.getElementById("errores");
+const info = document.getElementById("info");
 
 btnMenu.addEventListener("click", () => {
     window.location.href = "../index.html";
@@ -12,19 +13,43 @@ btnAceptar.addEventListener("click", () => {
     comprobaciones();
 });
 
-function comprobaciones() {
-    // obtenemos valores y quitamos espacios
+async function comprobaciones() {
+
     const nombreVal = nombre.value.trim();
     const passVal = contraseña.value.trim();
 
-    // comprobar ningún campo vacío
     if (!nombreVal || !passVal) {
         errores.innerHTML = "Por favor, completa todos los campos.";
         return;
     }
 
-    // Comprobar si la contraseña es correcta para el nombre de usuario dado
+    try {
 
-    // si llega aquí, todo está bien
-    // puedes continuar con el envío del formulario o el registro
+        const response = await fetch("http://localhost:3000/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nombre: nombreVal,
+                password: passVal
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            // guardar usuario en el navegador
+            localStorage.setItem("usuario", nombreVal);
+            info.innerHTML = "Sesión iniciada correctamente";
+            window.location.href = "../archivos_html/principal.html";
+
+        } else {
+            errores.innerHTML = data.mensaje;
+        }
+
+    } catch (error) {
+        errores.innerHTML = "Error al conectar con el servidor.";
+    }
 }
