@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Blackjack - Menú Principal</title>
+
+    <!-- Colores globales -->
+    <link rel="stylesheet" href="../info/coloresGlobales.css">
+
+    <!-- Estilos de esta página -->
+    <link rel="stylesheet" href="../archivos_css/principal.css">
+</head>
+<body>
+
+    <!-- Usuario arriba a la derecha -->
+    <div class="usuario">
+        Usuario: <span id="nombreUsuario"></span>
+    </div>
+
+    <div class="container">
+
+        <h1>MENÚ PRINCIPAL</h1>
+
+        <!-- Botones principales -->
+        <button class="btn btn-jugar">
+            Jugar
+        </button>
+
+        <button class="btn btn-jugar">
+            Jugar Online
+        </button>
+
+        <button class="btn btn-jugar">
+            Jugar Tutorial
+        </button>
+
+        <!-- Opciones secundarias -->
+        <div class="opciones-secundarias">
+
+            <button class="btn btn-secundario">
+                Perfil
+            </button>
+
+            <button class="btn btn-secundario">
+                Estadísticas
+            </button>
+
+        </div>
+
+    </div>
+
+<script>
+
+    const usuario = localStorage.getItem("usuario");
+
+    if (!usuario) {
+        window.location.href = "../index.html";
+    }
+
+    document.getElementById("nombreUsuario").innerText = usuario;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* usuario esquina superior */
+.usuario {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 14px;
+    color: var(--color-texto-secundario);
+}
+
+/* contenedor central */
+.container {
+    background-color: var(--color-secundario);
+    padding: 40px;
+    border-radius: 12px;
+    width: 420px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+}
+
+h1 {
+    margin-bottom: 30px;
+    color: var(--color-primario);
+    letter-spacing: 2px;
+}
+
+/* botones base */
+.btn {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+    background-color: var(--color-boton);
+    color: var(--color-secundario);
+
+    font-weight: bold;
+
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-boton-hover);
+    transform: scale(1.03);
+}
+
+/* botones principales de juego */
+.btn-jugar {
+    padding: 18px;
+    font-size: 18px;
+}
+
+/* botones secundarios */
+.opciones-secundarias {
+    margin-top: 25px;
+}
+
+.btn-secundario {
+    padding: 12px;
+    font-size: 14px;
+}

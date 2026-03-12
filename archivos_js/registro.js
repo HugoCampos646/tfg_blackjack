@@ -46,6 +46,7 @@ async function comprobaciones() {
         const data = await response.json();
 
         if (data.success) {
+            localStorage.setItem("usuario", nombreVal);
             info.innerHTML = "Usuario registrado correctamente";
             window.location.href = "../archivos_html/principal.html";
         } else {
