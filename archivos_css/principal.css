@@ -1,48 +1,70 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: var(--color-fondo);
+    background-color: var(--color-mesa);
     color: var(--color-texto);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
 }
 
-/* usuario esquina superior */
+/* Barra superior tipo HUD */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 30px;
+    background-color: var(--color-secundario);
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.logo {
+    color: var(--color-primario);
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
 .usuario {
-    position: absolute;
-    top: 20px;
-    right: 30px;
     font-size: 14px;
     color: var(--color-texto-secundario);
 }
 
-/* contenedor central */
-.container {
-    background-color: var(--color-secundario);
-    padding: 40px;
-    border-radius: 12px;
-    width: 420px;
+/* Contenedor principal */
+.menu {
+    max-width: 700px;
+    margin: 120px auto; /* antes 80px */
     text-align: center;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
 }
 
-h1 {
-    margin-bottom: 30px;
+h2 {
+    margin-bottom: 40px;
     color: var(--color-primario);
-    letter-spacing: 2px;
 }
 
-/* botones base */
-.btn {
-    display: block;
-    width: 100%;
-    margin-top: 18px;
+/* GRID JUEGO */
+.grid-juego {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px; /* antes 20px */
+}
 
+/* Para que el tutorial ocupe toda la fila */
+.grid-juego button:nth-child(3) {
+    grid-column: span 2;
+}
+
+/* GRID SECUNDARIO */
+.grid-secundario {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* antes 20px */
+    margin-top: 60px; /* antes 40px */
+}
+
+/* BOTONES */
+.btn {
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
 
     background-color: var(--color-boton);
@@ -50,26 +72,33 @@ h1 {
 
     font-weight: bold;
 
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    transition: all 0.2s ease;
 }
 
 .btn:hover {
     background-color: var(--color-boton-hover);
-    transform: scale(1.03);
+    transform: scale(1.05);
 }
 
-/* botones principales de juego */
-.btn-jugar {
-    padding: 18px;
-    font-size: 18px;
+/* Botones grandes (juego) */
+.grande {
+    padding: 35px; /* antes 25px */
+    font-size: 22px;
 }
 
-/* botones secundarios */
-.opciones-secundarias {
-    margin-top: 25px;
-}
-
-.btn-secundario {
-    padding: 12px;
+/* Botones pequeños */
+.pequeño {
+    padding: 12px 20px;
     font-size: 14px;
+}
+
+.mesa-img {
+    position: fixed;
+    bottom: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    max-width: 90%;
+    opacity: 0.9;
+    pointer-events: none; /* para que no moleste clicks */
 }

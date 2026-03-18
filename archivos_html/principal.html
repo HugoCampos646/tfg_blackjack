@@ -4,62 +4,50 @@
     <meta charset="UTF-8">
     <title>Blackjack - Menú Principal</title>
 
-    <!-- Colores globales -->
     <link rel="stylesheet" href="../info/coloresGlobales.css">
-
-    <!-- Estilos de esta página -->
     <link rel="stylesheet" href="../archivos_css/principal.css">
 </head>
 <body>
 
-    <!-- Usuario arriba a la derecha -->
-    <div class="usuario">
-        Usuario: <span id="nombreUsuario"></span>
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <div class="logo">BLACKJACK</div>
+        <div class="usuario">
+            Usuario: <span id="nombreUsuario"></span>
+        </div>
     </div>
 
-    <div class="container">
+    <!-- Zona principal -->
+    <div class="menu">
 
-        <h1>MENÚ PRINCIPAL</h1>
+        <h2>Selecciona modo de juego</h2>
 
-        <!-- Botones principales -->
-        <button class="btn btn-jugar">
-            Jugar
-        </button>
+        <div class="grid-juego">
+            <button class="btn grande">Jugar</button>
+            <button class="btn grande">Online</button>
+            <button class="btn grande">Tutorial</button>
+        </div>
 
-        <button class="btn btn-jugar">
-            Jugar Online
-        </button>
-
-        <button class="btn btn-jugar">
-            Jugar Tutorial
-        </button>
-
-        <!-- Opciones secundarias -->
-        <div class="opciones-secundarias">
-
-            <button class="btn btn-secundario">
-                Perfil
-            </button>
-
-            <button class="btn btn-secundario">
-                Estadísticas
-            </button>
-
+        <div class="grid-secundario">
+            <button class="btn pequeño">Perfil</button>
+            <button class="btn pequeño">Estadísticas</button>
         </div>
 
     </div>
 
-<script>
+    <script>
 
-    const usuario = localStorage.getItem("usuario");
+        const usuario = localStorage.getItem("usuario");
 
-    if (!usuario) {
-        window.location.href = "../index.html";
-    }
+        if (!usuario) {
+            window.location.href = "../index.html";
+        }
 
-    document.getElementById("nombreUsuario").innerText = usuario;
+        document.getElementById("nombreUsuario").innerText = usuario;
 
-</script>
+    </script>
+
+    <img src="../assets/img/fichas_menu_principal.png" class="mesa-img">
 
 </body>
 </html>
