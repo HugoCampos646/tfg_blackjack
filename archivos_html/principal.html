@@ -6,6 +6,8 @@
 
     <link rel="stylesheet" href="../info/coloresGlobales.css">
     <link rel="stylesheet" href="../archivos_css/principal.css">
+
+    <script src="../archivos_js/principal.js" defer></script>
 </head>
 <body>
 
@@ -13,7 +15,8 @@
     <div class="top-bar">
         <div class="logo">BLACKJACK</div>
         <div class="usuario">
-            Usuario: <span id="nombreUsuario"></span>
+            Usuario: <span id="nombreUsuario"></span><br>
+            Puntos: <span id="puntosUsuario"></span>
         </div>
     </div>
 
@@ -34,18 +37,6 @@
         </div>
 
     </div>
-
-    <script>
-
-        const usuario = localStorage.getItem("usuario");
-
-        if (!usuario) {
-            window.location.href = "../index.html";
-        }
-
-        document.getElementById("nombreUsuario").innerText = usuario;
-
-    </script>
 
     <img src="../assets/img/fichas_menu_principal.png" class="mesa-img">
 

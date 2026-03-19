@@ -4,6 +4,7 @@ const path = require("path");
 
 const registroRoutes = require("./routes/registro");
 const loginRoutes = require("./routes/login");
+const principalRoutes = require("./routes/principal");
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 // rutas
 app.use("/", registroRoutes);
 app.use("/", loginRoutes);
+app.use("/", principalRoutes);
 
 // archivos estáticos
 app.use(express.static(path.join(__dirname, "../")));

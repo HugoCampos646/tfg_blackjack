@@ -32,7 +32,7 @@ body {
 /* Contenedor principal */
 .menu {
     max-width: 700px;
-    margin: 120px auto; /* antes 80px */
+    margin: 90px auto; /* antes 80px */
     text-align: center;
 }
 
