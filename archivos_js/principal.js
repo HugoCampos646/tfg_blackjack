@@ -1,4 +1,10 @@
 const usuario = localStorage.getItem("usuario");
+const botonPerfil = document.getElementById("botonPerfil");
+const botonEstadisticas = document.getElementById("botonEstadisticas");
+const botonTutorial = document.getElementById("botonTutorial");
+const botonOnline = document.getElementById("botonOnline");
+const botonPartida = document.getElementById("botonPartida");
+
 
 if (!usuario) {
     window.location.href = "../index.html";
@@ -26,3 +32,25 @@ async function cargarPuntos() {
 }
 
 cargarPuntos();
+
+// Event listener para las rutas de los botones
+
+botonPerfil.addEventListener("click", function() {
+    window.location.href = "../archivos_html/perfil.html";
+});
+
+botonTutorial.addEventListener("click", function() {
+    window.location.href = "../archivos_html/tutorial.html";
+});
+
+botonJugar.addEventListener("click", function() {
+    window.location.href = "../archivos_html/jugar.html";
+});
+
+botonOnline.addEventListener("click", function() {
+    window.location.href = "../archivos_html/online.html";
+});
+
+botonEstadisticas.addEventListener("click", function() {
+    window.location.href = "../archivos_html/estadisticas.html";
+});
