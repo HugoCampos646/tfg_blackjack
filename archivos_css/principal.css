@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: var(--color-mesa);
+    background-color: var(--color-fondo);
     color: var(--color-texto);
 }
 

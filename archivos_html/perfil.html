@@ -1,16 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Blackjack - Perfil</title>
 
     <link rel="stylesheet" href="../info/coloresGlobales.css">
     <link rel="stylesheet" href="../archivos_css/perfil.css">
 
-    <script src="../archivos_js/perfil.js" defer></script>
+    <script src="../archivos_js/perfil.js"></script>
 </head>
 <body>
-    tu perfil
+
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <div class="logo">BLACKJACK</div>
+        <div class="usuario">
+            Usuario: <span id="nombreUsuario"></span>
+        </div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="perfil-container">
+
+        <h2>Mi Perfil</h2>
+
+        <!-- Datos -->
+        <div class="datos">
+
+            <div class="campo">
+                <label>Nombre de usuario</label>
+                <div class="valor" id="nombrePerfil">Usuario</div>
+            </div>
+
+            <div class="campo">
+                <label>Puntos</label>
+                <div class="valor" id="puntosPerfil">1000</div>
+            </div>
+
+        </div>
+
+        <!-- Acciones -->
+        <div class="acciones">
+
+            <button class="btn grande">Cambiar nombre</button>
+            <button class="btn grande">Cambiar contraseña</button>
+
+        </div>
+
+        <div class="acciones-secundarias">
+
+            <button class="btn pequeño cerrar">Cerrar sesión</button>
+            <button class="btn pequeño eliminar">Eliminar cuenta</button>
+
+        </div>
+
+    </div>
+
+    <img src="../assets/img/fichas_menu_principal.png" class="mesa-img">
+
+<script>
+    const usuario = localStorage.getItem("usuario");
+    document.getElementById("nombreUsuario").innerText = usuario;
+    document.getElementById("nombrePerfil").innerText = usuario;
+</script>
+
 </body>
 </html>

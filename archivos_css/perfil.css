@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+}
+
+/* Barra superior */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 30px;
+    background-color: var(--color-secundario);
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.logo {
+    color: var(--color-primario);
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.usuario {
+    font-size: 14px;
+    color: var(--color-texto-secundario);
+}
+
+/* Contenedor perfil */
+.perfil-container {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 40px;
+
+    background-color: var(--color-secundario);
+    border-radius: 12px;
+
+    text-align: center;
+
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+}
+
+h2 {
+    margin-bottom: 30px;
+    color: var(--color-primario);
+}
+
+/* Datos */
+.datos {
+    margin-bottom: 30px;
+}
+
+.campo {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    font-size: 14px;
+    color: var(--color-texto-secundario);
+}
+
+.valor {
+    margin-top: 5px;
+    padding: 12px;
+
+    background-color: #2a2a2a;
+    border-radius: 8px;
+
+    font-weight: bold;
+}
+
+/* Botones */
+.btn {
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    background-color: var(--color-boton);
+    color: var(--color-secundario);
+
+    font-weight: bold;
+
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-boton-hover);
+    transform: scale(1.05);
+}
+
+/* Botones principales */
+.grande {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+/* Botones secundarios */
+.acciones-secundarias {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.pequeño {
+    padding: 10px 15px;
+    font-size: 13px;
+}
+
+/* Botón cerrar sesión */
+.cerrar {
+    background-color: var(--color-boton);
+}
+
+/* Botón eliminar cuenta */
+.eliminar {
+    background-color: var(--color-error);
+    color: white;
+}
+
+.eliminar:hover {
+    background-color: #a93226;
+}
+
+/* Imagen decorativa */
+.mesa-img {
+    position: fixed;
+    bottom: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    max-width: 90%;
+    opacity: 0.9;
+    pointer-events: none;
+}
