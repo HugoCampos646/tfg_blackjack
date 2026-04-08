@@ -1,9 +1,12 @@
 const usuario = localStorage.getItem("usuario");
+
 const botonPerfil = document.getElementById("botonPerfil");
 const botonEstadisticas = document.getElementById("botonEstadisticas");
 const botonTutorial = document.getElementById("botonTutorial");
 const botonOnline = document.getElementById("botonOnline");
 const botonPartida = document.getElementById("botonPartida");
+const nombreUsuarioTopBar = document.getElementById("nombreUsuario");
+const puntosUsuarioTopBar = document.getElementById("puntosUsuario");
 
 
 if (!usuario) {
@@ -11,7 +14,7 @@ if (!usuario) {
 }
 
 // mostrar nombre
-document.getElementById("nombreUsuario").innerText = usuario;
+nombreUsuarioTopBar.innerText = usuario;
 
 // pedir puntos al backend
 async function cargarPuntos() {
@@ -21,13 +24,13 @@ async function cargarPuntos() {
         const data = await response.json();
 
         if (data.success) {
-            document.getElementById("puntosUsuario").innerText = data.puntos;
+            puntosUsuarioTopBar.innerText = data.puntos;
         } else {
-            document.getElementById("puntosUsuario").innerText = "Error";
+            puntosUsuarioTopBar.innerText = "Error";
         }
         
     } catch (error) {
-        document.getElementById("puntosUsuario").innerText = "Error";
+        puntosUsuarioTopBar.innerText = "Error";
     }
 }
 

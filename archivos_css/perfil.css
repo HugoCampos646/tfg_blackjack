@@ -1,8 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: var(--color-fondo);
     color: var(--color-texto);
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* Barra superior */
@@ -29,15 +37,22 @@ body {
     color: var(--color-texto-secundario);
 }
 
-/* Contenedor perfil */
-.perfil-container {
-    max-width: 500px;
-    margin: 80px auto;
-    padding: 40px;
+/* CONTENEDOR QUE CENTRA */
+.main {
+    flex: 1;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Tarjeta perfil */
+.perfil-container {
     background-color: var(--color-secundario);
+    padding: 40px;
     border-radius: 12px;
 
+    width: 420px;
     text-align: center;
 
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
@@ -92,7 +107,7 @@ label {
     transform: scale(1.05);
 }
 
-/* Botones principales */
+/* Botones grandes */
 .grande {
     display: block;
     width: 100%;
@@ -100,7 +115,7 @@ label {
     margin-top: 15px;
 }
 
-/* Botones secundarios */
+/* Botones pequeños */
 .acciones-secundarias {
     display: flex;
     justify-content: space-between;
@@ -112,12 +127,12 @@ label {
     font-size: 13px;
 }
 
-/* Botón cerrar sesión */
+/* Botón cerrar */
 .cerrar {
     background-color: var(--color-boton);
 }
 
-/* Botón eliminar cuenta */
+/* Botón eliminar */
 .eliminar {
     background-color: var(--color-error);
     color: white;
@@ -127,14 +142,12 @@ label {
     background-color: #a93226;
 }
 
-/* Imagen decorativa */
+/* Imagen fondo */
 .mesa-img {
     position: fixed;
-    bottom: -120px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1000px;
-    max-width: 90%;
-    opacity: 0.9;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    opacity: 0.1;
     pointer-events: none;
 }
