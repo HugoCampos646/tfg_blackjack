@@ -1,11 +1,10 @@
-// VARIABLES
 const usuario = localStorage.getItem("usuario");
-
 const nombreUsuarioTopBar = document.getElementById("nombreUsuario");
 const nombreUsuario = document.getElementById("nombrePerfil");
 const puntosUsuarioTopBar = document.getElementById("puntosUsuario");
 const puntosUsuario = document.getElementById("puntosPerfil");
 const cambiarNombreBtn = document.getElementById("cambiarNombre");
+const cambiarContraseñaBtn = document.getElementById("cambiarContraseña");
 
 
 // FUNCIONES
@@ -48,7 +47,7 @@ cambiarNombreBtn.addEventListener("click", async () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                usuarioActual: usuario,
+                usuarioActual: localStorage.getItem("usuario"),
                 nuevoNombre: nuevoNombre
             })
         });
@@ -59,6 +58,7 @@ cambiarNombreBtn.addEventListener("click", async () => {
 
             // actualizar localStorage
             localStorage.setItem("usuario", nuevoNombre);
+            location.reload();
 
             // actualizar en pantalla
             nombreUsuarioTopBar.innerText = nuevoNombre;
@@ -73,6 +73,10 @@ cambiarNombreBtn.addEventListener("click", async () => {
     }
 });
 
+// EVENTO CAMBIAR CONTRASEÑA
+cambiarContraseñaBtn.addEventListener("click", () => {
+    window.location.href = "cambiarContrasena.html";
+});
 
 // INICIALIZACIÓN
 cargarPuntos();

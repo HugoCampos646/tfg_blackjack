@@ -5,9 +5,9 @@
     <title>Blackjack - Perfil</title>
 
     <link rel="stylesheet" href="../info/coloresGlobales.css">
-    <link rel="stylesheet" href="../archivos_css/perfil.css">
+    <link rel="stylesheet" href="../archivos_css/cambiarContrasena.css">
 
-    <script src="../archivos_js/perfil.js" defer></script>
+    <script src="../archivos_js/cambiarContrasena.js" defer></script>
 </head>
 <body>
 
@@ -24,35 +24,39 @@
     <div class="main">
         <div class="perfil-container">
 
-            <h2>Mi Perfil</h2>
+            <h2>Cambio Contraseña</h2>
 
             <!-- Datos -->
             <div class="datos">
 
                 <div class="campo">
-                    <label>Nombre de usuario</label>
-                    <div class="valor" id="nombrePerfil"></div>
+                    <label>Contraseña actual</label>
+                    <input type="password" class="valor" id="contraseñaActual">
                 </div>
 
                 <div class="campo">
-                    <label>Puntos</label>
-                    <div class="valor" id="puntosPerfil"></div>
+                    <label>Contraseña nueva</label>
+                    <input type="password" class="valor" id="contraseñaNueva">
+                </div>
+
+                <div class="campo">
+                    <label>Repite contraseña nueva</label>
+                    <input type="password" class="valor" id="contraseñaNuevaRepetida">
                 </div>
 
             </div>
 
             <!-- Acciones -->
             <div class="acciones">
-                <button class="btn grande" id="cambiarNombre">Cambiar nombre</button>
                 <button class="btn grande" id="cambiarContraseña">Cambiar contraseña</button>
+                <button class="btn grande" id="volver">Volver</button>
             </div>
 
-            <div class="acciones-secundarias">
-                <button class="btn pequeño cerrar">Cerrar sesión</button>
-                <button class="btn pequeño eliminar">Eliminar cuenta</button>
-            </div>
+            <div id="info" class="info"></div>
+            <div id="errores" class="errores"></div>
 
         </div>
+        
     </div>
 
 </body>
