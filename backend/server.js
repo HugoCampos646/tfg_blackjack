@@ -1,20 +1,20 @@
-const express = require("express");
-const cors = require("cors");
+const express = require("express"); 
+const cors = require("cors"); 
 const path = require("path");
 
 const registroRoutes = require("./routes/registro");
 const loginRoutes = require("./routes/login");
-const principalRoutes = require("./routes/principal");
+const consultaPuntosRoutes = require("./routes/consultaPuntos");
 
-const app = express();
+const app = express(); // crear servidor
 
-app.use(cors());
-app.use(express.json());
+app.use(cors()); // permite que el frontend pueda hacer peticiones
+app.use(express.json()); // permite leer formato json en peticiones
 
 // rutas
-app.use("/", registroRoutes);
-app.use("/", loginRoutes);
-app.use("/", principalRoutes);
+app.use("/api/registro", registroRoutes);
+app.use("/api/login", loginRoutes);
+app.use("/api/puntos", consultaPuntosRoutes);
 
 // archivos estáticos
 app.use(express.static(path.join(__dirname, "../")));

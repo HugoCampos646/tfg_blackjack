@@ -9,7 +9,7 @@ const puntosUsuario = document.getElementById("puntosPerfil");
 async function cargarPuntos() {
 
     try {
-        const response = await fetch("http://localhost:3000/puntos?usuario=" + usuario);
+        const response = await fetch("http://localhost:3000/api/puntos?usuario=" + usuario);
         const data = await response.json();
 
         if (data.success) {

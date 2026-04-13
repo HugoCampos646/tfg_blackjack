@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
-router.post("/login", (req, res) => {
+router.post("/", (req, res) => {
 
     const { nombre, password } = req.body;
 

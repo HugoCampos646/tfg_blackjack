@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
-router.get("/puntos", (req, res) => {
+router.get("/", (req, res) => {
 
-    const usuario = req.query.usuario;
+    const usuario = req.query.usuario; // lee el parametro de usuaro
 
     const sql = "SELECT puntos FROM usuarios WHERE nombre_usuario = ?";
 
