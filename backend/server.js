@@ -5,6 +5,7 @@ const path = require("path");
 const registroRoutes = require("./routes/registro");
 const loginRoutes = require("./routes/login");
 const consultaPuntosRoutes = require("./routes/consultaPuntos");
+const cambiarNombreRoutes = require("./routes/cambiarNombre");
 
 const app = express(); // crear servidor
 
@@ -15,6 +16,7 @@ app.use(express.json()); // permite leer formato json en peticiones
 app.use("/api/registro", registroRoutes);
 app.use("/api/login", loginRoutes);
 app.use("/api/puntos", consultaPuntosRoutes);
+app.use("/api/cambiarNombre", cambiarNombreRoutes);
 
 // archivos estáticos
 app.use(express.static(path.join(__dirname, "../")));
