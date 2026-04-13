@@ -5,7 +5,11 @@ const puntosUsuarioTopBar = document.getElementById("puntosUsuario");
 const puntosUsuario = document.getElementById("puntosPerfil");
 const cambiarNombreBtn = document.getElementById("cambiarNombre");
 const cambiarContraseñaBtn = document.getElementById("cambiarContraseña");
+const cerrarSesionBtn = document.getElementById("cerrarSesion");
 
+if (!usuario) {
+    window.location.href = "../index.html";
+}
 
 // FUNCIONES
 async function cargarPuntos() {
@@ -78,9 +82,19 @@ cambiarContraseñaBtn.addEventListener("click", () => {
     window.location.href = "cambiarContrasena.html";
 });
 
-// INICIALIZACIÓN
+// cargar puntos
 cargarPuntos();
 
 // insertar nombre de usuario en la página
 nombreUsuarioTopBar.innerText = usuario;
 nombreUsuario.innerText = usuario;
+
+// funcionalidad cerrar sesión
+cerrarSesionBtn.addEventListener("click", () => {
+
+    // borrar usuario
+    localStorage.removeItem("usuario");
+
+    // redirigir al login
+    window.location.href = "../index.html";
+});

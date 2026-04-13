@@ -13,6 +13,9 @@ const contraseñaActual = document.getElementById("contraseñaActual");
 const contraseñaNueva = document.getElementById("contraseñaNueva");
 const contraseñaNuevaRepetida = document.getElementById("contraseñaNuevaRepetida");
 
+if (!usuario) {
+    window.location.href = "../index.html";
+}
 
 // usuario en top bar
 nombreUsuarioTopBar.innerText = usuario;
