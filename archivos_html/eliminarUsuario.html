@@ -5,9 +5,9 @@
     <title>Blackjack - Perfil</title>
 
     <link rel="stylesheet" href="../info/coloresGlobales.css">
-    <link rel="stylesheet" href="../archivos_css/cambiarContrasena.css">
+    <link rel="stylesheet" href="../archivos_css/eliminarUsuario.css">
 
-    <script type="module" src="../archivos_js/cambiarContrasena.js" defer></script>
+    <script type="module" src="../archivos_js/eliminarUsuario.js" defer></script>
 </head>
 <body>
 
@@ -24,36 +24,26 @@
     <div class="main">
         <div class="perfil-container">
 
-            <h2>Cambio Contraseña</h2>
+            <h2>Eliminar Cuenta</h2><br>
 
             <!-- Datos -->
             <div class="datos">
 
                 <div class="campo">
-                    <label>Contraseña actual</label>
-                    <input type="password" class="valor" id="contraseñaActual">
-                </div>
-
-                <div class="campo">
-                    <label>Contraseña nueva</label>
-                    <input type="password" class="valor" id="contraseñaNueva">
-                </div>
-
-                <div class="campo">
-                    <label>Repite contraseña nueva</label>
-                    <input type="password" class="valor" id="contraseñaNuevaRepetida">
+                    <label>Contraseña</label>
+                    <input type="password" class="valor" id="contraseña">
                 </div>
 
             </div>
 
             <!-- Acciones -->
             <div class="acciones">
-                <button class="btn grande" id="cambiarContraseña">Cambiar contraseña</button>
+                <button class="btn grande" id="eliminarCuenta">Eliminar cuenta</button>
                 <button class="btn grande" id="volver">Volver</button>
             </div>
 
             <div id="info" class="info"></div>
-            <div id="errores" class="errores"></div>
+            <div id="errores" class="errores">Esta decisión no podrá ser revertida</div>
 
         </div>
         

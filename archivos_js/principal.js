@@ -1,40 +1,17 @@
-const usuario = localStorage.getItem("usuario");
+import { usuario, cargarTopBar } from "./cargaTopBar.js";
 
 const botonPerfil = document.getElementById("botonPerfil");
 const botonEstadisticas = document.getElementById("botonEstadisticas");
 const botonTutorial = document.getElementById("botonTutorial");
 const botonOnline = document.getElementById("botonOnline");
-const botonPartida = document.getElementById("botonPartida");
-const nombreUsuarioTopBar = document.getElementById("nombreUsuario");
-const puntosUsuarioTopBar = document.getElementById("puntosUsuario");
-
+const botonJugar = document.getElementById("botonJugar");
 
 if (!usuario) {
     window.location.href = "../index.html";
 }
 
-// mostrar nombre
-nombreUsuarioTopBar.innerText = usuario;
-
-// pedir puntos al backend
-async function cargarPuntos() {
-
-    try {
-        const response = await fetch("http://localhost:3000/api/puntos?usuario=" + usuario);
-        const data = await response.json();
-
-        if (data.success) {
-            puntosUsuarioTopBar.innerText = data.puntos;
-        } else {
-            puntosUsuarioTopBar.innerText = "Error";
-        }
-        
-    } catch (error) {
-        puntosUsuarioTopBar.innerText = "Error";
-    }
-}
-
-cargarPuntos();
+// cargar datos del top bar
+cargarTopBar();
 
 // Event listener para las rutas de los botones
 

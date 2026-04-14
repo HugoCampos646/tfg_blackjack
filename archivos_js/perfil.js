@@ -1,37 +1,15 @@
-const usuario = localStorage.getItem("usuario");
-const nombreUsuarioTopBar = document.getElementById("nombreUsuario");
+import { usuario, cargarTopBar } from "./cargaTopBar.js";
+
 const nombreUsuario = document.getElementById("nombrePerfil");
-const puntosUsuarioTopBar = document.getElementById("puntosUsuario");
 const puntosUsuario = document.getElementById("puntosPerfil");
 const cambiarNombreBtn = document.getElementById("cambiarNombre");
 const cambiarContraseñaBtn = document.getElementById("cambiarContraseña");
 const cerrarSesionBtn = document.getElementById("cerrarSesion");
+const eliminarUsuarioBtn = document.getElementById("eliminarUsuario");
 
 if (!usuario) {
     window.location.href = "../index.html";
 }
-
-// FUNCIONES
-async function cargarPuntos() {
-
-    try {
-        const response = await fetch("http://localhost:3000/api/puntos?usuario=" + usuario);
-        const data = await response.json();
-
-        if (data.success) {
-            puntosUsuarioTopBar.innerText = data.puntos;
-            puntosUsuario.innerText = data.puntos;
-        } else {
-            puntosUsuarioTopBar.innerText = "Error";
-            puntosUsuario.innerText = "Error";
-        }
-
-    } catch (error) {
-        puntosUsuarioTopBar.innerText = "Error";
-        puntosUsuario.innerText = "Error";
-    }
-}
-
 
 // EVENTO CAMBIAR NOMBRE
 cambiarNombreBtn.addEventListener("click", async () => {
@@ -65,7 +43,6 @@ cambiarNombreBtn.addEventListener("click", async () => {
             location.reload();
 
             // actualizar en pantalla
-            nombreUsuarioTopBar.innerText = nuevoNombre;
             nombreUsuario.innerText = nuevoNombre;
 
         } else {
@@ -77,17 +54,21 @@ cambiarNombreBtn.addEventListener("click", async () => {
     }
 });
 
-// EVENTO CAMBIAR CONTRASEÑA
-cambiarContraseñaBtn.addEventListener("click", () => {
+// evento cambiar contraseña
+cambiarContraseñaBtn.addEventListener("click", () => { 
     window.location.href = "cambiarContrasena.html";
 });
 
-// cargar puntos
-cargarPuntos();
+// evento eliminar usuario
+eliminarUsuarioBtn.addEventListener("click", () => { 
+    window.location.href = "eliminarUsuario.html";
+});
 
-// insertar nombre de usuario en la página
-nombreUsuarioTopBar.innerText = usuario;
-nombreUsuario.innerText = usuario;
+// cargar datos del top bar y puntos del perfil
+cargarTopBar().then((puntos) => {
+    nombreUsuario.innerText = usuario;
+    puntosUsuario.innerText = puntos !== null ? puntos : "Error";
+});
 
 // funcionalidad cerrar sesión
 cerrarSesionBtn.addEventListener("click", () => {

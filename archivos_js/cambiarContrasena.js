@@ -1,10 +1,7 @@
-const usuario = localStorage.getItem("usuario");
+import { usuario, cargarTopBar } from "./cargaTopBar.js";
 
 const volverBtn = document.getElementById("volver");
 const cambiarContraseñaBtn = document.getElementById("cambiarContraseña");
-
-const puntosUsuarioTopBar = document.getElementById("puntosUsuario");
-const nombreUsuarioTopBar = document.getElementById("nombreUsuario");
 
 const errores = document.getElementById("errores");
 const info = document.getElementById("info");
@@ -17,30 +14,8 @@ if (!usuario) {
     window.location.href = "../index.html";
 }
 
-// usuario en top bar
-nombreUsuarioTopBar.innerText = usuario;
-
-
-// cargar puntos en top bar
-async function cargarPuntos() {
-
-    try {
-        const response = await fetch("http://localhost:3000/api/puntos?usuario=" + usuario);
-        const data = await response.json();
-
-        if (data.success) {
-            puntosUsuarioTopBar.innerText = data.puntos;
-        } else {
-            puntosUsuarioTopBar.innerText = "Error";
-        }
-
-    } catch (error) {
-        puntosUsuarioTopBar.innerText = "Error";
-    }
-}
-
-cargarPuntos();
-
+// cargar datos del top bar
+cargarTopBar();
 
 // boton cambiar contraseña
 cambiarContraseñaBtn.addEventListener("click", async () => {
