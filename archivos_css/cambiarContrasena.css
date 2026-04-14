@@ -98,7 +98,6 @@ label {
     box-shadow: 0 0 5px var(--color-primario);
 }
 
-/* Botones */
 .btn {
     border: none;
     border-radius: 10px;
@@ -117,7 +116,6 @@ label {
     transform: scale(1.05);
 }
 
-/* Botones grandes */
 .grande {
     display: block;
     width: 100%;
@@ -125,7 +123,6 @@ label {
     margin-top: 15px;
 }
 
-/* Botones pequeños */
 .acciones-secundarias {
     display: flex;
     justify-content: space-between;
@@ -137,12 +134,10 @@ label {
     font-size: 13px;
 }
 
-/* Botón cerrar */
 .cerrar {
     background-color: var(--color-boton);
 }
 
-/* Botón eliminar */
 .eliminar {
     background-color: var(--color-error);
     color: white;
@@ -150,16 +145,6 @@ label {
 
 .eliminar:hover {
     background-color: #a93226;
-}
-
-/* Imagen fondo */
-.mesa-img {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    width: 300px;
-    opacity: 0.1;
-    pointer-events: none;
 }
 
 .errores {

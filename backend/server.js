@@ -7,7 +7,7 @@ const loginRoutes = require("./routes/login");
 const consultaPuntosRoutes = require("./routes/consultaPuntos");
 const cambiarNombreRoutes = require("./routes/cambiarNombre");
 const cambiarContrasenaRoutes = require("./routes/cambiarContrasena");
-//const eliminarUsuarioRoutes = require("./routes/eliminarUsuario");
+const eliminarUsuarioRoutes = require("./routes/eliminarUsuario");
 
 const app = express(); // crear servidor
 
@@ -20,7 +20,7 @@ app.use("/api/login", loginRoutes);
 app.use("/api/puntos", consultaPuntosRoutes);
 app.use("/api/cambiarNombre", cambiarNombreRoutes);
 app.use("/api/cambiarContrasena", cambiarContrasenaRoutes);
-//app.use("/api/eliminarUsuario", eliminarUsuarioRoutes);
+app.use("/api/eliminarUsuario", eliminarUsuarioRoutes);
 
 // archivos estáticos
 app.use(express.static(path.join(__dirname, "../")));
