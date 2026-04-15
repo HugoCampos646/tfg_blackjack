@@ -18,18 +18,36 @@ router.post("/", (req, res) => {
             return res.json({ success: false, mensaje: "El usuario ya existe" });
         }
 
-        const sqlInsert = `
+        const sqlInsertUsuario = `
             INSERT INTO usuarios (nombre_usuario, password_hash)
             VALUES (?, ?)
         `;
 
-        db.query(sqlInsert, [nombre, password], (err, result) => {
+        db.query(sqlInsertUsuario, [nombre, password], (err, result) => {
 
             if (err) {
+                console.error(err);
                 return res.status(500).json({ success: false, mensaje: "Error al registrar" });
             }
 
-            return res.json({ success: true, mensaje: "Usuario registrado correctamente" });
+            const idUsuario = result.insertId;
+
+            const sqlInsertStats = `
+                INSERT INTO estadisticas_usuario 
+                (id_usuario, numero_partidas, partidas_ganadas, partidas_perdidas, partidas_empatadas, puntos_ganados_totales)
+                VALUES (?, 0, 0, 0, 0, 0)
+            `;
+
+            db.query(sqlInsertStats, [idUsuario], (err2) => {
+
+                if (err2) {
+                    console.error(err2);
+                    return res.status(500).json({ success: false, mensaje: "Error al crear estadísticas" });
+                }
+
+                return res.json({ success: true, mensaje: "Usuario registrado correctamente" });
+
+            });
 
         });
 

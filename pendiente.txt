@@ -4,4 +4,4 @@ añadir estilo al input de login registro
 
 cambiar cambio de nombre sin alert haciendo que se convierta en un login editable
 
-que al regostrar un usuario se cree su tabla moviento_puntos y estadisticas_usuario
+boton volver en perfil
