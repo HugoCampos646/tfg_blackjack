@@ -1,7 +1,0 @@
-cambiar color de un input para escribir como los de login/registro
-
-añadir estilo al input de login registro
-
-cambiar cambio de nombre sin alert haciendo que se convierta en un login editable
-
-boton volver en perfil

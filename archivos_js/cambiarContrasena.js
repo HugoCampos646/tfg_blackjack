@@ -53,6 +53,9 @@ cambiarContraseñaBtn.addEventListener("click", async () => {
         if (data.success) {
             info.innerText = "Contraseña cambiada correctamente";
 
+            // limpiar errores
+            errores.innerText = "";
+
             // limpiar campos
             contraseñaActual.value = "";
             contraseñaNueva.value = "";

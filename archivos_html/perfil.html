@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="../info/coloresGlobales.css">
     <link rel="stylesheet" href="../archivos_css/perfil.css">
+    <link rel="stylesheet" href="../info/estilosGlobales.css">
 
     <script type="module" src="../archivos_js/perfil.js" defer></script>
 </head>
@@ -31,12 +32,12 @@
 
                 <div class="campo">
                     <label>Nombre de usuario</label>
-                    <div class="valor" id="nombrePerfil"></div>
+                    <input type="text" class="valor-editable" id="nombrePerfil" disabled>
                 </div>
 
                 <div class="campo">
                     <label>Puntos</label>
-                    <div class="valor" id="puntosPerfil"></div>
+                    <div class="valor-estatico" id="puntosPerfil"></div>
                 </div>
 
             </div>
@@ -45,12 +46,14 @@
             <div class="acciones">
                 <button class="btn grande" id="cambiarNombre">Cambiar nombre</button>
                 <button class="btn grande" id="cambiarContraseña">Cambiar contraseña</button>
+                <button class="btn grande" id="volverPrincipal">Volver</button>
             </div>
 
             <div class="acciones-secundarias">
                 <button class="btn pequeño cerrar" id="cerrarSesion">Cerrar sesión</button>
                 <button class="btn pequeño eliminar" id="eliminarUsuario">Eliminar cuenta</button>
             </div>
+            <div id="errores" class="errores"></div>
 
         </div>
     </div>

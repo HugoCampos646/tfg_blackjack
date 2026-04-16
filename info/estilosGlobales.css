@@ -1,0 +1,114 @@
+/* =========================
+   RESET BÁSICO
+========================= */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+/* =========================
+   INPUTS (GLOBAL)
+========================= */
+input {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+
+    border-radius: 8px;
+    border: none;
+    outline: none;
+
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-size: 14px;
+}
+
+/* Placeholder */
+input::placeholder {
+    color: var(--color-texto-secundario);
+    opacity: 1;
+}
+
+/* Focus (brillo amarillo) */
+input:focus {
+    box-shadow: 0 0 5px var(--color-primario);
+}
+
+
+/* =========================
+   BOTONES (GLOBAL)
+========================= */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    background-color: var(--color-boton);
+    color: var(--color-secundario);
+
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-boton-hover);
+    transform: scale(1.05);
+}
+
+/* Botones pequeños */
+.btn.pequeño {
+    padding: 10px 15px;
+    font-size: 13px;
+    width: auto;
+}
+
+/* Botón eliminar */
+.btn.eliminar {
+    background-color: var(--color-error);
+    color: white;
+}
+
+.btn.eliminar:hover {
+    background-color: #a93226;
+}
+
+
+/* =========================
+   MENSAJES (ERRORES / INFO)
+========================= */
+.errores {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--color-error);
+}
+
+.info {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--color-texto-secundario);
+}
+
+
+/* =========================
+   UTILIDADES
+========================= */
+.full-width {
+    width: 100%;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}

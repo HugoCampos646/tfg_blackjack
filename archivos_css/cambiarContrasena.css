@@ -1,10 +1,4 @@
-* {
-    box-sizing: border-box;
-}
-
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
     background-color: var(--color-fondo);
     color: var(--color-texto);
 
@@ -13,7 +7,6 @@ body {
     min-height: 100vh;
 }
 
-/* Barra superior */
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -37,16 +30,13 @@ body {
     color: var(--color-texto-secundario);
 }
 
-/* CONTENEDOR QUE CENTRA */
 .main {
     flex: 1;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Tarjeta perfil */
 .perfil-container {
     background-color: var(--color-secundario);
     padding: 40px;
@@ -63,7 +53,6 @@ h2 {
     color: var(--color-primario);
 }
 
-/* Datos */
 .datos {
     margin-bottom: 30px;
 }
@@ -75,86 +64,5 @@ h2 {
 
 label {
     font-size: 14px;
-    color: var(--color-texto-secundario);
-}
-
-.valor {
-    margin-top: 5px;
-    padding: 12px;
-
-    background-color: #2a2a2a;
-    border-radius: 8px;
-
-    font-weight: bold;
-
-    border: none;
-    outline: none;
-
-    color: var(--color-texto);
-    width: 100%;
-}
-
-.valor:focus {
-    box-shadow: 0 0 5px var(--color-primario);
-}
-
-.btn {
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-
-    background-color: var(--color-boton);
-    color: var(--color-secundario);
-
-    font-weight: bold;
-
-    transition: all 0.2s ease;
-}
-
-.btn:hover {
-    background-color: var(--color-boton-hover);
-    transform: scale(1.05);
-}
-
-.grande {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    margin-top: 15px;
-}
-
-.acciones-secundarias {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
-.pequeño {
-    padding: 10px 15px;
-    font-size: 13px;
-}
-
-.cerrar {
-    background-color: var(--color-boton);
-}
-
-.eliminar {
-    background-color: var(--color-error);
-    color: white;
-}
-
-.eliminar:hover {
-    background-color: #a93226;
-}
-
-.errores {
-    margin-top: 25px;
-    font-size: 13px;
-    color: var(--color-error);
-}
-
-.info {
-    margin-top: 25px;
-    font-size: 13px;
     color: var(--color-texto-secundario);
 }

@@ -2,80 +2,117 @@ import { usuario, cargarTopBar } from "./cargaTopBar.js";
 
 const nombreUsuario = document.getElementById("nombrePerfil");
 const puntosUsuario = document.getElementById("puntosPerfil");
+
 const cambiarNombreBtn = document.getElementById("cambiarNombre");
 const cambiarContraseñaBtn = document.getElementById("cambiarContraseña");
 const cerrarSesionBtn = document.getElementById("cerrarSesion");
 const eliminarUsuarioBtn = document.getElementById("eliminarUsuario");
+const volverPrincipalBtn = document.getElementById("volverPrincipal");
+
+const errores = document.getElementById("errores");
+
+let modoEdicion = false;
 
 if (!usuario) {
     window.location.href = "../index.html";
 }
 
-// EVENTO CAMBIAR NOMBRE
+// INICIALIZAR
+nombreUsuario.value = localStorage.getItem("usuario");
+
+
+// CAMBIAR NOMBRE (modo toggle)
 cambiarNombreBtn.addEventListener("click", async () => {
 
-    const nuevoNombre = prompt("Introduce tu nuevo nombre:");
+    if (!modoEdicion) {
+        // ACTIVAR EDICIÓN
+        modoEdicion = true;
 
-    // validar
-    if (!nuevoNombre || nuevoNombre.trim() === "") {
-        alert("Nombre no válido");
-        return;
-    }
+        nombreUsuario.disabled = false;
+        nombreUsuario.classList.add("editando");
+        nombreUsuario.focus();
 
-    try {
-        const response = await fetch("http://localhost:3000/api/cambiarNombre", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                usuarioActual: localStorage.getItem("usuario"),
-                nuevoNombre: nuevoNombre
-            })
-        });
+        cambiarNombreBtn.innerText = "Guardar";
 
-        const data = await response.json();
+    } else {
+        // GUARDAR CAMBIO
+        const nuevoNombre = nombreUsuario.value.trim();
 
-        if (data.success) {
-
-            // actualizar localStorage
-            localStorage.setItem("usuario", nuevoNombre);
-            location.reload();
-
-            // actualizar en pantalla
-            nombreUsuario.innerText = nuevoNombre;
-
-        } else {
-            alert("No se pudo cambiar el nombre");
+        if (!nuevoNombre) {
+            errores.innerText = "Nombre no válido";
+            return;
         }
 
-    } catch (error) {
-        alert("Error al conectar con el servidor");
+        try {
+            const response = await fetch("http://localhost:3000/api/cambiarNombre", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    usuarioActual: localStorage.getItem("usuario"),
+                    nuevoNombre: nuevoNombre
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+
+                // limpiar errores
+                errores.innerText = "";
+
+                // actualizar localStorage
+                localStorage.setItem("usuario", nuevoNombre);
+
+                // actualizar input y topbar
+                nombreUsuario.value = nuevoNombre;
+                document.getElementById("nombreUsuario").innerText = nuevoNombre;
+
+                // desactivar edición
+                modoEdicion = false;
+                nombreUsuario.disabled = true;
+                nombreUsuario.classList.remove("editando");
+
+                cambiarNombreBtn.innerText = "Cambiar nombre";
+
+            } else {
+                errores.innerText = "No se pudo cambiar el nombre";
+            }
+
+        } catch (error) {
+            errores.innerText = "Error de conexión";
+        }
     }
 });
 
-// evento cambiar contraseña
-cambiarContraseñaBtn.addEventListener("click", () => { 
+
+// CAMBIAR CONTRASEÑA
+cambiarContraseñaBtn.addEventListener("click", () => {
     window.location.href = "cambiarContrasena.html";
 });
 
-// evento eliminar usuario
-eliminarUsuarioBtn.addEventListener("click", () => { 
+
+// ELIMINAR USUARIO
+eliminarUsuarioBtn.addEventListener("click", () => {
     window.location.href = "eliminarUsuario.html";
 });
 
-// cargar datos del top bar y puntos del perfil
+
+// VOLVER A PRINCIPAL
+volverPrincipalBtn.addEventListener("click", () => {
+    window.location.href = "principal.html";
+});
+
+
+// CARGAR DATOS
 cargarTopBar().then((puntos) => {
-    nombreUsuario.innerText = usuario;
     puntosUsuario.innerText = puntos !== null ? puntos : "Error";
 });
 
-// funcionalidad cerrar sesión
+
+// CERRAR SESIÓN
 cerrarSesionBtn.addEventListener("click", () => {
-
-    // borrar usuario
     localStorage.removeItem("usuario");
-
-    // redirigir al login
     window.location.href = "../index.html";
 });
