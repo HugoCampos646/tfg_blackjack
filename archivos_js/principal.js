@@ -5,6 +5,7 @@ const botonEstadisticas = document.getElementById("botonEstadisticas");
 const botonTutorial = document.getElementById("botonTutorial");
 const botonOnline = document.getElementById("botonOnline");
 const botonJugar = document.getElementById("botonJugar");
+const botonIngresarPuntos = document.getElementById("botonIngresarPuntos");
 
 if (!usuario) {
     window.location.href = "../index.html";
@@ -33,4 +34,8 @@ botonOnline.addEventListener("click", function() {
 
 botonEstadisticas.addEventListener("click", function() {
     window.location.href = "../archivos_html/estadisticas.html";
+});
+
+botonIngresarPuntos.addEventListener("click", function() {
+    window.location.href = "../archivos_html/ingresarPuntos.html";
 });

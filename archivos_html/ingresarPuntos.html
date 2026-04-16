@@ -6,9 +6,9 @@
 
     <link rel="stylesheet" href="../info/coloresGlobales.css">
     <link rel="stylesheet" href="../info/estilosGlobales.css">
-    <link rel="stylesheet" href="../archivos_css/eliminarUsuario.css">
+    <link rel="stylesheet" href="../archivos_css/ingresarPuntos.css">
 
-    <script type="module" src="../archivos_js/eliminarUsuario.js" defer></script>
+    <script type="module" src="../archivos_js/ingresarPuntos.js" defer></script>
 </head>
 <body>
 
@@ -25,25 +25,25 @@
     <div class="main">
         <div class="perfil-container">
 
-            <h2>ELIMINAR CUENTA</h2>
+            <h2>INGRESAR PUNTOS</h2>
 
             <!-- Datos -->
             <div class="datos">
 
                 <div class="campo">
-                    <input type="password" class="valor" id="contrasena" placeholder="Introduce contraseña">
+                    <input type="text" class="valor" id="puntosIngresar" placeholder="Introduce puntos">
                 </div>
 
             </div>
 
             <!-- Acciones -->
             <div class="acciones">
-                <button class="btn grande" id="eliminarUsuario">Eliminar cuenta</button>
+                <button class="btn grande" id="ingresar">Ingresar puntos</button>
                 <button class="btn grande" id="volver">Volver</button>
             </div>
 
-            <div id="info" class="info"></div>
-            <div id="errores" class="errores">Esta decisión no podrá ser revertida</div>
+            <div id="info" class="info">Maximo 1000 puntos por ingreso</div>
+            <div id="errores" class="errores"></div>
 
         </div>
         
