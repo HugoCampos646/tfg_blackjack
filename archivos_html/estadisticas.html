@@ -1,16 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Blackjack - Estadísticas</title>
 
     <link rel="stylesheet" href="../info/coloresGlobales.css">
+    <link rel="stylesheet" href="../info/estilosGlobales.css">
     <link rel="stylesheet" href="../archivos_css/estadisticas.css">
 
-    <script src="../archivos_js/estadisticas.js" defer></script>
+    <script type="module" src="../archivos_js/estadisticas.js" defer></script>
 </head>
 <body>
-    estadisticas
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="logo">BLACKJACK</div>
+        <div class="usuario">
+            Usuario: <span id="nombreUsuario"></span><br>
+            Puntos: <span id="puntosUsuario"></span>
+        </div>
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="main">
+        <div class="perfil-container">
+
+            <h2>Estadísticas</h2>
+
+            <div class="datos">
+
+                <div class="campo">
+                    <label>Partidas jugadas</label>
+                    <div class="valor-estatico" id="jugadas"></div>
+                </div>
+
+                <div class="campo">
+                    <label>Ganadas</label>
+                    <div class="valor-estatico" id="ganadas"></div>
+                </div>
+
+                <div class="campo">
+                    <label>Perdidas</label>
+                    <div class="valor-estatico" id="perdidas"></div>
+                </div>
+
+                <div class="campo">
+                    <label>Empatadas</label>
+                    <div class="valor-estatico" id="empatadas"></div>
+                </div>
+
+                <div class="campo">
+                    <label>% Victorias</label>
+                    <div class="valor-estatico" id="porcentajeGanadas"></div>
+                </div>
+
+                <div class="campo">
+                    <label>% Derrotas</label>
+                    <div class="valor-estatico" id="porcentajePerdidas"></div>
+                </div>
+
+                <div class="campo">
+                    <label>% Empates</label>
+                    <div class="valor-estatico" id="porcentajeEmpatadas"></div>
+                </div>
+
+                <div class="campo">
+                    <label>Nivel</label>
+                    <div class="valor-estatico" id="nivel"></div>
+                </div>
+
+            </div>
+
+            <button class="btn grande" id="volver">Volver</button>
+
+            <div id="errores" class="errores"></div>
+
+        </div>
+    </div>
+
 </body>
 </html>
