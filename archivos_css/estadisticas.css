@@ -1,3 +1,36 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* TOP BAR */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 30px;
+    background-color: var(--color-secundario);
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.logo {
+    color: var(--color-primario);
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+/* CONTENIDO */
 .main {
     flex: 1;
     display: flex;
@@ -9,8 +42,10 @@
     background-color: var(--color-secundario);
     padding: 40px;
     border-radius: 12px;
+
     width: 420px;
     text-align: center;
+
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
 }
 
@@ -19,11 +54,45 @@ h2 {
     color: var(--color-primario);
 }
 
+/* GRID ESTADÍSTICAS */
 .datos {
     margin-bottom: 30px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
+/* CAMPOS */
 .campo {
-    margin-bottom: 20px;
     text-align: left;
+}
+
+label {
+    font-size: 14px;
+    color: var(--color-texto-secundario);
+}
+
+/* VALORES */
+.valor-estatico {
+    margin-top: 5px;
+    padding: 12px;
+
+    background-color: #2a2a2a;
+    border-radius: 8px;
+
+    font-weight: bold;
+    text-align: center;
+}
+
+/* NIVEL ocupa toda la fila */
+.campo:last-child {
+    grid-column: span 2;
+}
+
+/* ERRORES */
+.errores {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--color-error);
 }

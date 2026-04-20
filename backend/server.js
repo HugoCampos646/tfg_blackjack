@@ -9,6 +9,7 @@ const cambiarNombreRoutes = require("./routes/cambiarNombre");
 const cambiarContrasenaRoutes = require("./routes/cambiarContrasena");
 const eliminarUsuarioRoutes = require("./routes/eliminarUsuario");
 const ingresarPuntosRoutes = require("./routes/ingresarPuntos");
+const estadisticasRoutes = require("./routes/estadisticas");
 
 const app = express(); // crear servidor
 
@@ -23,6 +24,7 @@ app.use("/api/cambiarNombre", cambiarNombreRoutes);
 app.use("/api/cambiarContrasena", cambiarContrasenaRoutes);
 app.use("/api/eliminarUsuario", eliminarUsuarioRoutes);
 app.use("/api/ingresarPuntos", ingresarPuntosRoutes);
+app.use("/api/estadisticas", estadisticasRoutes);
 
 // archivos estáticos
 app.use(express.static(path.join(__dirname, "../")));
