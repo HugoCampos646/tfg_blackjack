@@ -1,0 +1,127 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* TOP BAR */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 30px;
+    background-color: var(--color-secundario);
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.logo {
+    color: var(--color-primario);
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.usuario {
+    font-size: 14px;
+    color: var(--color-texto-secundario);
+}
+
+/* CONTENEDOR PRINCIPAL */
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* MESA */
+.mesa {
+    background-color: var(--color-secundario);
+    padding: 30px;
+    border-radius: 12px;
+    width: 800px;
+    text-align: center;
+
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+}
+
+/* SECCIONES */
+.crupier,
+.jugador {
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: var(--color-primario);
+    margin-bottom: 10px;
+}
+
+/* CARTAS */
+.cartas {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.cartas img {
+    width: 80px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* PUNTUACIONES */
+#puntuacionCrupier,
+#puntuacionJugador {
+    margin-top: 10px;
+    font-weight: bold;
+    color: var(--color-texto-secundario);
+}
+
+/* BOTONES */
+.acciones {
+    margin-top: 20px;
+}
+
+.btn {
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    background-color: var(--color-boton);
+    color: var(--color-secundario);
+
+    font-weight: bold;
+    font-size: 16px;
+
+    padding: 12px 20px;
+    margin: 10px;
+
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-boton-hover);
+    transform: scale(1.05);
+}
+
+/* MENSAJE */
+#mensaje {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* BOTÓN VOLVER */
+#volver {
+    margin-top: 15px;
+    font-size: 14px;
+}
