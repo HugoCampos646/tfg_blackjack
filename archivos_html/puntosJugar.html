@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Blackjack - Perfil</title>
+
+    <link rel="stylesheet" href="../info/coloresGlobales.css">
+    <link rel="stylesheet" href="../info/estilosGlobales.css">
+    <link rel="stylesheet" href="../archivos_css/ingresarPuntos.css">
+
+    <script type="module" src="../archivos_js/puntosJugar.js" defer></script>
+</head>
+<body>
+
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <div class="logo">BLACKJACK</div>
+        <div class="usuario">
+            Usuario: <span id="nombreUsuario"></span><br>
+            Puntos: <span id="puntosUsuario"></span>
+        </div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="main">
+        <div class="perfil-container">
+
+            <h2>PUNTOS PARA JUGAR</h2>
+
+            <!-- Datos -->
+            <div class="datos">
+
+                <div class="campo">
+                    <input type="text" class="valor" id="puntosJugar" placeholder="Introduce puntos para jugar">
+                </div>
+
+            </div>
+
+            <!-- Acciones -->
+            <div class="acciones">
+                <button class="btn grande" id="jugar">Jugar</button>
+                <button class="btn grande" id="volver">Volver</button>
+            </div>
+
+            <div id="info" class="info"></div>
+            <div id="errores" class="errores"></div>
+
+        </div>
+        
+    </div>
+
+</body>
+</html>

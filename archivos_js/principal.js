@@ -25,7 +25,7 @@ botonTutorial.addEventListener("click", function() {
 });
 
 botonJugar.addEventListener("click", function() {
-    window.location.href = "../archivos_html/jugar.html";
+    window.location.href = "../archivos_html/puntosJugar.html";
 });
 
 botonOnline.addEventListener("click", function() {
