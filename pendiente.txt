@@ -1,7 +1,7 @@
 revisar cambio nombre he puesto un nombre muy largo y uego me ha dado error
 
-añadir pantaña para añadir puntos y jugar
-
 mejorar interfaz de juego
 
 tutorial
+
+CODIGO DE BACKEND IMPLEMENTADO, QUEDA PROBARLO, cojer codigo de chatgpt
