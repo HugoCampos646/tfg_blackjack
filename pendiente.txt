@@ -4,4 +4,4 @@ mejorar interfaz de juego
 
 tutorial
 
-CODIGO DE BACKEND IMPLEMENTADO, QUEDA PROBARLO, cojer codigo de chatgpt
+quitar boton de neuva partida si no se ha terminado

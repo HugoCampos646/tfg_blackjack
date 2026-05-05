@@ -113,15 +113,17 @@ h2 {
     transform: scale(1.05);
 }
 
-/* MENSAJE */
 #mensaje {
     margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
 }
 
-/* BOTÓN VOLVER */
 #volver {
     margin-top: 15px;
     font-size: 14px;
+}
+
+.oculto {
+    display: none !important;
 }
