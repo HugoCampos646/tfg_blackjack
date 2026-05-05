@@ -187,18 +187,52 @@ async function guardarPuntos() {
     }
 }
 
+// GUARDAR ESTADÍSTICAS EN BD
+async function guardarEstadisticas(resultado) {
+
+    try {
+
+        let puntosGanados = 0;
+
+        if (resultado === "ganada") {
+            puntosGanados = apuesta;
+        }
+
+        await fetch("http://localhost:3000/api/actualizarEstadisticas", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                usuario: usuario,
+                resultado: resultado,
+                puntosGanados: puntosGanados
+            })
+        });
+
+    } catch (error) {
+
+        console.log("Error al guardar estadísticas");
+    }
+}
+
 // TERMINAR PARTIDA
-async function terminarPartida(resultado) {
+async function terminarPartida(textoResultado, tipoResultado) {
 
     juegoTerminado = true;
 
-    resultadoText.innerText = resultado;
+    resultadoText.innerText = textoResultado;
 
     localStorage.setItem("puntos", puntosUsuario);
 
     puntosTotales.innerText = puntosUsuario;
 
     await guardarPuntos();
+
+    await guardarEstadisticas(tipoResultado);
 
     mostrarCartas();
 
@@ -262,7 +296,7 @@ pedirBtn.addEventListener("click", async () => {
 
         puntosUsuario -= apuesta;
 
-        await terminarPartida("Te pasaste. Pierdes.");
+        await terminarPartida("Te pasaste. Pierdes.", "perdida");
     }
 
     mostrarCartas();
@@ -287,26 +321,26 @@ plantarseBtn.addEventListener("click", async () => {
 
         puntosUsuario += apuesta;
 
-        await terminarPartida("Crupier se pasa. Ganas.");
+        await terminarPartida("Crupier se pasa. Ganas.", "ganada");
     }
 
     else if (puntosJugador > puntosCrupier) {
 
         puntosUsuario += apuesta;
 
-        await terminarPartida("Ganas.");
+        await terminarPartida("Ganas.", "ganada");
     }
 
     else if (puntosJugador < puntosCrupier) {
 
         puntosUsuario -= apuesta;
 
-        await terminarPartida("Pierdes.");
+        await terminarPartida("Pierdes.", "perdida");
     }
 
     else {
 
-        await terminarPartida("Empate.");
+        await terminarPartida("Empate.", "empate");
     }
 });
 
