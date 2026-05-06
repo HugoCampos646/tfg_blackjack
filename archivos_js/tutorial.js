@@ -1,3 +1,12 @@
+import { usuario, cargarTopBar } from "./cargaTopBar.js";
+
+// comprobar sesión
+if (!usuario) {
+    window.location.href = "../index.html";
+}
+
+// cargar top bar
+cargarTopBar();
 
 const manoJugadorDiv = document.getElementById("manoJugador");
 const manoCrupierDiv = document.getElementById("manoCrupier");
@@ -10,6 +19,8 @@ const tituloPaso = document.getElementById("tituloPaso");
 
 const siguienteBtn = document.getElementById("siguiente");
 const volverMenuBtn = document.getElementById("volverMenu");
+
+
 
 // CARTAS PREPARADAS
 const manoJugador = [
