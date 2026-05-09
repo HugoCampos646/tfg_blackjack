@@ -1,21 +1,25 @@
+/* jugar.css */
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
     background-color: var(--color-fondo);
     color: var(--color-texto);
 
+    font-family: Arial, sans-serif;
+
+    min-height: 100vh;
+
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
-/* TOP BAR */
 .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     padding: 15px 30px;
+
     background-color: var(--color-secundario);
 
     box-shadow: 0 2px 10px rgba(0,0,0,0.6);
@@ -23,78 +27,142 @@ body {
 
 .logo {
     color: var(--color-primario);
+
     font-weight: bold;
-    font-size: 20px;
+    font-size: 22px;
+
     letter-spacing: 2px;
 }
 
 .usuario {
-    font-size: 14px;
     color: var(--color-texto-secundario);
+
+    font-size: 14px;
 }
 
-/* CONTENEDOR PRINCIPAL */
 .main {
     flex: 1;
+
     display: flex;
     justify-content: center;
     align-items: center;
-}
 
-/* MESA */
-.mesa {
-    background-color: var(--color-secundario);
     padding: 30px;
-    border-radius: 12px;
-    width: 800px;
+}
+
+.juego-container {
+    width: 100%;
+    max-width: 1200px;
+
+    background-color: var(--color-secundario);
+
+    border-radius: 15px;
+
+    padding: 25px;
+
+    box-shadow: 0 0 25px rgba(0,0,0,0.7);
+
     text-align: center;
-
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
 }
 
-/* SECCIONES */
-.crupier,
-.jugador {
-    margin-bottom: 30px;
-}
+.juego-container h1 {
+    margin-top: 0;
+    margin-bottom: 25px;
 
-h2 {
     color: var(--color-primario);
-    margin-bottom: 10px;
 }
 
-/* CARTAS */
-.cartas {
+.apuesta-box {
+    margin-bottom: 30px;
+
+    padding: 15px;
+
+    background-color: #2a2a2a;
+
+    border-radius: 10px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+.zonas-juego {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 30px;
+
+    margin-bottom: 25px;
+}
+
+.zona {
+    background-color: #1d1d1d;
+
+    border-radius: 12px;
+
+    padding: 20px;
+}
+
+.zona h2 {
+    margin-top: 0;
+
+    color: var(--color-primario);
+}
+
+.mano {
+    min-height: 120px;
+
     display: flex;
     justify-content: center;
+    align-items: center;
+
     gap: 10px;
+
     flex-wrap: wrap;
-    margin-top: 10px;
+
+    margin: 15px 0;
 }
 
-.cartas img {
+.mano img {
     width: 80px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-/* PUNTUACIONES */
-#puntuacionCrupier,
-#puntuacionJugador {
-    margin-top: 10px;
+.puntos {
+    font-size: 18px;
     font-weight: bold;
+
     color: var(--color-texto-secundario);
 }
 
-/* BOTONES */
+#resultado {
+    min-height: 35px;
+
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    color: var(--color-primario);
+}
+
 .acciones {
-    margin-top: 20px;
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 10px;
 }
 
 .btn {
     border: none;
     border-radius: 10px;
-    cursor: pointer;
 
     background-color: var(--color-boton);
     color: var(--color-secundario);
@@ -102,26 +170,25 @@ h2 {
     font-weight: bold;
     font-size: 16px;
 
-    padding: 12px 20px;
-    margin: 10px;
+    cursor: pointer;
 
     transition: all 0.2s ease;
 }
 
 .btn:hover {
     background-color: var(--color-boton-hover);
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
-#mensaje {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
+.grande {
+    padding: 14px 22px;
 }
 
-#volver {
-    margin-top: 15px;
-    font-size: 14px;
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    transform: none;
 }
 
 .oculto {

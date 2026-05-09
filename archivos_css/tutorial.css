@@ -19,6 +19,7 @@ body {
     align-items: center;
 
     padding: 15px 30px;
+
     background-color: var(--color-secundario);
 
     box-shadow: 0 2px 10px rgba(0,0,0,0.6);
@@ -35,6 +36,8 @@ body {
 
 .usuario {
     color: var(--color-texto-secundario);
+
+    font-size: 14px;
 }
 
 .main {
@@ -49,7 +52,7 @@ body {
 
 .juego-container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
 
     background-color: var(--color-secundario);
 
@@ -74,14 +77,17 @@ body {
 
 .tutorial-box h2 {
     margin-top: 0;
+
     color: var(--color-primario);
 }
 
 #textoTutorial {
     line-height: 1.6;
+
     margin-bottom: 20px;
 }
 
+/* APUESTA */
 .apuesta-box {
     margin-bottom: 30px;
 
@@ -97,16 +103,35 @@ body {
     text-align: center;
 }
 
+/* NUEVO LAYOUT */
+.zonas-juego {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 30px;
+
+    margin-bottom: 25px;
+}
+
+/* ZONAS */
 .zona-cartas {
-    margin-bottom: 40px;
+    background-color: #1d1d1d;
+
+    border-radius: 12px;
+
+    padding: 20px;
 
     text-align: center;
 }
 
 .zona-cartas h2 {
+    margin-top: 0;
+
     color: var(--color-primario);
 }
 
+/* CARTAS */
 .cartas {
     min-height: 130px;
 
@@ -129,6 +154,16 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
+/* PUNTOS */
+#puntosJugador,
+#puntosCrupier {
+    font-size: 18px;
+    font-weight: bold;
+
+    color: var(--color-texto-secundario);
+}
+
+/* BOTONES */
 .btn {
     border: none;
     border-radius: 10px;
@@ -146,7 +181,8 @@ body {
 
 .btn:hover {
     background-color: var(--color-boton-hover);
-    transform: scale(1.01);
+
+    transform: scale(1.02);
 }
 
 .grande {
@@ -154,5 +190,5 @@ body {
 }
 
 .oculto {
-    display: none;
+    display: none !important;
 }

@@ -14,12 +14,16 @@
 
     <!-- TOP BAR -->
     <div class="top-bar">
-        <div class="logo">BLACKJACK</div>
+
+        <div class="logo">
+            BLACKJACK
+        </div>
 
         <div class="usuario">
             Usuario: <span id="nombreUsuario"></span><br>
             Puntos totales: <span id="puntosTotales"></span>
         </div>
+
     </div>
 
     <!-- CONTENIDO -->
@@ -29,28 +33,40 @@
 
             <h1>BLACKJACK</h1>
 
+            <!-- APUESTA -->
             <div class="apuesta-box">
-                Apuesta actual: <span id="apuestaTexto"></span>
+                Apuesta actual:
+                <span id="apuestaTexto"></span>
             </div>
 
-            <!-- CRUPIER -->
-            <div class="zona">
-                <h2>Crupier</h2>
+            <!-- ZONAS DEL JUEGO -->
+            <div class="zonas-juego">
 
-                <div id="manoCrupier" class="mano"></div>
+                <!-- CRUPIER -->
+                <div class="zona">
 
-                <p id="puntosCrupier" class="puntos"></p>
+                    <h2>Crupier</h2>
+
+                    <div id="manoCrupier" class="mano"></div>
+
+                    <p id="puntosCrupier" class="puntos"></p>
+
+                </div>
+
+                <!-- JUGADOR -->
+                <div class="zona">
+
+                    <h2>Jugador</h2>
+
+                    <div id="manoJugador" class="mano"></div>
+
+                    <p id="puntosJugador" class="puntos"></p>
+
+                </div>
+
             </div>
 
-            <!-- JUGADOR -->
-            <div class="zona">
-                <h2>Jugador</h2>
-
-                <div id="manoJugador" class="mano"></div>
-
-                <p id="puntosJugador" class="puntos"></p>
-            </div>
-
+            <!-- RESULTADO -->
             <h3 id="resultado"></h3>
 
             <!-- BOTONES -->
