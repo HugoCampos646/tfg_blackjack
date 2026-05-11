@@ -1,4 +1,5 @@
 import { usuario, cargarTopBar } from "./cargaTopBar.js";
+import { API_URL } from "./config.js";
 
 const nombreUsuario = document.getElementById("nombrePerfil");
 const puntosUsuario = document.getElementById("puntosPerfil");
@@ -44,7 +45,7 @@ cambiarNombreBtn.addEventListener("click", async () => {
         }
 
         try {
-            const response = await fetch("http://localhost:3000/api/cambiarNombre", {
+            const response = await fetch(`${API_URL}/api/cambiarNombre`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

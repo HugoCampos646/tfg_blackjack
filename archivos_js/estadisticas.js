@@ -1,4 +1,5 @@
 import { usuario, cargarTopBar } from "./cargaTopBar.js";
+import { API_URL } from "./config.js";
 
 const volverBtn = document.getElementById("volver");
 const errores = document.getElementById("errores");
@@ -19,7 +20,7 @@ volverBtn.addEventListener("click", () => {
 async function cargarEstadisticas() {
 
     try {
-        const response = await fetch("http://localhost:3000/api/estadisticas?usuario=" + usuario);
+        const response = await fetch(`${API_URL}/api/estadisticas?usuario=` + usuario);
         const data = await response.json();
 
         if (!data.success) {

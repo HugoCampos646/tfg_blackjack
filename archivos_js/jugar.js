@@ -1,3 +1,5 @@
+import { API_URL } from "./config.js";
+
 const usuario = localStorage.getItem("usuario");
 
 const apuesta = parseInt(localStorage.getItem("apuesta")) || 0;
@@ -166,7 +168,7 @@ async function guardarPuntos() {
 
     try {
 
-        await fetch("http://localhost:3000/api/actualizarPuntos", {
+        await fetch(`${API_URL}/api/actualizarPuntos`, {
 
             method: "POST",
 
@@ -198,7 +200,7 @@ async function guardarEstadisticas(resultado) {
             puntosGanados = apuesta;
         }
 
-        await fetch("http://localhost:3000/api/actualizarEstadisticas", {
+        await fetch(`${API_URL}/api/actualizarEstadisticas`, {
 
             method: "POST",
 

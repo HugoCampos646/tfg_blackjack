@@ -1,4 +1,5 @@
 import { cargarTopBar } from "./cargaTopBar.js";
+import { API_URL } from "./config.js";
 
 const volverBtn = document.getElementById("volver");
 const eliminarUsuarioBtn = document.getElementById("eliminarUsuario");
@@ -25,7 +26,7 @@ eliminarUsuarioBtn.addEventListener("click", async () => {
     }
 
     try {
-        const response = await fetch("http://localhost:3000/api/eliminarUsuario", {
+        const response = await fetch(`${API_URL}/api/eliminarUsuario`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

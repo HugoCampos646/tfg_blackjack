@@ -1,4 +1,5 @@
 export const usuario = localStorage.getItem("usuario");
+import { API_URL } from "./config.js";
 
 const nombreUsuarioTopBar = document.getElementById("nombreUsuario");
 const puntosUsuarioTopBar = document.getElementById("puntosUsuario");
@@ -17,7 +18,7 @@ export async function actualizarPuntosTopBar() {
     }
 
     try {
-        const response = await fetch("http://localhost:3000/api/puntos?usuario=" + usuario);
+        const response = await fetch(`${API_URL}/api/puntos?usuario=` + usuario);
         const data = await response.json();
 
         if (data.success) {

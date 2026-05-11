@@ -1,4 +1,5 @@
 import { usuario, cargarTopBar } from "./cargaTopBar.js";
+import { API_URL } from "./config.js";
 
 const volverBtn = document.getElementById("volver");
 const ingresarBtn = document.getElementById("ingresar");
@@ -49,7 +50,7 @@ ingresarBtn.addEventListener("click", async () => {
     }
 
     try {
-        const response = await fetch("http://localhost:3000/api/ingresarPuntos", {
+        const response = await fetch(`${API_URL}/api/ingresarPuntos`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

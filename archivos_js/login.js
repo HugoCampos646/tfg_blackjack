@@ -1,3 +1,5 @@
+import { API_URL } from "./config.js";
+
 const nombre = document.getElementById("nombre");
 const contraseña = document.getElementById("contraseña");
 const btnAceptar = document.getElementById("btnAceptar");
@@ -25,7 +27,7 @@ async function comprobaciones() {
 
     try {
 
-        const response = await fetch("http://localhost:3000/api/login", {
+        const response = await fetch(`${API_URL}/api/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

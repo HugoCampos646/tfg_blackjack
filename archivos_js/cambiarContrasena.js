@@ -1,4 +1,5 @@
 import { usuario, cargarTopBar } from "./cargaTopBar.js";
+import { API_URL } from "./config.js";
 
 const volverBtn = document.getElementById("volver");
 const cambiarContraseñaBtn = document.getElementById("cambiarContraseña");
@@ -36,7 +37,7 @@ cambiarContraseñaBtn.addEventListener("click", async () => {
     }
 
     try {
-        const response = await fetch("http://localhost:3000/api/cambiarContrasena", {
+        const response = await fetch(`${API_URL}/api/cambiarContrasena`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
