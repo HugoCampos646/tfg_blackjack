@@ -47,7 +47,7 @@ async function cargarEstadisticas() {
         document.getElementById("porcentajeEmpatadas").innerText =
             ((stats.partidas_empatadas / total) * 100).toFixed(1) + "%";
 
-        // nivel
+            
         let nivel = "Principiante";
 
         if (stats.numero_partidas >= 50) {
