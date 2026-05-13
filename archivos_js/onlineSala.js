@@ -23,18 +23,36 @@ jugador1Text.innerText =
     "Jugador 1: " + usuario;
 
 
-// unirse socket
+// unirse
 socket.emit("unirseMesa", codigoMesa);
 
 
-// detectar segundo jugador
-socket.on("jugadorUnido", () => {
-
-    jugador2Text.innerText =
-        "Jugador 2 conectado";
+// actualizar jugadores realtime
+socket.on("actualizarJugadores", (cantidad) => {
 
     estadoMesa.innerText =
-        "2 / 2 jugadores";
+        cantidad + " / 2 jugadores";
 
-    empezarBtn.disabled = false;
+    if (cantidad === 1) {
+
+        jugador2Text.innerText =
+            "Esperando jugador...";
+
+        empezarBtn.disabled = true;
+    }
+
+    if (cantidad === 2) {
+
+        jugador2Text.innerText =
+            "Jugador 2 conectado";
+
+        empezarBtn.disabled = false;
+    }
+});
+
+
+// sala llena
+socket.on("mesaLlena", () => {
+
+    alert("La mesa está llena");
 });

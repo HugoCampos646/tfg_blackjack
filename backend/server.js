@@ -46,24 +46,64 @@ app.use(express.static(path.join(__dirname, "../")));
 
 
 // SOCKETS
+const salas = {};
+
 io.on("connection", (socket) => {
 
     console.log("Usuario conectado");
 
-    // unirse a una mesa
     socket.on("unirseMesa", (codigoMesa) => {
+
+        // crear sala si no existe
+        if (!salas[codigoMesa]) {
+
+            salas[codigoMesa] = 0;
+        }
+
+        // máximo 2 jugadores
+        if (salas[codigoMesa] >= 2) {
+
+            socket.emit("mesaLlena");
+
+            return;
+        }
+
+        salas[codigoMesa]++;
 
         socket.join(codigoMesa);
 
-        console.log("Jugador unido a mesa:", codigoMesa);
+        console.log(
+            "Jugadores en sala",
+            codigoMesa,
+            salas[codigoMesa]
+        );
 
-        // avisar a todos en la mesa
-        io.to(codigoMesa).emit("jugadorUnido");
-    });
+        // enviar cantidad actual
+        io.to(codigoMesa).emit(
+            "actualizarJugadores",
+            salas[codigoMesa]
+        );
 
-    socket.on("disconnect", () => {
+        // desconexión
+        socket.on("disconnect", () => {
 
-        console.log("Usuario desconectado");
+            if (salas[codigoMesa]) {
+
+                salas[codigoMesa]--;
+
+                io.to(codigoMesa).emit(
+                    "actualizarJugadores",
+                    salas[codigoMesa]
+                );
+
+                if (salas[codigoMesa] <= 0) {
+
+                    delete salas[codigoMesa];
+                }
+            }
+
+            console.log("Usuario desconectado");
+        });
     });
 });
 
