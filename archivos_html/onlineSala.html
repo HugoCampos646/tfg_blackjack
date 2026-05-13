@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Blackjack Online</title>
+
+    <link rel="stylesheet" href="../info/coloresGlobales.css">
+    <link rel="stylesheet" href="../archivos_css/onlineSala.css">
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+    <script type="module" src="../archivos_js/onlineSala.js" defer></script>
+</head>
+<body>
+
+    <div class="main">
+
+        <div class="contenedor">
+
+            <h1>BLACKJACK ONLINE</h1>
+
+            <div class="codigo">
+                Código de mesa:
+                <span id="codigoMesa"></span>
+            </div>
+
+            <div class="jugadores">
+
+                <p id="jugador1"></p>
+
+                <p id="jugador2">
+                    Esperando jugador...
+                </p>
+
+            </div>
+
+            <h2 id="estadoMesa">
+                1 / 2 jugadores
+            </h2>
+
+            <button id="empezar" disabled>
+                Empezar partida
+            </button>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

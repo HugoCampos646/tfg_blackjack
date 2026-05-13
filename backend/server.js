@@ -1,6 +1,9 @@
-const express = require("express"); 
-const cors = require("cors"); 
+const express = require("express");
+const cors = require("cors");
 const path = require("path");
+
+const http = require("http");
+const { Server } = require("socket.io");
 
 const registroRoutes = require("./routes/registro");
 const loginRoutes = require("./routes/login");
@@ -13,10 +16,18 @@ const estadisticasRoutes = require("./routes/estadisticas");
 const actualizarPuntosRoutes = require("./routes/actualizarPuntos");
 const actualizarEstadisticasRoutes = require("./routes/actualizarEstadisticas");
 
-const app = express(); // crear servidor
+const app = express();
 
-app.use(cors()); // permite que el frontend pueda hacer peticiones
-app.use(express.json()); // permite leer formato json en peticiones
+const server = http.createServer(app);
+
+const io = new Server(server, {
+    cors: {
+        origin: "*"
+    }
+});
+
+app.use(cors());
+app.use(express.json());
 
 // rutas
 app.use("/api/registro", registroRoutes);
@@ -33,8 +44,34 @@ app.use("/api/actualizarEstadisticas", actualizarEstadisticasRoutes);
 // archivos estáticos
 app.use(express.static(path.join(__dirname, "../")));
 
+
+// SOCKETS
+io.on("connection", (socket) => {
+
+    console.log("Usuario conectado");
+
+    // unirse a una mesa
+    socket.on("unirseMesa", (codigoMesa) => {
+
+        socket.join(codigoMesa);
+
+        console.log("Jugador unido a mesa:", codigoMesa);
+
+        // avisar a todos en la mesa
+        io.to(codigoMesa).emit("jugadorUnido");
+    });
+
+    socket.on("disconnect", () => {
+
+        console.log("Usuario desconectado");
+    });
+});
+
+
+// puerto render
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, "0.0.0.0", () => {
+server.listen(PORT, "0.0.0.0", () => {
+
     console.log("Servidor corriendo en puerto " + PORT);
 });
