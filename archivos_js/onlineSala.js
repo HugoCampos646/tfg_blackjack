@@ -25,11 +25,13 @@ jugador1Text.innerText =
 
 // unirse
 socket.emit("unirseMesa", codigoMesa);
+console.log("Uniéndose a sala:", codigoMesa);
 
 
 // actualizar jugadores realtime
 socket.on("actualizarJugadores", (cantidad) => {
 
+    console.log("Jugadores recibidos:", cantidad);
     estadoMesa.innerText =
         cantidad + " / 2 jugadores";
 
