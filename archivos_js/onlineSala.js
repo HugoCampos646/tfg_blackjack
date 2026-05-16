@@ -16,6 +16,10 @@ const estadoMesa = document.getElementById("estadoMesa");
 
 const empezarBtn = document.getElementById("empezar");
 
+const apuestaMesa = document.getElementById("apuestaMesa");
+
+
+apuestaMesa.innerText = localStorage.getItem("apuesta");
 
 codigoMesaText.innerText = codigoMesa;
 

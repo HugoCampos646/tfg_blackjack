@@ -1,16 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <title>Blackjack Online</title>
 
     <link rel="stylesheet" href="../info/coloresGlobales.css">
+    <link rel="stylesheet" href="../info/estilosGlobales.css">
     <link rel="stylesheet" href="../archivos_css/online.css">
 
     <script type="module" src="../archivos_js/online.js" defer></script>
+
 </head>
+
 <body>
-    tu online
+
+    <!-- Barra superior -->
+    <div class="top-bar">
+        <div class="logo">BLACKJACK</div>
+        <div class="usuario">
+            Usuario: <span id="nombreUsuario"></span><br>
+            Puntos: <span id="puntosUsuario"></span>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div class="contenedor">
+
+            <h1>Partida Online</h1>
+
+            <!-- APUESTA -->
+            <input
+                type="number"
+                id="apuesta"
+                placeholder="Introduce apuesta">
+
+            <!-- CREAR -->
+            <button
+                class="btn"
+                id="crearMesa">
+
+                Crear mesa
+
+            </button>
+
+            <hr>
+
+            <!-- CÓDIGO -->
+            <input
+                type="text"
+                id="codigoMesa"
+                placeholder="Código de mesa">
+
+            <!-- UNIRSE -->
+            <button
+                class="btn"
+                id="unirseMesa">
+
+                Unirse
+
+            </button>
+
+            <p id="errores"></p>
+
+        </div>
+
+    </div>
+
 </body>
+
 </html>
