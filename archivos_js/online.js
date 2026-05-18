@@ -21,7 +21,13 @@ if (!usuario) {
     window.location.href = "../index.html";
 }
 
-cargarTopBar();
+let puntosUsuario = 0;
+
+// cargar topbar y obtener puntos
+cargarTopBar().then((puntos) => {
+
+    puntosUsuario = puntos;
+});
 
 // GENERAR CÓDIGO
 function generarCodigo() {
@@ -36,9 +42,12 @@ function generarCodigo() {
 // CREAR MESA
 crearMesaBtn.addEventListener("click", () => {
 
+    errores.innerText = "";
+
     const apuesta =
         parseInt(apuestaInput.value);
 
+    // comprobar apuesta válida
     if (isNaN(apuesta) || apuesta <= 0) {
 
         errores.innerText =
@@ -47,6 +56,15 @@ crearMesaBtn.addEventListener("click", () => {
         return;
     }
 
+    if (apuesta > puntosUsuario) {
+
+        errores.innerText =
+            "No tienes suficientes puntos";
+
+        return;
+    }
+
+    // comprobar suficientes puntos
     if (apuesta > puntosUsuario) {
 
         errores.innerText =
@@ -68,6 +86,11 @@ crearMesaBtn.addEventListener("click", () => {
         apuesta
     );
 
+    localStorage.setItem(
+        "puntos",
+        puntosUsuario
+    );
+
     window.location.href =
         "../archivos_html/onlineSala.html";
 });
@@ -76,12 +99,15 @@ crearMesaBtn.addEventListener("click", () => {
 // UNIRSE
 unirseMesaBtn.addEventListener("click", () => {
 
+    errores.innerText = "";
+
     const apuesta =
         parseInt(apuestaInput.value);
 
     const codigoMesa =
         codigoMesaInput.value.trim();
 
+    // comprobar apuesta válida
     if (isNaN(apuesta) || apuesta <= 0) {
 
         errores.innerText =
@@ -98,6 +124,16 @@ unirseMesaBtn.addEventListener("click", () => {
         return;
     }
 
+    // comprobar suficientes puntos
+    if (apuesta > puntosUsuario) {
+
+        errores.innerText =
+            "No tienes suficientes puntos";
+
+        return;
+    }
+
+    // comprobar código
     if (!codigoMesa) {
 
         errores.innerText =
@@ -114,6 +150,11 @@ unirseMesaBtn.addEventListener("click", () => {
     localStorage.setItem(
         "apuesta",
         apuesta
+    );
+
+    localStorage.setItem(
+        "puntos",
+        puntosUsuario
     );
 
     window.location.href =
