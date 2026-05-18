@@ -1,5 +1,4 @@
 import { API_URL } from "./config.js";
-import { usuario } from "./cargaTopBar.js";
 
 const socket = io(API_URL);
 
@@ -33,6 +32,7 @@ socket.emit("unirseMesa", {
     codigo: codigoMesa,
     usuario: usuario
 });
+
 console.log("Uniéndose a sala:", codigoMesa);
 
 
@@ -74,9 +74,8 @@ socket.on("actualizarJugadores", (jugadores) => {
 });
 
 
-// mesa llena
+// sala llena
 socket.on("mesaLlena", () => {
-    alert("La mesa ya está llena");
-    window.location.href =
-        "../archivos_html/online.html";
+
+    alert("La mesa está llena");
 });

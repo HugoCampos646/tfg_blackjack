@@ -48,8 +48,6 @@ app.use(express.static(path.join(__dirname, "../")));
 // SOCKETS
 const salas = {};
 
-const salas = {};
-
 io.on("connection", (socket) => {
 
     console.log("Usuario conectado");
