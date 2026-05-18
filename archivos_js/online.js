@@ -56,14 +56,6 @@ crearMesaBtn.addEventListener("click", () => {
         return;
     }
 
-    if (apuesta > puntosUsuario) {
-
-        errores.innerText =
-            "No tienes suficientes puntos";
-
-        return;
-    }
-
     // comprobar suficientes puntos
     if (apuesta > puntosUsuario) {
 
@@ -112,14 +104,6 @@ unirseMesaBtn.addEventListener("click", () => {
 
         errores.innerText =
             "Introduce una apuesta válida";
-
-        return;
-    }
-
-    if (apuesta > puntosUsuario) {
-
-        errores.innerText =
-            "No tienes suficientes puntos";
 
         return;
     }
