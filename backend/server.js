@@ -48,62 +48,75 @@ app.use(express.static(path.join(__dirname, "../")));
 // SOCKETS
 const salas = {};
 
+const salas = {};
+
 io.on("connection", (socket) => {
 
     console.log("Usuario conectado");
 
-    socket.on("unirseMesa", (codigoMesa) => {
+
+    socket.on("unirseMesa", (datos) => {
+
+        const codigoMesa = datos.codigo;
+        const usuario = datos.usuario;
+
+        socket.join(codigoMesa);
 
         // crear sala si no existe
         if (!salas[codigoMesa]) {
 
-            salas[codigoMesa] = 0;
+            salas[codigoMesa] = [];
         }
 
-        // máximo 2 jugadores
-        if (salas[codigoMesa] >= 2) {
+        // evitar duplicados
+        const existe = salas[codigoMesa]
+            .find(j => j.id === socket.id);
+
+        if (!existe) {
+
+            salas[codigoMesa].push({
+                id: socket.id,
+                usuario: usuario
+            });
+        }
+
+        // máximo 2
+        if (salas[codigoMesa].length > 2) {
+
+            salas[codigoMesa].pop();
 
             socket.emit("mesaLlena");
 
             return;
         }
 
-        salas[codigoMesa]++;
-
-        socket.join(codigoMesa);
-
-        console.log(
-            "Jugadores en sala",
-            codigoMesa,
-            salas[codigoMesa]
-        );
-
-        // enviar cantidad actual
         io.to(codigoMesa).emit(
             "actualizarJugadores",
             salas[codigoMesa]
         );
 
-        // desconexión
-        socket.on("disconnect", () => {
+        console.log(
+            "Jugadores sala",
+            codigoMesa,
+            salas[codigoMesa].length
+        );
+    });
 
-            if (salas[codigoMesa]) {
 
-                salas[codigoMesa]--;
+    socket.on("disconnect", () => {
 
-                io.to(codigoMesa).emit(
-                    "actualizarJugadores",
-                    salas[codigoMesa]
+        for (let codigo in salas) {
+
+            salas[codigo] =
+                salas[codigo].filter(
+                    j => j.id !== socket.id
                 );
 
-                if (salas[codigoMesa] <= 0) {
-
-                    delete salas[codigoMesa];
-                }
-            }
-
-            console.log("Usuario desconectado");
-        });
+            io.to(codigo).emit(
+                "actualizarJugadores",
+                salas[codigo]
+            );
+        }
     });
 });
 

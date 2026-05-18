@@ -1,4 +1,5 @@
 import { API_URL } from "./config.js";
+import { usuario } from "./cargaTopBar.js";
 
 const socket = io(API_URL);
 
@@ -28,37 +29,54 @@ jugador1Text.innerText =
 
 
 // unirse
-socket.emit("unirseMesa", codigoMesa);
+socket.emit("unirseMesa", {
+    codigo: codigoMesa,
+    usuario: usuario
+});
 console.log("Uniéndose a sala:", codigoMesa);
 
 
 // actualizar jugadores realtime
-socket.on("actualizarJugadores", (cantidad) => {
+socket.on("actualizarJugadores", (jugadores) => {
 
-    console.log("Jugadores recibidos:", cantidad);
+    console.log("Jugadores recibidos:", jugadores);
+
     estadoMesa.innerText =
-        cantidad + " / 2 jugadores";
+        jugadores.length + " / 2 jugadores";
 
-    if (cantidad === 1) {
+    // jugador 1
+    if (jugadores[0]) {
+
+        jugador1Text.innerText =
+            jugadores[0].usuario;
+
+    } else {
+
+        jugador1Text.innerText =
+            "Esperando jugador...";
+    }
+
+    // jugador 2
+    if (jugadores[1]) {
+
+        jugador2Text.innerText =
+            jugadores[1].usuario;
+
+        empezarBtn.disabled = false;
+
+    } else {
 
         jugador2Text.innerText =
             "Esperando jugador...";
 
         empezarBtn.disabled = true;
     }
-
-    if (cantidad === 2) {
-
-        jugador2Text.innerText =
-            "Jugador 2 conectado";
-
-        empezarBtn.disabled = false;
-    }
 });
 
 
-// sala llena
+// mesa llena
 socket.on("mesaLlena", () => {
-
-    alert("La mesa está llena");
+    alert("La mesa ya está llena");
+    window.location.href =
+        "../archivos_html/online.html";
 });
