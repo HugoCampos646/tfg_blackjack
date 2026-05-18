@@ -6,76 +6,92 @@ const codigoMesa = localStorage.getItem("codigoMesa");
 
 const usuario = localStorage.getItem("usuario");
 
-const codigoMesaText = document.getElementById("codigoMesa");
+const codigoMesaText =
+    document.getElementById("codigoMesa");
 
-const jugador1Text = document.getElementById("jugador1");
+const jugador1Text =
+    document.getElementById("jugador1");
 
-const jugador2Text = document.getElementById("jugador2");
+const jugador2Text =
+    document.getElementById("jugador2");
 
-const estadoMesa = document.getElementById("estadoMesa");
+const estadoMesa =
+    document.getElementById("contadorJugadores");
 
-const empezarBtn = document.getElementById("empezar");
+const empezarBtn =
+    document.getElementById("empezar");
 
-const apuestaMesa = document.getElementById("apuestaMesa");
+const apuestaMesa =
+    document.getElementById("apuestaMesa");
 
 
-apuestaMesa.innerText = localStorage.getItem("apuesta");
+// apuesta
+apuestaMesa.innerText =
+    localStorage.getItem("apuesta");
 
-codigoMesaText.innerText = codigoMesa;
+// código
+codigoMesaText.innerText =
+    codigoMesa;
 
-jugador1Text.innerText =
-    "Jugador 1: " + usuario;
+
+// guardar nombres localmente
+sessionStorage.setItem(
+    codigoMesa + "_jugador",
+    usuario
+);
 
 
 // unirse
-socket.emit("unirseMesa", {
-    codigo: codigoMesa,
-    usuario: usuario
-});
+socket.emit("unirseMesa", codigoMesa);
 
-console.log("Uniéndose a sala:", codigoMesa);
+console.log(
+    "Uniéndose a sala:",
+    codigoMesa
+);
 
 
-// actualizar jugadores realtime
-socket.on("actualizarJugadores", (jugadores) => {
+// actualizar realtime
+socket.on(
+    "actualizarJugadores",
+    (jugadores) => {
 
-    console.log("Jugadores recibidos:", jugadores);
+        console.log(
+            "Jugadores recibidos:",
+            jugadores
+        );
 
-    estadoMesa.innerText =
-        jugadores.length + " / 2 jugadores";
+        estadoMesa.innerText =
+            jugadores.length + " / 2 jugadores";
 
-    // jugador 1
-    if (jugadores[0]) {
-
+        // jugador 1
         jugador1Text.innerText =
-            jugadores[0].usuario;
+            usuario;
 
-    } else {
+        // jugador 2
+        if (jugadores === 1) {
 
-        jugador1Text.innerText =
-            "Esperando jugador...";
+            jugador2Text.innerText =
+                "Esperando jugador...";
+
+            empezarBtn.disabled = true;
+        }
+
+        if (jugadores === 2) {
+
+            jugador2Text.innerText =
+                "Jugador conectado";
+
+            empezarBtn.disabled = false;
+        }
     }
-
-    // jugador 2
-    if (jugadores[1]) {
-
-        jugador2Text.innerText =
-            jugadores[1].usuario;
-
-        empezarBtn.disabled = false;
-
-    } else {
-
-        jugador2Text.innerText =
-            "Esperando jugador...";
-
-        empezarBtn.disabled = true;
-    }
-});
+);
 
 
 // sala llena
 socket.on("mesaLlena", () => {
 
     alert("La mesa está llena");
+
+    window.location.href =
+        "../archivos_html/online.html";
 });
