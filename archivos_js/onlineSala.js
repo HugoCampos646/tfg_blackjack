@@ -2,9 +2,11 @@ import { API_URL } from "./config.js";
 
 const socket = io(API_URL);
 
-const codigoMesa = localStorage.getItem("codigoMesa");
+const codigoMesa =
+    localStorage.getItem("codigoMesa");
 
-const usuario = localStorage.getItem("usuario");
+const usuario =
+    localStorage.getItem("usuario");
 
 const codigoMesaText =
     document.getElementById("codigoMesa");
@@ -34,15 +36,12 @@ codigoMesaText.innerText =
     codigoMesa;
 
 
-// guardar nombres localmente
-sessionStorage.setItem(
-    codigoMesa + "_jugador",
-    usuario
-);
+// unirse a sala
+socket.emit("unirseMesa", {
 
-
-// unirse
-socket.emit("unirseMesa", codigoMesa);
+    codigo: codigoMesa,
+    usuario: usuario
+});
 
 console.log(
     "Uniéndose a sala:",
@@ -60,28 +59,36 @@ socket.on(
             jugadores
         );
 
+        // contador
         estadoMesa.innerText =
             jugadores.length + " / 2 jugadores";
 
         // jugador 1
-        jugador1Text.innerText =
-            usuario;
+        if (jugadores[0]) {
 
-        // jugador 2
-        if (jugadores === 1) {
+            jugador1Text.innerText =
+                jugadores[0].usuario;
 
-            jugador2Text.innerText =
-                "Esperando jugador...";
+        } else {
 
-            empezarBtn.disabled = true;
+            jugador1Text.innerText =
+                "Esperando...";
         }
 
-        if (jugadores === 2) {
+        // jugador 2
+        if (jugadores[1]) {
 
             jugador2Text.innerText =
-                "Jugador conectado";
+                jugadores[1].usuario;
 
             empezarBtn.disabled = false;
+
+        } else {
+
+            jugador2Text.innerText =
+                "Esperando...";
+
+            empezarBtn.disabled = true;
         }
     }
 );
