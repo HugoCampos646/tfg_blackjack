@@ -1,0 +1,221 @@
+/* jugar.css */
+
+body {
+    margin: 0;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+
+    font-family: Arial, sans-serif;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 30px;
+
+    background-color: var(--color-secundario);
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.logo {
+    color: var(--color-primario);
+
+    font-weight: bold;
+    font-size: 22px;
+
+    letter-spacing: 2px;
+}
+
+.usuario {
+    color: var(--color-texto-secundario);
+
+    font-size: 14px;
+}
+
+.main {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+.juego-container {
+    width: 100%;
+    max-width: 1200px;
+
+    background-color: var(--color-secundario);
+
+    border-radius: 15px;
+
+    padding: 25px;
+
+    box-shadow: 0 0 25px rgba(0,0,0,0.7);
+
+    text-align: center;
+}
+
+.juego-container h1 {
+    margin-top: 0;
+    margin-bottom: 25px;
+
+    color: var(--color-primario);
+}
+
+.apuesta-box {
+    margin-bottom: 30px;
+
+    padding: 15px;
+
+    background-color: #2a2a2a;
+
+    border-radius: 10px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+.zonas-juego {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 30px;
+
+    margin-bottom: 25px;
+}
+
+.zona {
+    background-color: #1d1d1d;
+
+    border-radius: 12px;
+
+    padding: 20px;
+}
+
+.zona h2 {
+    margin-top: 0;
+
+    color: var(--color-primario);
+}
+
+.mano {
+    min-height: 120px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin: 15px 0;
+}
+
+.mano img {
+    width: 80px;
+}
+
+.puntos {
+    font-size: 18px;
+    font-weight: bold;
+
+    color: var(--color-texto-secundario);
+}
+
+#resultado {
+    min-height: 35px;
+
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    color: var(--color-primario);
+}
+
+.acciones {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+.btn {
+    border: none;
+    border-radius: 10px;
+
+    background-color: var(--color-boton);
+    color: var(--color-secundario);
+
+    font-weight: bold;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-boton-hover);
+    transform: scale(1.02);
+}
+
+.grande {
+    padding: 14px 22px;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+.oculto {
+    display: none !important;
+}
+
+.zona-crupier {
+
+    background-color: #1d1d1d;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    margin-bottom: 30px;
+}
+
+.zona-crupier h2 {
+
+    color: var(--color-primario);
+}
+
+.jugadores-online {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 30px;
+}

@@ -9,67 +9,119 @@ console.log(partida);
 
 import { API_URL } from "./config.js";
 
-const usuario = localStorage.getItem("usuario");
+const usuario =
+    localStorage.getItem("usuario");
 
-const apuesta = parseInt(localStorage.getItem("apuesta")) || 0;
-let puntosUsuario = parseInt(localStorage.getItem("puntos")) || 0;
+const apuesta =
+    parseInt(
+        localStorage.getItem("apuesta")
+    ) || 0;
 
-const nombreUsuario = document.getElementById("nombreUsuario");
-const puntosTotales = document.getElementById("puntosTotales");
-const apuestaTexto = document.getElementById("apuestaTexto");
+let puntosUsuario =
+    parseInt(
+        localStorage.getItem("puntos")
+    ) || 0;
 
-const manoJugadorDiv = document.getElementById("manoJugador");
-const manoCrupierDiv = document.getElementById("manoCrupier");
-
-const puntosJugadorText = document.getElementById("puntosJugador");
-const puntosCrupierText = document.getElementById("puntosCrupier");
-const resultadoText = document.getElementById("resultado");
-
-const pedirBtn = document.getElementById("pedir");
-const plantarseBtn = document.getElementById("plantarse");
-const reiniciarBtn = document.getElementById("reiniciar");
-const volverMenuBtn = document.getElementById("volverMenu");
-
-let baraja = [];
-let manoJugador = [];
-let manoCrupier = [];
-
-let juegoTerminado = false;
-let cartaOculta = null;
-
-if (!usuario) {
-    window.location.href = "../index.html";
-}
 
 // TOP BAR
-nombreUsuario.innerText = usuario;
-puntosTotales.innerText = puntosUsuario;
-apuestaTexto.innerText = apuesta;
+const nombreUsuario =
+    document.getElementById("nombreUsuario");
 
-// CREAR BARAJA
-function crearBaraja() {
+const puntosTotales =
+    document.getElementById("puntosTotales");
 
-    const palos = ["C", "D", "H", "S"];
+const apuestaTexto =
+    document.getElementById("apuestaTexto");
 
-    const nuevaBaraja = [];
 
-    for (let palo of palos) {
+// CRUPIER
+const manoCrupierDiv =
+    document.getElementById("manoCrupier");
 
-        for (let i = 1; i <= 13; i++) {
+const puntosCrupierText =
+    document.getElementById("puntosCrupier");
 
-            nuevaBaraja.push({
-                palo,
-                valor: i
-            });
 
-        }
-    }
+// JUGADOR 1
+const manoJugador1Div =
+    document.getElementById("manoJugador1");
 
-    return nuevaBaraja.sort(() => Math.random() - 0.5);
+const puntosJugador1Text =
+    document.getElementById("puntosJugador1");
+
+const nombreJugador1 =
+    document.getElementById("nombreJugador1");
+
+
+// JUGADOR 2
+const manoJugador2Div =
+    document.getElementById("manoJugador2");
+
+const puntosJugador2Text =
+    document.getElementById("puntosJugador2");
+
+const nombreJugador2 =
+    document.getElementById("nombreJugador2");
+
+
+// RESULTADO
+const resultadoText =
+    document.getElementById("resultado");
+
+
+// BOTONES
+const pedirBtn =
+    document.getElementById("pedir");
+
+const plantarseBtn =
+    document.getElementById("plantarse");
+
+const volverMenuBtn =
+    document.getElementById("volverMenu");
+
+
+let juegoTerminado = false;
+
+
+// comprobar usuario
+if (!usuario) {
+
+    window.location.href =
+        "../index.html";
 }
+
+
+// TOP BAR
+nombreUsuario.innerText =
+    usuario;
+
+puntosTotales.innerText =
+    puntosUsuario;
+
+apuestaTexto.innerText =
+    apuesta;
+
+
+// jugadores
+const jugador1 =
+    partida.jugadores[0];
+
+const jugador2 =
+    partida.jugadores[1];
+
+
+// nombres
+nombreJugador1.innerText =
+    jugador1.nombre;
+
+nombreJugador2.innerText =
+    jugador2.nombre;
+
 
 // VALOR CARTA
 function valorCarta(carta) {
+
+    if (!carta) return 0;
 
     if (carta.valor >= 11) {
         return 10;
@@ -82,10 +134,12 @@ function valorCarta(carta) {
     return carta.valor;
 }
 
+
 // CALCULAR PUNTOS
 function calcularPuntos(mano) {
 
     let total = 0;
+
     let ases = 0;
 
     for (let carta of mano) {
@@ -106,256 +160,269 @@ function calcularPuntos(mano) {
     return total;
 }
 
-// SACAR CARTA
-function sacarCarta() {
-    return baraja.pop();
+
+// MOSTRAR MANO
+function mostrarMano(div, mano) {
+
+    div.innerHTML = "";
+
+    mano.forEach(carta => {
+
+        const img =
+            document.createElement("img");
+
+        img.src =
+            `../assets/cartas/${carta.palo}-${carta.valor}.png`;
+
+        img.width = 80;
+
+        div.appendChild(img);
+    });
 }
 
-// MOSTRAR CARTAS
+
+// MOSTRAR TODO
 function mostrarCartas() {
 
-    manoJugadorDiv.innerHTML = "";
+    // jugador 1
+    mostrarMano(
+        manoJugador1Div,
+        jugador1.mano
+    );
+
+    puntosJugador1Text.innerText =
+        "Puntos: " +
+        calcularPuntos(jugador1.mano);
+
+    // jugador 2
+    mostrarMano(
+        manoJugador2Div,
+        jugador2.mano
+    );
+
+    puntosJugador2Text.innerText =
+        "Puntos: " +
+        calcularPuntos(jugador2.mano);
+
+    // crupier vacío de momento
     manoCrupierDiv.innerHTML = "";
 
-    // jugador
-    manoJugador.forEach(carta => {
+    puntosCrupierText.innerText =
+        "Puntos: ?";
+}
 
-        const img = document.createElement("img");
 
-        img.src = `../assets/cartas/${carta.palo}-${carta.valor}.png`;
+// SABER SI ES MI TURNO
+function esMiTurno() {
 
-        img.width = 90;
+    return (
+        partida.jugadores[
+            partida.turno
+        ].nombre === usuario
+    );
+}
 
-        manoJugadorDiv.appendChild(img);
-    });
 
-    // crupier
-    manoCrupier.forEach((carta, index) => {
+// ACTUALIZAR BOTONES
+function actualizarTurno() {
 
-        const img = document.createElement("img");
+    if (esMiTurno()) {
 
-        if (index === 1 && !juegoTerminado) {
+        pedirBtn.disabled = false;
 
-            img.src = "../assets/cartas/Back-R.png";
+        plantarseBtn.disabled = false;
 
-        } else {
-
-            img.src = `../assets/cartas/${carta.palo}-${carta.valor}.png`;
-        }
-
-        img.width = 90;
-
-        manoCrupierDiv.appendChild(img);
-    });
-
-    puntosJugadorText.innerText =
-        "Puntos: " + calcularPuntos(manoJugador);
-
-    if (juegoTerminado) {
-
-        puntosCrupierText.innerText =
-            "Puntos: " + calcularPuntos(manoCrupier);
+        resultadoText.innerText =
+            "Es tu turno";
 
     } else {
 
-        puntosCrupierText.innerText = "Puntos: ?";
+        pedirBtn.disabled = true;
+
+        plantarseBtn.disabled = true;
+
+        resultadoText.innerText =
+            "Turno de " +
+            partida.jugadores[
+                partida.turno
+            ].nombre;
     }
 }
 
-// MOSTRAR BOTONES FINAL
-function mostrarBotonesFinal() {
 
-    reiniciarBtn.classList.remove("oculto");
-    volverMenuBtn.classList.remove("oculto");
-
-    pedirBtn.disabled = true;
-    plantarseBtn.disabled = true;
-}
-
-// GUARDAR PUNTOS EN BD
-async function guardarPuntos() {
-
-    try {
-
-        await fetch(`${API_URL}/api/actualizarPuntos`, {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                usuario: usuario,
-                puntos: puntosUsuario
-            })
-
-        });
-
-    } catch (error) {
-
-        console.log("Error al guardar puntos");
-    }
-}
-
-// GUARDAR ESTADÍSTICAS EN BD
-async function guardarEstadisticas(resultado) {
-
-    try {
-
-        let puntosGanados = 0;
-
-        if (resultado === "ganada") {
-            puntosGanados = apuesta;
-        }
-
-        await fetch(`${API_URL}/api/actualizarEstadisticas`, {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-                usuario: usuario,
-                resultado: resultado,
-                puntosGanados: puntosGanados
-            })
-        });
-
-    } catch (error) {
-
-        console.log("Error al guardar estadísticas");
-    }
-}
-
-// TERMINAR PARTIDA
-async function terminarPartida(textoResultado, tipoResultado) {
-
-    juegoTerminado = true;
-
-    resultadoText.innerText = textoResultado;
-
-    localStorage.setItem("puntos", puntosUsuario);
-
-    puntosTotales.innerText = puntosUsuario;
-
-    await guardarPuntos();
-
-    await guardarEstadisticas(tipoResultado);
-
-    mostrarCartas();
-
-    mostrarBotonesFinal();
-}
-
-// INICIAR PARTIDA
+// INICIAR
 function iniciarJuego() {
 
-    juegoTerminado = false;
-
-    resultadoText.innerText = "";
-
-    reiniciarBtn.classList.add("oculto");
-
-    volverMenuBtn.classList.add("oculto");
-
-    pedirBtn.disabled = false;
-
-    plantarseBtn.disabled = false;
-
-
-    // cargar partida online
-    const partida =
-        JSON.parse(
-            localStorage.getItem(
-                "partidaOnline"
-            )
-        );
-
-    // encontrar mi jugador
-    const miJugador =
-        partida.jugadores.find(
-
-            j => j.nombre === usuario
-        );
-
-    // cargar mano
-    manoJugador = miJugador.mano;
-
-    // de momento simulamos crupier vacío
-    manoCrupier = [];
-
     mostrarCartas();
+
+    actualizarTurno();
 }
 
 iniciarJuego();
 
+
 // PEDIR CARTA
-pedirBtn.addEventListener("click", async () => {
+pedirBtn.addEventListener(
+    "click",
+    () => {
 
-    if (juegoTerminado) return;
+        if (
+            juegoTerminado ||
+            !esMiTurno()
+        ) return;
 
-    manoJugador.push(sacarCarta());
+        const miJugador =
+            partida.jugadores.find(
 
-    if (calcularPuntos(manoJugador) > 21) {
+                j => j.nombre === usuario
+            );
 
-        puntosUsuario -= apuesta;
+        // sacar carta de la baraja común
+        const carta =
+            partida.baraja.pop();
 
-        await terminarPartida("Te pasaste. Pierdes.", "perdida");
+        miJugador.mano.push(carta);
+
+        // comprobar puntos
+        const puntos =
+            calcularPuntos(
+                miJugador.mano
+            );
+
+        // si se pasa
+        if (puntos > 21) {
+
+            miJugador.plantado = true;
+        }
+
+        // cambiar turno
+        partida.turno =
+            (partida.turno + 1) % 2;
+
+        mostrarCartas();
+
+        actualizarTurno();
     }
+);
 
-    mostrarCartas();
-});
 
 // PLANTARSE
-plantarseBtn.addEventListener("click", async () => {
+plantarseBtn.addEventListener(
+    "click",
+    () => {
 
-    if (juegoTerminado) return;
+        if (
+            juegoTerminado ||
+            !esMiTurno()
+        ) return;
+
+        const miJugador =
+            partida.jugadores.find(
+
+                j => j.nombre === usuario
+            );
+
+        miJugador.plantado = true;
+
+        // cambiar turno
+        partida.turno =
+            (partida.turno + 1) % 2;
+
+        mostrarCartas();
+
+        actualizarTurno();
+
+        // si ambos plantados termina
+        if (
+
+            jugador1.plantado &&
+            jugador2.plantado
+
+        ) {
+
+            terminarPartida();
+        }
+    }
+);
+
+
+// TERMINAR
+function terminarPartida() {
 
     juegoTerminado = true;
 
-    while (calcularPuntos(manoCrupier) < 17) {
+    pedirBtn.disabled = true;
 
-        manoCrupier.push(sacarCarta());
+    plantarseBtn.disabled = true;
+
+    const puntos1 =
+        calcularPuntos(
+            jugador1.mano
+        );
+
+    const puntos2 =
+        calcularPuntos(
+            jugador2.mano
+        );
+
+    let ganador = null;
+
+    // ambos se pasan
+    if (
+        puntos1 > 21 &&
+        puntos2 > 21
+    ) {
+
+        resultadoText.innerText =
+            "Ambos pierden";
+
+        return;
     }
 
-    const puntosJugador = calcularPuntos(manoJugador);
-    const puntosCrupier = calcularPuntos(manoCrupier);
+    // gana jugador 1
+    if (
+        (puntos1 <= 21 && puntos2 > 21)
+        ||
+        (puntos1 <= 21 &&
+         puntos1 > puntos2)
+    ) {
 
-    if (puntosCrupier > 21) {
-
-        puntosUsuario += apuesta;
-
-        await terminarPartida("Crupier se pasa. Ganas.", "ganada");
+        ganador =
+            jugador1.nombre;
     }
 
-    else if (puntosJugador > puntosCrupier) {
+    // gana jugador 2
+    else if (
+        (puntos2 <= 21 && puntos1 > 21)
+        ||
+        (puntos2 <= 21 &&
+         puntos2 > puntos1)
+    ) {
 
-        puntosUsuario += apuesta;
-
-        await terminarPartida("Ganas.", "ganada");
+        ganador =
+            jugador2.nombre;
     }
 
-    else if (puntosJugador < puntosCrupier) {
-
-        puntosUsuario -= apuesta;
-
-        await terminarPartida("Pierdes.", "perdida");
-    }
-
+    // empate
     else {
 
-        await terminarPartida("Empate.", "empate");
+        resultadoText.innerText =
+            "Empate";
+
+        return;
     }
-});
 
-// NUEVA PARTIDA
-reiniciarBtn.addEventListener("click", iniciarJuego);
+    resultadoText.innerText =
+        "Ganador: " + ganador;
+}
 
-// VOLVER AL MENÚ
-volverMenuBtn.addEventListener("click", () => {
 
-    window.location.href = "../archivos_html/principal.html";
-});
+// VOLVER
+volverMenuBtn.addEventListener(
+    "click",
+    () => {
+
+        window.location.href =
+            "../archivos_html/principal.html";
+    }
+);

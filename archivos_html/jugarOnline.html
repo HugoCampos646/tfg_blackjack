@@ -6,7 +6,7 @@
 
     <script type="module" src="../archivos_js/jugarOnline.js" defer></script>
 
-    <link rel="stylesheet" href="../archivos_css/jugar.css">
+    <link rel="stylesheet" href="../archivos_css/jugarOnline.css">
     <link rel="stylesheet" href="../info/coloresGlobales.css">
     <link rel="stylesheet" href="../info/estilosGlobales.css">
 </head>
@@ -40,27 +40,44 @@
             </div>
 
             <!-- ZONAS DEL JUEGO -->
-            <div class="zonas-juego">
+            <!-- CRUPIER -->
+            <div class="zona-crupier">
 
-                <!-- CRUPIER -->
+                <h2>Crupier</h2>
+
+                <div id="manoCrupier" class="mano"></div>
+
+                <p id="puntosCrupier" class="puntos"></p>
+
+            </div>
+
+
+            <!-- JUGADORES -->
+            <div class="jugadores-online">
+
+                <!-- JUGADOR 1 -->
                 <div class="zona">
 
-                    <h2>Crupier</h2>
+                    <h2 id="nombreJugador1">
+                        Jugador 1
+                    </h2>
 
-                    <div id="manoCrupier" class="mano"></div>
+                    <div id="manoJugador1" class="mano"></div>
 
-                    <p id="puntosCrupier" class="puntos"></p>
+                    <p id="puntosJugador1" class="puntos"></p>
 
                 </div>
 
-                <!-- JUGADOR -->
+                <!-- JUGADOR 2 -->
                 <div class="zona">
 
-                    <h2>Jugador</h2>
+                    <h2 id="nombreJugador2">
+                        Jugador 2
+                    </h2>
 
-                    <div id="manoJugador" class="mano"></div>
+                    <div id="manoJugador2" class="mano"></div>
 
-                    <p id="puntosJugador" class="puntos"></p>
+                    <p id="puntosJugador2" class="puntos"></p>
 
                 </div>
 
