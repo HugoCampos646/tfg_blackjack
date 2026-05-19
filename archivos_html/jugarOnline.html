@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Blackjack</title>
+
+    <script type="module" src="../archivos_js/jugarOnline.js" defer></script>
+
+    <link rel="stylesheet" href="../archivos_css/jugar.css">
+    <link rel="stylesheet" href="../info/coloresGlobales.css">
+    <link rel="stylesheet" href="../info/estilosGlobales.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+
+        <div class="logo">
+            BLACKJACK
+        </div>
+
+        <div class="usuario">
+            Usuario: <span id="nombreUsuario"></span><br>
+            Puntos totales: <span id="puntosTotales"></span>
+        </div>
+
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="main">
+
+        <div class="juego-container">
+
+            <h1>BLACKJACK</h1>
+
+            <!-- APUESTA -->
+            <div class="apuesta-box">
+                Apuesta actual:
+                <span id="apuestaTexto"></span>
+            </div>
+
+            <!-- ZONAS DEL JUEGO -->
+            <div class="zonas-juego">
+
+                <!-- CRUPIER -->
+                <div class="zona">
+
+                    <h2>Crupier</h2>
+
+                    <div id="manoCrupier" class="mano"></div>
+
+                    <p id="puntosCrupier" class="puntos"></p>
+
+                </div>
+
+                <!-- JUGADOR -->
+                <div class="zona">
+
+                    <h2>Jugador</h2>
+
+                    <div id="manoJugador" class="mano"></div>
+
+                    <p id="puntosJugador" class="puntos"></p>
+
+                </div>
+
+            </div>
+
+            <!-- RESULTADO -->
+            <h3 id="resultado"></h3>
+
+            <!-- BOTONES -->
+            <div class="acciones">
+
+                <button class="btn grande" id="pedir">
+                    Pedir carta
+                </button>
+
+                <button class="btn grande" id="plantarse">
+                    Plantarse
+                </button>
+
+                <button class="btn grande oculto" id="reiniciar">
+                    Nueva partida
+                </button>
+
+                <button class="btn grande oculto" id="volverMenu">
+                    Volver al menú
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

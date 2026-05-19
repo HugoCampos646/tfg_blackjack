@@ -47,6 +47,35 @@ app.use(express.static(path.join(__dirname, "../")));
 
 // SOCKETS
 const salas = {};
+const partidas = {};
+
+// CREAR BARAJA
+function crearBaraja() {
+
+    const palos = ["C", "D", "H", "S"];
+
+    const baraja = [];
+
+    for (let palo of palos) {
+
+        for (let i = 1; i <= 13; i++) {
+
+            baraja.push({
+                palo,
+                valor: i
+            });
+        }
+    }
+
+    return baraja.sort(() => Math.random() - 0.5);
+}
+
+
+// SACAR CARTA
+function sacarCarta(baraja) {
+
+    return baraja.pop();
+}
 
 io.on("connection", (socket) => {
 
@@ -92,6 +121,50 @@ io.on("connection", (socket) => {
             "actualizarJugadores",
             salas[codigoMesa]
         );
+
+        // si hay 2 jugadores crea la partida
+        if (salas[codigoMesa].length === 2) {
+
+            const baraja = crearBaraja();
+
+            partidas[codigoMesa] = {
+
+                turno: 0,
+
+                jugadores: [
+
+                    {
+                        nombre: salas[codigoMesa][0].usuario,
+                        mano: [
+                            sacarCarta(baraja),
+                            sacarCarta(baraja)
+                        ],
+                        plantado: false
+                    },
+
+                    {
+                        nombre: salas[codigoMesa][1].usuario,
+                        mano: [
+                            sacarCarta(baraja),
+                            sacarCarta(baraja)
+                        ],
+                        plantado: false
+                    }
+                ],
+
+                baraja: baraja
+            };
+
+            io.to(codigoMesa).emit(
+                "partidaIniciada",
+                partidas[codigoMesa]
+            );
+
+            console.log(
+                "Partida creada:",
+                codigoMesa
+            );
+        }
 
         // desconexión
         socket.on("disconnect", () => {

@@ -81,14 +81,14 @@ socket.on(
             jugador2Text.innerText =
                 jugadores[1].usuario;
 
-            empezarBtn.disabled = false;
+            empezarBtn.style.display = "none";
 
         } else {
 
             jugador2Text.innerText =
                 "Esperando...";
 
-            empezarBtn.disabled = true;
+            empezarBtn.style.display = "none";
         }
     }
 );
@@ -101,4 +101,18 @@ socket.on("mesaLlena", () => {
 
     window.location.href =
         "../archivos_html/online.html";
+});
+
+// partida iniciada
+socket.on("partidaIniciada", (partida) => {
+
+    console.log("PARTIDA:", partida);
+
+    localStorage.setItem(
+        "partidaOnline",
+        JSON.stringify(partida)
+    );
+
+    window.location.href =
+        "../archivos_html/jugarOnline.html";
 });
