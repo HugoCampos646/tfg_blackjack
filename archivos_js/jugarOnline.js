@@ -404,7 +404,7 @@ socket.on(
 pedirBtn.addEventListener(
     "click",
     () => {
-
+        console.log("CLICK PEDIR");
         socket.emit(
             "pedirCarta",
             {
@@ -420,7 +420,7 @@ pedirBtn.addEventListener(
 plantarseBtn.addEventListener(
     "click",
     () => {
-
+        console.log("CLICK PLANTARSE");
         socket.emit(
             "plantarse",
             {
