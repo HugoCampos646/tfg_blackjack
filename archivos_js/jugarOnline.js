@@ -1,13 +1,18 @@
+// jugarOnline.js
+
+import { API_URL } from "./config.js";
+
+const socket = io(API_URL);
+
+const codigoMesa =
+    localStorage.getItem("codigoMesa");
+
 const partida =
     JSON.parse(
         localStorage.getItem(
             "partidaOnline"
         )
     );
-
-console.log(partida);
-
-import { API_URL } from "./config.js";
 
 const usuario =
     localStorage.getItem("usuario");
@@ -204,11 +209,17 @@ function mostrarCartas() {
         "Puntos: " +
         calcularPuntos(jugador2.mano);
 
-    // crupier vacío de momento
-    manoCrupierDiv.innerHTML = "";
+    // crupier
+    mostrarMano(
+        manoCrupierDiv,
+        partida.crupier
+    );
 
     puntosCrupierText.innerText =
-        "Puntos: ?";
+        "Puntos: " +
+        calcularPuntos(
+            partida.crupier
+        );
 }
 
 
@@ -225,6 +236,8 @@ function esMiTurno() {
 
 // ACTUALIZAR BOTONES
 function actualizarTurno() {
+
+    if (juegoTerminado) return;
 
     if (esMiTurno()) {
 
@@ -250,102 +263,6 @@ function actualizarTurno() {
 }
 
 
-// INICIAR
-function iniciarJuego() {
-
-    mostrarCartas();
-
-    actualizarTurno();
-}
-
-iniciarJuego();
-
-
-// PEDIR CARTA
-pedirBtn.addEventListener(
-    "click",
-    () => {
-
-        if (
-            juegoTerminado ||
-            !esMiTurno()
-        ) return;
-
-        const miJugador =
-            partida.jugadores.find(
-
-                j => j.nombre === usuario
-            );
-
-        // sacar carta de la baraja común
-        const carta =
-            partida.baraja.pop();
-
-        miJugador.mano.push(carta);
-
-        // comprobar puntos
-        const puntos =
-            calcularPuntos(
-                miJugador.mano
-            );
-
-        // si se pasa
-        if (puntos > 21) {
-
-            miJugador.plantado = true;
-        }
-
-        // cambiar turno
-        partida.turno =
-            (partida.turno + 1) % 2;
-
-        mostrarCartas();
-
-        actualizarTurno();
-    }
-);
-
-
-// PLANTARSE
-plantarseBtn.addEventListener(
-    "click",
-    () => {
-
-        if (
-            juegoTerminado ||
-            !esMiTurno()
-        ) return;
-
-        const miJugador =
-            partida.jugadores.find(
-
-                j => j.nombre === usuario
-            );
-
-        miJugador.plantado = true;
-
-        // cambiar turno
-        partida.turno =
-            (partida.turno + 1) % 2;
-
-        mostrarCartas();
-
-        actualizarTurno();
-
-        // si ambos plantados termina
-        if (
-
-            jugador1.plantado &&
-            jugador2.plantado
-
-        ) {
-
-            terminarPartida();
-        }
-    }
-);
-
-
 // TERMINAR
 function terminarPartida() {
 
@@ -365,26 +282,29 @@ function terminarPartida() {
             jugador2.mano
         );
 
+    const puntosCrupier =
+        calcularPuntos(
+            partida.crupier
+        );
+
     let ganador = null;
-
-    // ambos se pasan
-    if (
-        puntos1 > 21 &&
-        puntos2 > 21
-    ) {
-
-        resultadoText.innerText =
-            "Ambos pierden";
-
-        return;
-    }
 
     // gana jugador 1
     if (
-        (puntos1 <= 21 && puntos2 > 21)
-        ||
-        (puntos1 <= 21 &&
-         puntos1 > puntos2)
+
+        puntos1 <= 21
+        &&
+        (
+            puntosCrupier > 21
+            ||
+            puntos1 > puntosCrupier
+        )
+        &&
+        (
+            puntos1 >= puntos2
+            || puntos2 > 21
+        )
+
     ) {
 
         ganador =
@@ -393,21 +313,31 @@ function terminarPartida() {
 
     // gana jugador 2
     else if (
-        (puntos2 <= 21 && puntos1 > 21)
-        ||
-        (puntos2 <= 21 &&
-         puntos2 > puntos1)
+
+        puntos2 <= 21
+        &&
+        (
+            puntosCrupier > 21
+            ||
+            puntos2 > puntosCrupier
+        )
+        &&
+        (
+            puntos2 >= puntos1
+            || puntos1 > 21
+        )
+
     ) {
 
         ganador =
             jugador2.nombre;
     }
 
-    // empate
+    // gana crupier
     else {
 
         resultadoText.innerText =
-            "Empate";
+            "Gana el crupier";
 
         return;
     }
@@ -415,6 +345,91 @@ function terminarPartida() {
     resultadoText.innerText =
         "Ganador: " + ganador;
 }
+
+
+// INICIAR
+function iniciarJuego() {
+
+    mostrarCartas();
+
+    actualizarTurno();
+}
+
+iniciarJuego();
+
+
+// ACTUALIZAR PARTIDA
+socket.on(
+    "actualizarPartida",
+    (nuevaPartida) => {
+
+        partida.jugadores =
+            nuevaPartida.jugadores;
+
+        partida.turno =
+            nuevaPartida.turno;
+
+        partida.baraja =
+            nuevaPartida.baraja;
+
+        partida.crupier =
+            nuevaPartida.crupier;
+
+        mostrarCartas();
+
+        actualizarTurno();
+    }
+);
+
+
+// PARTIDA TERMINADA
+socket.on(
+    "partidaTerminada",
+    (nuevaPartida) => {
+
+        partida.jugadores =
+            nuevaPartida.jugadores;
+
+        partida.crupier =
+            nuevaPartida.crupier;
+
+        mostrarCartas();
+
+        terminarPartida();
+    }
+);
+
+
+// PEDIR CARTA
+pedirBtn.addEventListener(
+    "click",
+    () => {
+
+        socket.emit(
+            "pedirCarta",
+            {
+                codigoMesa,
+                usuario
+            }
+        );
+    }
+);
+
+
+// PLANTARSE
+plantarseBtn.addEventListener(
+    "click",
+    () => {
+
+        socket.emit(
+            "plantarse",
+            {
+                codigoMesa,
+                usuario
+            }
+        );
+    }
+);
 
 
 // VOLVER

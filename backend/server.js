@@ -1,3 +1,5 @@
+// server.js
+
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -49,6 +51,7 @@ app.use(express.static(path.join(__dirname, "../")));
 const salas = {};
 const partidas = {};
 
+
 // CREAR BARAJA
 function crearBaraja() {
 
@@ -77,10 +80,47 @@ function sacarCarta(baraja) {
     return baraja.pop();
 }
 
+
+// CALCULAR PUNTOS
+function calcularPuntos(mano) {
+
+    let total = 0;
+
+    let ases = 0;
+
+    for (let carta of mano) {
+
+        if (carta.valor >= 11) {
+            total += 10;
+        }
+
+        else if (carta.valor === 1) {
+
+            total += 11;
+            ases++;
+        }
+
+        else {
+            total += carta.valor;
+        }
+    }
+
+    while (total > 21 && ases > 0) {
+
+        total -= 10;
+        ases--;
+    }
+
+    return total;
+}
+
+
 io.on("connection", (socket) => {
 
     console.log("Usuario conectado");
 
+
+    // UNIRSE
     socket.on("unirseMesa", (datos) => {
 
         const codigoMesa = datos.codigo;
@@ -122,7 +162,7 @@ io.on("connection", (socket) => {
             salas[codigoMesa]
         );
 
-        // si hay 2 jugadores crea la partida
+        // crear partida
         if (salas[codigoMesa].length === 2) {
 
             const baraja = crearBaraja();
@@ -150,6 +190,11 @@ io.on("connection", (socket) => {
                         ],
                         plantado: false
                     }
+                ],
+
+                crupier: [
+                    sacarCarta(baraja),
+                    sacarCarta(baraja)
                 ],
 
                 baraja: baraja
@@ -188,6 +233,7 @@ io.on("connection", (socket) => {
                 ) {
 
                     delete salas[codigoMesa];
+                    delete partidas[codigoMesa];
                 }
             }
 
@@ -195,6 +241,191 @@ io.on("connection", (socket) => {
                 "Usuario desconectado"
             );
         });
+    });
+
+
+    // PEDIR CARTA
+    socket.on("pedirCarta", (datos) => {
+
+        const codigoMesa =
+            datos.codigoMesa;
+
+        const usuario =
+            datos.usuario;
+
+        const partida =
+            partidas[codigoMesa];
+
+        if (!partida) return;
+
+        // comprobar turno
+        if (
+
+            partida.jugadores[
+                partida.turno
+            ].nombre !== usuario
+
+        ) {
+
+            return;
+        }
+
+        // buscar jugador
+        const jugador =
+            partida.jugadores.find(
+
+                j => j.nombre === usuario
+            );
+
+        if (!jugador) return;
+
+        // sacar carta
+        const carta =
+            sacarCarta(partida.baraja);
+
+        jugador.mano.push(carta);
+
+        // comprobar si se pasa
+        const total =
+            calcularPuntos(jugador.mano);
+
+        if (total > 21) {
+
+            jugador.plantado = true;
+        }
+
+        // comprobar si todos terminaron
+        const todosPlantados =
+            partida.jugadores.every(
+
+                j => j.plantado
+            );
+
+        // CRUPIER JUEGA
+        if (todosPlantados) {
+
+            while (
+
+                calcularPuntos(
+                    partida.crupier
+                ) < 17
+
+            ) {
+
+                partida.crupier.push(
+                    sacarCarta(
+                        partida.baraja
+                    )
+                );
+            }
+
+            io.to(codigoMesa).emit(
+                "partidaTerminada",
+                partida
+            );
+
+            return;
+        }
+
+        // siguiente turno
+        partida.turno =
+            (partida.turno + 1) % 2;
+
+        io.to(codigoMesa).emit(
+            "actualizarPartida",
+            partida
+        );
+
+        console.log(
+            usuario,
+            "pidió carta"
+        );
+    });
+
+
+    // PLANTARSE
+    socket.on("plantarse", (datos) => {
+
+        const codigoMesa =
+            datos.codigoMesa;
+
+        const usuario =
+            datos.usuario;
+
+        const partida =
+            partidas[codigoMesa];
+
+        if (!partida) return;
+
+        // comprobar turno
+        if (
+
+            partida.jugadores[
+                partida.turno
+            ].nombre !== usuario
+
+        ) {
+
+            return;
+        }
+
+        // buscar jugador
+        const jugador =
+            partida.jugadores.find(
+
+                j => j.nombre === usuario
+            );
+
+        if (!jugador) return;
+
+        jugador.plantado = true;
+
+        // comprobar si todos terminaron
+        const todosPlantados =
+            partida.jugadores.every(
+
+                j => j.plantado
+            );
+
+        // CRUPIER JUEGA
+        if (todosPlantados) {
+
+            while (
+
+                calcularPuntos(
+                    partida.crupier
+                ) < 17
+
+            ) {
+
+                partida.crupier.push(
+                    sacarCarta(
+                        partida.baraja
+                    )
+                );
+            }
+
+            io.to(codigoMesa).emit(
+                "partidaTerminada",
+                partida
+            );
+
+            return;
+        }
+
+        // siguiente turnoF
+        partida.turno =
+            (partida.turno + 1) % 2;
+
+        io.to(codigoMesa).emit(
+            "actualizarPartida",
+            partida
+        );
+
+        console.log(
+            usuario,
+            "se plantó"
+        );
     });
 });
 
@@ -204,5 +435,7 @@ const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, "0.0.0.0", () => {
 
-    console.log("Servidor corriendo en puerto " + PORT);
+    console.log(
+        "Servidor corriendo en puerto " + PORT
+    );
 });
