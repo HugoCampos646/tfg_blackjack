@@ -246,7 +246,7 @@ io.on("connection", (socket) => {
 
     // PEDIR CARTA
     socket.on("pedirCarta", (datos) => {
-
+        console.log(datos);
         const codigoMesa =
             datos.codigoMesa;
 
