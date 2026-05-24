@@ -29,6 +29,11 @@ let puntosUsuario =
 socket.on("connect", () => {
 
     console.log("SOCKET CONECTADO");
+
+    socket.emit("unirseMesa", {
+        codigo: codigoMesa,
+        usuario: usuario
+    });
 });
 
 // TOP BAR
@@ -94,36 +99,28 @@ let juegoTerminado = false;
 // comprobar usuario
 if (!usuario) {
 
-    window.location.href =
-        "../index.html";
+    window.location.href = "../index.html";
 }
 
 
 // TOP BAR
-nombreUsuario.innerText =
-    usuario;
+nombreUsuario.innerText = usuario;
 
-puntosTotales.innerText =
-    puntosUsuario;
+puntosTotales.innerText = puntosUsuario;
 
-apuestaTexto.innerText =
-    apuesta;
-
-
-// jugadores
-const jugador1 =
-    partida.jugadores[0];
-
-const jugador2 =
-    partida.jugadores[1];
+apuestaTexto.innerText = apuesta;
 
 
 // nombres
-nombreJugador1.innerText =
-    jugador1.nombre;
+function actualizarNombres() {
+    nombreJugador1.innerText =
+        partida.jugadores?.[0]?.nombre || "Jugador 1";
 
-nombreJugador2.innerText =
-    jugador2.nombre;
+    nombreJugador2.innerText =
+        partida.jugadores?.[1]?.nombre || "Jugador 2";
+}
+
+actualizarNombres();
 
 
 // VALOR CARTA
@@ -195,22 +192,22 @@ function mostrarCartas() {
     // jugador 1
     mostrarMano(
         manoJugador1Div,
-        jugador1.mano
+        partida.jugadores[0].mano
     );
 
     puntosJugador1Text.innerText =
         "Puntos: " +
-        calcularPuntos(jugador1.mano);
+        calcularPuntos(partida.jugadores[0].mano);
 
     // jugador 2
     mostrarMano(
         manoJugador2Div,
-        jugador2.mano
+        partida.jugadores[1].mano
     );
 
     puntosJugador2Text.innerText =
         "Puntos: " +
-        calcularPuntos(jugador2.mano);
+        calcularPuntos(partida.jugadores[1].mano);
 
     // crupier
     mostrarMano(
@@ -230,9 +227,8 @@ function mostrarCartas() {
 function esMiTurno() {
 
     return (
-        partida.jugadores[
-            partida.turno
-        ].nombre === usuario
+        partida.jugadores?.[partida.turno]?.nombre?.trim() ===
+        usuario?.trim()
     );
 }
 
@@ -277,12 +273,12 @@ function terminarPartida() {
 
     const puntos1 =
         calcularPuntos(
-            jugador1.mano
+            partida.jugadores[0].mano
         );
 
     const puntos2 =
         calcularPuntos(
-            jugador2.mano
+            partida.jugadores[1].mano
         );
 
     const puntosCrupier =
@@ -311,7 +307,7 @@ function terminarPartida() {
     ) {
 
         ganador =
-            jugador1.nombre;
+            partida.jugadores[0].nombre;
     }
 
     // gana jugador 2
@@ -333,7 +329,7 @@ function terminarPartida() {
     ) {
 
         ganador =
-            jugador2.nombre;
+            partida.jugadores[1].nombre;
     }
 
     // gana crupier
@@ -378,8 +374,8 @@ socket.on(
         partida.crupier =
             nuevaPartida.crupier;
 
+        actualizarNombres();
         mostrarCartas();
-
         actualizarTurno();
     }
 );
