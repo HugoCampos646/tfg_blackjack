@@ -116,6 +116,13 @@ function calcularPuntos(mano) {
 
 
 io.on("connection", (socket) => {
+    
+    socket.on("pedirCarta", (datos) => {
+
+        console.log("PEDIR CARTA RECIBIDO");
+        console.log(datos);
+
+    });
 
     console.log("Usuario conectado");
 
