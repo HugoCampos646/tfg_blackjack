@@ -1,5 +1,3 @@
-// jugarOnline.js
-
 import { API_URL } from "./config.js";
 
 const socket = io(API_URL);
@@ -27,6 +25,11 @@ let puntosUsuario =
         localStorage.getItem("puntos")
     ) || 0;
 
+
+socket.on("connect", () => {
+
+    console.log("SOCKET CONECTADO");
+});
 
 // TOP BAR
 const nombreUsuario =

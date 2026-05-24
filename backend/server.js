@@ -1,5 +1,5 @@
 // server.js
-
+console.log("SERVIDOR NUEVO CARGADO");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
