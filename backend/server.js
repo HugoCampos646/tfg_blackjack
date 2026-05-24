@@ -335,8 +335,17 @@ io.on("connection", (socket) => {
         }
 
         // siguiente turno
-        partida.turno =
-            (partida.turno + 1) % 2;
+        do {
+
+            partida.turno =
+                (partida.turno + 1) % 2;
+
+        } while (
+
+            partida.jugadores[
+                partida.turno
+            ].plantado
+        );
 
         io.to(codigoMesa).emit(
             "actualizarPartida",
@@ -421,8 +430,17 @@ io.on("connection", (socket) => {
         }
 
         // siguiente turnoF
-        partida.turno =
-            (partida.turno + 1) % 2;
+        do {
+
+            partida.turno =
+                (partida.turno + 1) % 2;
+
+        } while (
+
+            partida.jugadores[
+                partida.turno
+            ].plantado
+        );
 
         io.to(codigoMesa).emit(
             "actualizarPartida",
