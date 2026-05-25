@@ -132,9 +132,6 @@ io.on("connection", (socket) => {
         );
     });
 
-    socket.on("pedirCarta", (datos) => {
-
-
     // UNIRSE
     socket.on("unirseMesa", (datos) => {
 
