@@ -377,6 +377,8 @@ socket.on(
     "actualizarPartida",
     (nuevaPartida) => {
 
+        console.log("jugarOnline: actualizarPartida recibido", nuevaPartida);
+
         partida.jugadores =
             nuevaPartida.jugadores;
 

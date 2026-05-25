@@ -123,16 +123,77 @@ io.on("connection", (socket) => {
     socket.on("joinPartida", (datos) => {
 
         const codigoMesa = datos.codigo;
+        const usuario = datos.usuario;
+
+        console.log("server: joinPartida", { codigoMesa, usuario });
 
         socket.join(codigoMesa);
+        socket.codigoMesa = codigoMesa;
+        socket.usuario = usuario;
+
+        if (salas[codigoMesa]) {
+            const existente = salas[codigoMesa].find(
+                jugador => jugador.usuario === usuario
+            );
+
+            if (existente) {
+                existente.id = socket.id;
+                console.log(
+                    "Actualizar id en sala desde joinPartida:",
+                    codigoMesa,
+                    usuario
+                );
+            }
+        }
 
         console.log(
             "Usuario re-entrado en sala:",
             codigoMesa
         );
+
         // si ya existe una partida en curso, enviar estado al cliente que se une
         if (partidas[codigoMesa]) {
+            console.log(
+                "server: enviar actualizarPartida",
+                codigoMesa
+            );
             socket.emit("actualizarPartida", partidas[codigoMesa]);
+        }
+    });
+
+    // desconexión global
+    socket.on("disconnect", () => {
+        const codigoMesa = socket.codigoMesa;
+
+        if (!codigoMesa) {
+            return;
+        }
+
+        if (partidas[codigoMesa]) {
+            console.log(
+                "Usuario desconectado durante partida; no limpiar sala:",
+                codigoMesa,
+                socket.id
+            );
+            return;
+        }
+
+        if (!salas[codigoMesa]) {
+            return;
+        }
+
+        salas[codigoMesa] = salas[codigoMesa].filter(
+            jugador => jugador.id !== socket.id
+        );
+
+        io.to(codigoMesa).emit(
+            "actualizarJugadores",
+            salas[codigoMesa]
+        );
+
+        if (salas[codigoMesa].length === 0) {
+            delete salas[codigoMesa];
+            delete partidas[codigoMesa];
         }
     });
 
@@ -155,6 +216,8 @@ io.on("connection", (socket) => {
         if (existente) {
             existente.id = socket.id;
             socket.join(codigoMesa);
+            socket.codigoMesa = codigoMesa;
+            socket.usuario = usuario;
             console.log("Jugador reconectado en sala", codigoMesa, usuario);
         } else {
             // sala llena
@@ -165,6 +228,8 @@ io.on("connection", (socket) => {
 
             // unir socket y guardar jugador
             socket.join(codigoMesa);
+            socket.codigoMesa = codigoMesa;
+            socket.usuario = usuario;
 
             salas[codigoMesa].push({
                 id: socket.id,

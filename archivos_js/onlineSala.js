@@ -103,7 +103,7 @@ socket.on("mesaLlena", () => {
 // partida iniciada
 socket.on("partidaIniciada", (partida) => {
 
-    console.log("PARTIDA:", partida);
+    console.log("onlineSala: partidaIniciada", partida);
 
     localStorage.setItem(
         "partidaOnline",
