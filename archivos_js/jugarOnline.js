@@ -30,7 +30,8 @@ socket.on("connect", () => {
 
     console.log("SOCKET CONECTADO");
 
-    socket.emit("unirseMesa", {
+    // Unirse a la room para recibir eventos
+    socket.emit("joinPartida", {
         codigo: codigoMesa,
         usuario: usuario
     });
@@ -94,6 +95,8 @@ const volverMenuBtn =
 
 
 let juegoTerminado = false;
+
+volverMenuBtn.disabled = true;
 
 
 // comprobar usuario
@@ -338,11 +341,15 @@ function terminarPartida() {
         resultadoText.innerText =
             "Gana el crupier";
 
+        volverMenuBtn.disabled = false;
+
         return;
     }
 
     resultadoText.innerText =
         "Ganador: " + ganador;
+
+    volverMenuBtn.disabled = false;
 }
 
 

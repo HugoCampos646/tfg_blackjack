@@ -117,14 +117,22 @@ function calcularPuntos(mano) {
 
 io.on("connection", (socket) => {
     
-    socket.on("pedirCarta", (datos) => {
+    console.log("Usuario conectado");
 
-        console.log("PEDIR CARTA RECIBIDO");
-        console.log(datos);
+    // RE-ENTRAR A LA PARTIDA (sin crear duplicado)
+    socket.on("joinPartida", (datos) => {
 
+        const codigoMesa = datos.codigo;
+
+        socket.join(codigoMesa);
+
+        console.log(
+            "Usuario re-entrado en sala:",
+            codigoMesa
+        );
     });
 
-    console.log("Usuario conectado");
+    socket.on("pedirCarta", (datos) => {
 
 
     // UNIRSE
