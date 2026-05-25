@@ -68,6 +68,7 @@ crearMesaBtn.addEventListener("click", () => {
     const codigoMesa =
         generarCodigo();
 
+    localStorage.removeItem("partidaOnline");
     localStorage.setItem(
         "codigoMesa",
         codigoMesa
@@ -126,6 +127,7 @@ unirseMesaBtn.addEventListener("click", () => {
         return;
     }
 
+    localStorage.removeItem("partidaOnline");
     localStorage.setItem(
         "codigoMesa",
         codigoMesa.toUpperCase()

@@ -15,6 +15,11 @@ const partida =
 const usuario =
     localStorage.getItem("usuario");
 
+if (!partida) {
+    window.location.href =
+        "../archivos_html/online.html";
+}
+
 const apuesta =
     parseInt(
         localStorage.getItem("apuesta")
@@ -442,6 +447,10 @@ plantarseBtn.addEventListener(
 volverMenuBtn.addEventListener(
     "click",
     () => {
+
+        localStorage.removeItem("partidaOnline");
+        localStorage.removeItem("codigoMesa");
+        localStorage.removeItem("apuesta");
 
         window.location.href =
             "../archivos_html/principal.html";
