@@ -158,6 +158,11 @@ io.on("connection", (socket) => {
                 codigoMesa
             );
             socket.emit("actualizarPartida", partidas[codigoMesa]);
+        } else {
+            console.log(
+                "server: joinPartida sin partida existente",
+                codigoMesa
+            );
         }
     });
 
@@ -300,42 +305,12 @@ io.on("connection", (socket) => {
             );
         }
 
-        // desconexión
-        socket.on("disconnect", () => {
-
-            if (salas[codigoMesa]) {
-
-                salas[codigoMesa] =
-                    salas[codigoMesa].filter(
-
-                        jugador =>
-                            jugador.id !== socket.id
-                    );
-
-                io.to(codigoMesa).emit(
-                    "actualizarJugadores",
-                    salas[codigoMesa]
-                );
-
-                if (
-                    salas[codigoMesa].length === 0
-                ) {
-
-                    delete salas[codigoMesa];
-                    delete partidas[codigoMesa];
-                }
-            }
-
-            console.log(
-                "Usuario desconectado"
-            );
-        });
     });
 
 
     // PEDIR CARTA
     socket.on("pedirCarta", (datos) => {
-        console.log(datos);
+        console.log("server: pedirCarta recibido", datos);
         const codigoMesa =
             datos.codigoMesa;
 
@@ -345,7 +320,10 @@ io.on("connection", (socket) => {
         const partida =
             partidas[codigoMesa];
 
-        if (!partida) return;
+        if (!partida) {
+            console.log("server: pedirCarta sin partida", codigoMesa, usuario);
+            return;
+        }
 
         // comprobar turno
         if (
@@ -355,7 +333,12 @@ io.on("connection", (socket) => {
             ].nombre !== usuario
 
         ) {
-
+            console.log("server: pedirCarta fuera de turno", {
+                codigoMesa,
+                usuario,
+                turno: partida.turno,
+                nombreTurno: partida.jugadores[partida.turno].nombre
+            });
             return;
         }
 
@@ -443,6 +426,7 @@ io.on("connection", (socket) => {
 
     // PLANTARSE
     socket.on("plantarse", (datos) => {
+        console.log("server: plantarse recibido", datos);
 
         const codigoMesa =
             datos.codigoMesa;
@@ -453,7 +437,10 @@ io.on("connection", (socket) => {
         const partida =
             partidas[codigoMesa];
 
-        if (!partida) return;
+        if (!partida) {
+            console.log("server: plantarse sin partida", codigoMesa, usuario);
+            return;
+        }
 
         // comprobar turno
         if (
@@ -463,7 +450,12 @@ io.on("connection", (socket) => {
             ].nombre !== usuario
 
         ) {
-
+            console.log("server: plantarse fuera de turno", {
+                codigoMesa,
+                usuario,
+                turno: partida.turno,
+                nombreTurno: partida.jugadores[partida.turno].nombre
+            });
             return;
         }
 
