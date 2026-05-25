@@ -33,7 +33,8 @@ codigoMesaText.innerText =
     codigoMesa;
 
 
-// unirse a sala
+// unirse a sala (con log diagnóstico)
+console.log("onlineSala: preparando unirseMesa", { codigoMesa, usuario });
 socket.emit("unirseMesa", {
 
     codigo: codigoMesa,
@@ -42,7 +43,8 @@ socket.emit("unirseMesa", {
 
 console.log(
     "Uniéndose a sala:",
-    codigoMesa
+    codigoMesa,
+    usuario
 );
 
 

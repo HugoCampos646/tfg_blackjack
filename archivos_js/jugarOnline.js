@@ -36,6 +36,7 @@ socket.on("connect", () => {
     console.log("SOCKET CONECTADO");
 
     // Unirse a la room para recibir eventos
+    console.log("jugarOnline: emit joinPartida", { codigoMesa, usuario, partida });
     socket.emit("joinPartida", {
         codigo: codigoMesa,
         usuario: usuario

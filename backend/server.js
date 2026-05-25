@@ -130,6 +130,10 @@ io.on("connection", (socket) => {
             "Usuario re-entrado en sala:",
             codigoMesa
         );
+        // si ya existe una partida en curso, enviar estado al cliente que se une
+        if (partidas[codigoMesa]) {
+            socket.emit("actualizarPartida", partidas[codigoMesa]);
+        }
     });
 
     // UNIRSE
@@ -138,37 +142,44 @@ io.on("connection", (socket) => {
         const codigoMesa = datos.codigo;
         const usuario = datos.usuario;
 
+        console.log('server: recibir unirseMesa', { codigoMesa, usuario });
+
         // crear sala
         if (!salas[codigoMesa]) {
 
             salas[codigoMesa] = [];
         }
 
-        // sala llena
-        if (salas[codigoMesa].length >= 2) {
+        // si el usuario ya está en la sala, actualizar su id (reconexión)
+        const existente = salas[codigoMesa].find(j => j.usuario === usuario);
+        if (existente) {
+            existente.id = socket.id;
+            socket.join(codigoMesa);
+            console.log("Jugador reconectado en sala", codigoMesa, usuario);
+        } else {
+            // sala llena
+            if (salas[codigoMesa].length >= 2) {
+                socket.emit("mesaLlena");
+                return;
+            }
 
-            socket.emit("mesaLlena");
+            // unir socket y guardar jugador
+            socket.join(codigoMesa);
 
-            return;
+            salas[codigoMesa].push({
+                id: socket.id,
+                usuario: usuario
+            });
+
+            console.log(
+                "Jugadores en sala",
+                codigoMesa,
+                salas[codigoMesa]
+            );
         }
 
-        // unir socket
-        socket.join(codigoMesa);
-
-        // guardar jugador
-        salas[codigoMesa].push({
-
-            id: socket.id,
-            usuario: usuario
-        });
-
-        console.log(
-            "Jugadores en sala",
-            codigoMesa,
-            salas[codigoMesa]
-        );
-
         // actualizar realtime
+        console.log('server: salas[' + codigoMesa + ']=', salas[codigoMesa]);
         io.to(codigoMesa).emit(
             "actualizarJugadores",
             salas[codigoMesa]
@@ -219,7 +230,8 @@ io.on("connection", (socket) => {
 
             console.log(
                 "Partida creada:",
-                codigoMesa
+                codigoMesa,
+                partidas[codigoMesa]
             );
         }
 
