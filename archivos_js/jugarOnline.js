@@ -347,6 +347,7 @@ function terminarPartida() {
             "Gana el crupier";
 
         volverMenuBtn.disabled = false;
+        volverMenuBtn.classList.remove("oculto");
 
         return;
     }
@@ -355,6 +356,7 @@ function terminarPartida() {
         "Ganador: " + ganador;
 
     volverMenuBtn.disabled = false;
+    volverMenuBtn.classList.remove("oculto");
 }
 
 

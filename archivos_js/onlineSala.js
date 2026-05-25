@@ -20,9 +20,6 @@ const jugador2Text =
 const estadoMesa =
     document.getElementById("contadorJugadores");
 
-const empezarBtn =
-    document.getElementById("empezar");
-
 const apuestaMesa =
     document.getElementById("apuestaMesa");
 
@@ -81,14 +78,12 @@ socket.on(
             jugador2Text.innerText =
                 jugadores[1].usuario;
 
-            empezarBtn.style.display = "none";
 
         } else {
 
             jugador2Text.innerText =
                 "Esperando...";
 
-            empezarBtn.style.display = "none";
         }
     }
 );
