@@ -8,6 +8,10 @@ const codigoMesa =
 const usuario =
     localStorage.getItem("usuario");
 
+if (!usuario) {
+    window.location.href = "../index.html";
+}
+
 const codigoMesaText =
     document.getElementById("codigoMesa");
 

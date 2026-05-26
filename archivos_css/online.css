@@ -49,6 +49,12 @@ input {
     box-sizing: border-box;
 }
 
+.contenedor h1 {
+
+    color: var(--color-primario);
+
+}
+
 .btn {
 
     width: 100%;
