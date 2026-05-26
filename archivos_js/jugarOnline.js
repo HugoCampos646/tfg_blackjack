@@ -144,6 +144,46 @@ async function guardarPuntos() {
     }
 }
 
+// GUARDAR ESTADÍSTICAS
+async function guardarEstadisticas(resultado) {
+
+    try {
+
+        let puntosGanados = 0;
+
+        if (resultado === "ganada") {
+
+            puntosGanados = apuesta;
+        }
+
+        await fetch(`${API_URL}/api/actualizarEstadisticas`, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                usuario: usuario,
+                resultado: resultado,
+                puntosGanados: puntosGanados
+            })
+        });
+
+        console.log(
+            "Estadísticas guardadas"
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Error al guardar estadísticas",
+            error
+        );
+    }
+}
+
 volverMenuBtn.disabled = true;
 
 
@@ -434,7 +474,56 @@ async function terminarPartida() {
         }
     }
 
-    // GUARDAR EN BD
+    // GUARDAR ESTADÍSTICAS DEL USUARIO ACTUAL
+    if (usuario === jugador1.nombre) {
+
+        if (resultado1 === "gana") {
+
+            await guardarEstadisticas(
+                "ganada"
+            );
+
+        } else if (
+            resultado1 === "pierde"
+        ) {
+
+            await guardarEstadisticas(
+                "perdida"
+            );
+
+        } else {
+
+            await guardarEstadisticas(
+                "empate"
+            );
+        }
+    }
+
+    else if (usuario === jugador2.nombre) {
+
+        if (resultado2 === "gana") {
+
+            await guardarEstadisticas(
+                "ganada"
+            );
+
+        } else if (
+            resultado2 === "pierde"
+        ) {
+
+            await guardarEstadisticas(
+                "perdida"
+            );
+
+        } else {
+
+            await guardarEstadisticas(
+                "empate"
+            );
+        }
+    }
+
+    // GUARDAR PUNTOS
     await guardarPuntos();
 
     const partes = [];
