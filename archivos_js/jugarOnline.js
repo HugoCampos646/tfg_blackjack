@@ -332,66 +332,78 @@ function terminarPartida() {
             partida.crupier
         );
 
-    let ganador = null;
+    const jugador1 = {
+        nombre: partida.jugadores[0].nombre,
+        puntos: puntos1
+    };
 
-    // gana jugador 1
-    if (
+    const jugador2 = {
+        nombre: partida.jugadores[1].nombre,
+        puntos: puntos2
+    };
 
-        puntos1 <= 21
-        &&
-        (
-            puntosCrupier > 21
-            ||
-            puntos1 > puntosCrupier
-        )
-        &&
-        (
-            puntos1 >= puntos2
-            || puntos2 > 21
-        )
+    function resultadoJugador(jugadorPuntos) {
+        if (jugadorPuntos > 21) {
+            return "pierde";
+        }
 
-    ) {
+        if (puntosCrupier > 21) {
+            return "gana";
+        }
 
-        ganador =
-            partida.jugadores[0].nombre;
+        if (jugadorPuntos > puntosCrupier) {
+            return "gana";
+        }
+
+        if (jugadorPuntos === puntosCrupier) {
+            return "empata";
+        }
+
+        return "pierde";
     }
 
-    // gana jugador 2
-    else if (
+    const resultado1 =
+        resultadoJugador(jugador1.puntos);
 
-        puntos2 <= 21
-        &&
-        (
-            puntosCrupier > 21
-            ||
-            puntos2 > puntosCrupier
-        )
-        &&
-        (
-            puntos2 >= puntos1
-            || puntos1 > 21
-        )
+    const resultado2 =
+        resultadoJugador(jugador2.puntos);
 
-    ) {
+    const partes = [];
 
-        ganador =
-            partida.jugadores[1].nombre;
-    }
-
-    // gana crupier
-    else {
-
+    if (resultado1 === "gana" && resultado2 === "gana") {
         resultadoText.innerText =
-            "Gana el crupier";
+            "Ganadores: " + jugador1.nombre + " y " + jugador2.nombre;
+    } else if (
+        resultado1 === "empata" &&
+        resultado2 === "empata"
+    ) {
+        resultadoText.innerText =
+            "Empate: " + jugador1.nombre + " y " + jugador2.nombre;
+    } else if (
+        resultado1 === "pierde" &&
+        resultado2 === "pierde"
+    ) {
+        resultadoText.innerText =
+            "Pierden: " + jugador1.nombre + " y " + jugador2.nombre;
+    } else {
+        if (resultado1 === "gana") {
+            partes.push(jugador1.nombre + " gana");
+        } else if (resultado1 === "empata") {
+            partes.push(jugador1.nombre + " empata");
+        } else {
+            partes.push(jugador1.nombre + " pierde");
+        }
 
-        volverMenuBtn.disabled = false;
-        volverMenuBtn.classList.remove("oculto");
+        if (resultado2 === "gana") {
+            partes.push(jugador2.nombre + " gana");
+        } else if (resultado2 === "empata") {
+            partes.push(jugador2.nombre + " empata");
+        } else {
+            partes.push(jugador2.nombre + " pierde");
+        }
 
-        return;
+        resultadoText.innerText = partes.join(", ");
     }
-
-    resultadoText.innerText =
-        "Ganador: " + ganador;
 
     volverMenuBtn.disabled = false;
     volverMenuBtn.classList.remove("oculto");
