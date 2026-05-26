@@ -102,6 +102,48 @@ const volverMenuBtn =
 
 let juegoTerminado = false;
 
+// GUARDAR PUNTOS EN BD
+async function guardarPuntos() {
+
+    try {
+
+        await fetch(`${API_URL}/api/actualizarPuntos`, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                usuario: usuario,
+                puntos: puntosUsuario
+            })
+
+        });
+
+        localStorage.setItem(
+            "puntos",
+            puntosUsuario
+        );
+
+        puntosTotales.innerText =
+            puntosUsuario;
+
+        console.log(
+            "Puntos guardados:",
+            puntosUsuario
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Error al guardar puntos",
+            error
+        );
+    }
+}
+
 volverMenuBtn.disabled = true;
 
 
@@ -309,7 +351,7 @@ function actualizarTurno() {
 
 
 // TERMINAR
-function terminarPartida() {
+async function terminarPartida() {
 
     juegoTerminado = true;
 
@@ -343,6 +385,7 @@ function terminarPartida() {
     };
 
     function resultadoJugador(jugadorPuntos) {
+
         if (jugadorPuntos > 21) {
             return "pierde";
         }
@@ -368,45 +411,126 @@ function terminarPartida() {
     const resultado2 =
         resultadoJugador(jugador2.puntos);
 
+    // ACTUALIZAR PUNTOS DEL USUARIO ACTUAL
+    if (usuario === jugador1.nombre) {
+
+        if (resultado1 === "gana") {
+            puntosUsuario += apuesta;
+        }
+
+        else if (resultado1 === "pierde") {
+            puntosUsuario -= apuesta;
+        }
+    }
+
+    else if (usuario === jugador2.nombre) {
+
+        if (resultado2 === "gana") {
+            puntosUsuario += apuesta;
+        }
+
+        else if (resultado2 === "pierde") {
+            puntosUsuario -= apuesta;
+        }
+    }
+
+    // GUARDAR EN BD
+    await guardarPuntos();
+
     const partes = [];
 
-    if (resultado1 === "gana" && resultado2 === "gana") {
+    if (
+        resultado1 === "gana"
+        &&
+        resultado2 === "gana"
+    ) {
+
         resultadoText.innerText =
-            "Ganadores: " + jugador1.nombre + " y " + jugador2.nombre;
-    } else if (
-        resultado1 === "empata" &&
+            "Ganadores: "
+            + jugador1.nombre
+            + " y "
+            + jugador2.nombre;
+    }
+
+    else if (
+        resultado1 === "empata"
+        &&
         resultado2 === "empata"
     ) {
+
         resultadoText.innerText =
-            "Empate: " + jugador1.nombre + " y " + jugador2.nombre;
-    } else if (
-        resultado1 === "pierde" &&
+            "Empate: "
+            + jugador1.nombre
+            + " y "
+            + jugador2.nombre;
+    }
+
+    else if (
+        resultado1 === "pierde"
+        &&
         resultado2 === "pierde"
     ) {
+
         resultadoText.innerText =
-            "Pierden: " + jugador1.nombre + " y " + jugador2.nombre;
-    } else {
+            "Pierden: "
+            + jugador1.nombre
+            + " y "
+            + jugador2.nombre;
+    }
+
+    else {
+
         if (resultado1 === "gana") {
-            partes.push(jugador1.nombre + " gana");
-        } else if (resultado1 === "empata") {
-            partes.push(jugador1.nombre + " empata");
+
+            partes.push(
+                jugador1.nombre + " gana"
+            );
+
+        } else if (
+            resultado1 === "empata"
+        ) {
+
+            partes.push(
+                jugador1.nombre + " empata"
+            );
+
         } else {
-            partes.push(jugador1.nombre + " pierde");
+
+            partes.push(
+                jugador1.nombre + " pierde"
+            );
         }
 
         if (resultado2 === "gana") {
-            partes.push(jugador2.nombre + " gana");
-        } else if (resultado2 === "empata") {
-            partes.push(jugador2.nombre + " empata");
+
+            partes.push(
+                jugador2.nombre + " gana"
+            );
+
+        } else if (
+            resultado2 === "empata"
+        ) {
+
+            partes.push(
+                jugador2.nombre + " empata"
+            );
+
         } else {
-            partes.push(jugador2.nombre + " pierde");
+
+            partes.push(
+                jugador2.nombre + " pierde"
+            );
         }
 
-        resultadoText.innerText = partes.join(", ");
+        resultadoText.innerText =
+            partes.join(", ");
     }
 
     volverMenuBtn.disabled = false;
-    volverMenuBtn.classList.remove("oculto");
+
+    volverMenuBtn.classList.remove(
+        "oculto"
+    );
 }
 
 
@@ -450,7 +574,7 @@ socket.on(
 // PARTIDA TERMINADA
 socket.on(
     "partidaTerminada",
-    (nuevaPartida) => {
+    async (nuevaPartida) => {
 
         partida.jugadores =
             nuevaPartida.jugadores;
@@ -458,7 +582,7 @@ socket.on(
         partida.crupier =
             nuevaPartida.crupier;
 
-        terminarPartida();
+        await terminarPartida();
         
         mostrarCartas();
 

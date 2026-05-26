@@ -1,5 +1,9 @@
-revisar cambio nombre he puesto un nombre muy largo y uego me ha dado error
-
 mejorar interfaz de juego
 
-online
+online hacer qeu se salga de la partida automaticamente
+
+animaciones
+
+boton volver y echar si no esta registrado de online.js
+
+cambiar botones jugar y tutorial
