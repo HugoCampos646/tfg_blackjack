@@ -135,17 +135,19 @@ actualizarNombres();
 // VALOR CARTA
 function valorCarta(carta) {
 
-    if (!carta) return 0;
+    if (!carta || carta.valor == null) return 0;
 
-    if (carta.valor >= 11) {
+    const valor = Number(carta.valor);
+
+    if (valor >= 11) {
         return 10;
     }
 
-    if (carta.valor === 1) {
+    if (valor === 1) {
         return 11;
     }
 
-    return carta.valor;
+    return valor;
 }
 
 
@@ -158,9 +160,11 @@ function calcularPuntos(mano) {
 
     for (let carta of mano) {
 
+        const valor = Number(carta?.valor ?? 0);
+
         total += valorCarta(carta);
 
-        if (carta.valor === 1) {
+        if (valor === 1) {
             ases++;
         }
     }
@@ -219,16 +223,49 @@ function mostrarCartas() {
         calcularPuntos(partida.jugadores[1].mano);
 
     // crupier
-    mostrarMano(
-        manoCrupierDiv,
-        partida.crupier
-    );
+    manoCrupierDiv.innerHTML = "";
 
-    puntosCrupierText.innerText =
-        "Puntos: " +
-        calcularPuntos(
-            partida.crupier
-        );
+    partida.crupier.forEach((carta, index) => {
+
+        const img =
+            document.createElement("img");
+
+        // ocultar segunda carta
+        if (
+            index === 1
+            &&
+            !juegoTerminado
+        ) {
+
+            img.src =
+                "../assets/cartas/Back-R.png";
+
+        } else {
+
+            img.src =
+                `../assets/cartas/${carta.palo}-${carta.valor}.png`;
+        }
+
+        img.width = 80;
+
+        manoCrupierDiv.appendChild(img);
+    });
+
+
+    // puntos crupier
+    if (juegoTerminado) {
+
+        puntosCrupierText.innerText =
+            "Puntos: " +
+            calcularPuntos(
+                partida.crupier
+            );
+
+    } else {
+
+        puntosCrupierText.innerText =
+            "Puntos: ?";
+    }
 }
 
 
@@ -409,9 +446,10 @@ socket.on(
         partida.crupier =
             nuevaPartida.crupier;
 
+        terminarPartida();
+        
         mostrarCartas();
 
-        terminarPartida();
     }
 );
 
