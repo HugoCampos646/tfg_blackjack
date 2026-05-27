@@ -83,3 +83,48 @@ h1 {
 .input:focus {
     box-shadow: 0 0 5px var(--color-primario);
 }
+
+.particulas {
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+.particulas span {
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    background: rgba(255,255,255,0.15);
+
+    border-radius: 50%;
+
+    animation: subir linear infinite;
+}
+
+@keyframes subir {
+
+    from {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-120px);
+        opacity: 0;
+    }
+}

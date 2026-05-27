@@ -1,2 +1,1 @@
-export const API_URL =
-    "https://tfg-blackjack.onrender.com";
+export const API_URL = "https://tfg-blackjack.onrender.com";
