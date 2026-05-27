@@ -328,26 +328,45 @@ function mostrarMano(div, mano) {
 }
 
 
-// MOSTRAR TODO
 async function animarCartasNuevas(div, cantidad) {
 
     if (cantidad <= 0) return;
 
-    const imgs = div.querySelectorAll("img");
+    const imgs =
+        div.querySelectorAll("img");
 
+    // ocultar cartas nuevas
     for (let i = 0; i < cantidad; i++) {
 
-        const idx = imgs.length - cantidad + i;
+        const idx =
+            imgs.length - cantidad + i;
 
-        const target = imgs[idx];
+        if (imgs[idx]) {
+
+            imgs[idx].style.visibility =
+                "hidden";
+        }
+    }
+
+    // animarlas una a una
+    for (let i = 0; i < cantidad; i++) {
+
+        const idx =
+            imgs.length - cantidad + i;
+
+        const target =
+            imgs[idx];
 
         if (!target) continue;
 
-        target.style.opacity = 0;
-
         await animarCarta(target);
 
-        target.style.opacity = 1;
+        target.style.visibility =
+            "visible";
+
+        await new Promise(resolve =>
+            setTimeout(resolve, 300)
+        );
     }
 }
 
@@ -463,7 +482,7 @@ function actualizarTurno() {
 // TERMINAR
 async function terminarPartida() {
 
-    juegoTerminado = true;
+    //juegoTerminado = true;
 
     pedirBtn.disabled = true;
 
@@ -803,7 +822,6 @@ socket.on(
         cartasCrupier =
             partida.crupier.length;
 
-        juegoTerminado = true;
 
         mostrarCartas();
 
@@ -822,9 +840,12 @@ socket.on(
             nuevasCartasCrupier
         );
 
-        await terminarPartida();
+        juegoTerminado = true;
 
         mostrarCartas();
+
+        await terminarPartida();
+
     }
 );
 
