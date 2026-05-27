@@ -835,14 +835,17 @@ socket.on(
             nuevasCartasJugador2
         );
 
+        juegoTerminado = true;
+        mostrarCartas();
+
         await animarCartasNuevas(
             manoCrupierDiv,
             nuevasCartasCrupier
         );
 
-        juegoTerminado = true;
+        // juegoTerminado = true;
 
-        mostrarCartas();
+        // mostrarCartas();
 
         await terminarPartida();
 
