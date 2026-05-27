@@ -272,7 +272,8 @@ io.on("connection", (socket) => {
                             sacarCarta(baraja),
                             sacarCarta(baraja)
                         ],
-                        plantado: false
+                        plantado: false,
+                        bust: false
                     },
 
                     {
@@ -281,7 +282,8 @@ io.on("connection", (socket) => {
                             sacarCarta(baraja),
                             sacarCarta(baraja)
                         ],
-                        plantado: false
+                        plantado: false,
+                        bust: false
                     }
                 ],
 
@@ -362,28 +364,22 @@ io.on("connection", (socket) => {
             calcularPuntos(jugador.mano);
 
         if (total > 21) {
-
+            jugador.bust = true;
             jugador.plantado = true;
         }
 
         // comprobar si todos terminaron
-        const todosPlantados =
+        const juegosTerminados =
             partida.jugadores.every(
-
                 j => j.plantado
             );
 
-        // CRUPIER JUEGA
-        if (todosPlantados) {
-
+        if (juegosTerminados) {
             while (
-
                 calcularPuntos(
                     partida.crupier
                 ) < 17
-
             ) {
-
                 partida.crupier.push(
                     sacarCarta(
                         partida.baraja
@@ -401,12 +397,9 @@ io.on("connection", (socket) => {
 
         // siguiente turno
         do {
-
             partida.turno =
                 (partida.turno + 1) % 2;
-
         } while (
-
             partida.jugadores[
                 partida.turno
             ].plantado
@@ -471,21 +464,18 @@ io.on("connection", (socket) => {
         jugador.plantado = true;
 
         // comprobar si todos terminaron
-        const todosPlantados =
+        const juegosTerminados =
             partida.jugadores.every(
-
                 j => j.plantado
             );
 
         // CRUPIER JUEGA
-        if (todosPlantados) {
+        if (juegosTerminados) {
 
             while (
-
                 calcularPuntos(
                     partida.crupier
                 ) < 17
-
             ) {
 
                 partida.crupier.push(
@@ -505,12 +495,9 @@ io.on("connection", (socket) => {
 
         // siguiente turnoF
         do {
-
             partida.turno =
                 (partida.turno + 1) % 2;
-
         } while (
-
             partida.jugadores[
                 partida.turno
             ].plantado
