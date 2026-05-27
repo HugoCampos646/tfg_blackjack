@@ -219,3 +219,14 @@ body {
 
     gap: 30px;
 }
+
+.cartaAnimada {
+
+    position: fixed;
+
+    width: 80px;
+
+    z-index: 9999;
+
+    transition: all 0.5s ease;
+}

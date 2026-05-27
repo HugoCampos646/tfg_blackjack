@@ -102,6 +102,11 @@ const volverMenuBtn =
 
 let juegoTerminado = false;
 
+// PARA CONTROLAR LA ANIMACION DE LA CARTA
+let cartasJugador1 = partida.jugadores?.[0]?.mano.length || 0;
+let cartasJugador2 = partida.jugadores?.[1]?.mano.length || 0;
+let cartasCrupier = partida.crupier?.length || 0;
+
 // GUARDAR PUNTOS EN BD
 async function guardarPuntos() {
 
@@ -258,6 +263,48 @@ function calcularPuntos(mano) {
     }
 
     return total;
+}
+
+// ANIMACIÓN CARTA
+function animarCarta(destinoDiv) {
+
+    return new Promise(resolve => {
+
+        const cartaAnimada = document.createElement("img");
+
+        cartaAnimada.classList.add("cartaAnimada");
+
+        cartaAnimada.src = "../assets/cartas/Back-R.png";
+
+        cartaAnimada.style.left = "20px";
+
+        cartaAnimada.style.top = "20px";
+
+        document.body.appendChild(
+            cartaAnimada
+        );
+
+        const rect =
+            destinoDiv.getBoundingClientRect();
+
+        setTimeout(() => {
+
+            cartaAnimada.style.left =
+                rect.left + rect.width / 2 + "px";
+
+            cartaAnimada.style.top =
+                rect.top + "px";
+
+        }, 50);
+
+        setTimeout(() => {
+
+            cartaAnimada.remove();
+
+            resolve();
+
+        }, 600);
+    });
 }
 
 
@@ -637,10 +684,23 @@ iniciarJuego();
 // ACTUALIZAR PARTIDA
 socket.on(
     "actualizarPartida",
-    (nuevaPartida) => {
+    async (nuevaPartida) => {
 
-        console.log("jugarOnline: actualizarPartida recibido", nuevaPartida);
+        console.log(
+            "jugarOnline: actualizarPartida recibido",
+            nuevaPartida
+        );
 
+        // calcular cuántas cartas nuevas llegaron
+        const nuevasCartasJugador1 =
+            nuevaPartida.jugadores[0].mano.length -
+            cartasJugador1;
+
+        const nuevasCartasJugador2 =
+            nuevaPartida.jugadores[1].mano.length -
+            cartasJugador2;
+
+        // actualizar partida y DOM primero
         partida.jugadores =
             nuevaPartida.jugadores;
 
@@ -653,8 +713,47 @@ socket.on(
         partida.crupier =
             nuevaPartida.crupier;
 
-        actualizarNombres();
+        // actualizar contadores
+        cartasJugador1 =
+            partida.jugadores[0].mano.length;
+
+        cartasJugador2 =
+            partida.jugadores[1].mano.length;
+
+        // renderizar nuevas cartas (las nuevas quedarán ocultas y se mostrarán tras la animación)
         mostrarCartas();
+
+        // animar cada carta nueva apuntando a la imagen recién añadida
+        if (nuevasCartasJugador1 > 0) {
+            const imgs = manoJugador1Div.querySelectorAll("img");
+            for (let i = 0; i < nuevasCartasJugador1; i++) {
+                const idx = imgs.length - nuevasCartasJugador1 + i;
+                const target = imgs[idx];
+                if (target) {
+                    target.style.opacity = 0;
+                    await animarCarta(target);
+                    target.style.opacity = 1;
+                }
+            }
+        }
+
+        if (nuevasCartasJugador2 > 0) {
+            const imgs = manoJugador2Div.querySelectorAll("img");
+            for (let i = 0; i < nuevasCartasJugador2; i++) {
+                const idx = imgs.length - nuevasCartasJugador2 + i;
+                const target = imgs[idx];
+                if (target) {
+                    target.style.opacity = 0;
+                    await animarCarta(target);
+                    target.style.opacity = 1;
+                }
+            }
+        }
+
+        actualizarNombres();
+
+        mostrarCartas();
+
         actualizarTurno();
     }
 );
@@ -665,16 +764,38 @@ socket.on(
     "partidaTerminada",
     async (nuevaPartida) => {
 
-        partida.jugadores =
-            nuevaPartida.jugadores;
+            // calcular nuevas cartas del crupier
+            const nuevasCartasCrupier =
+                nuevaPartida.crupier.length - cartasCrupier;
 
-        partida.crupier =
-            nuevaPartida.crupier;
+            // actualizar partida y DOM primero
+            partida.jugadores =
+                nuevaPartida.jugadores;
 
-        await terminarPartida();
-        
-        mostrarCartas();
+            partida.crupier =
+                nuevaPartida.crupier;
 
+            cartasCrupier = partida.crupier.length;
+
+            // renderizar nuevas cartas
+            mostrarCartas();
+
+            if (nuevasCartasCrupier > 0) {
+                const imgs = manoCrupierDiv.querySelectorAll("img");
+                for (let i = 0; i < nuevasCartasCrupier; i++) {
+                    const idx = imgs.length - nuevasCartasCrupier + i;
+                    const target = imgs[idx];
+                    if (target) {
+                        target.style.opacity = 0;
+                        await animarCarta(target);
+                        target.style.opacity = 1;
+                    }
+                }
+            }
+
+            await terminarPartida();
+
+            mostrarCartas();
     }
 );
 
