@@ -329,6 +329,29 @@ function mostrarMano(div, mano) {
 
 
 // MOSTRAR TODO
+async function animarCartasNuevas(div, cantidad) {
+
+    if (cantidad <= 0) return;
+
+    const imgs = div.querySelectorAll("img");
+
+    for (let i = 0; i < cantidad; i++) {
+
+        const idx = imgs.length - cantidad + i;
+
+        const target = imgs[idx];
+
+        if (!target) continue;
+
+        target.style.opacity = 0;
+
+        await animarCarta(target);
+
+        target.style.opacity = 1;
+    }
+}
+
+
 function mostrarCartas() {
 
     // jugador 1
@@ -723,32 +746,15 @@ socket.on(
         // renderizar nuevas cartas (las nuevas quedarán ocultas y se mostrarán tras la animación)
         mostrarCartas();
 
-        // animar cada carta nueva apuntando a la imagen recién añadida
-        if (nuevasCartasJugador1 > 0) {
-            const imgs = manoJugador1Div.querySelectorAll("img");
-            for (let i = 0; i < nuevasCartasJugador1; i++) {
-                const idx = imgs.length - nuevasCartasJugador1 + i;
-                const target = imgs[idx];
-                if (target) {
-                    target.style.opacity = 0;
-                    await animarCarta(target);
-                    target.style.opacity = 1;
-                }
-            }
-        }
+        await animarCartasNuevas(
+            manoJugador1Div,
+            nuevasCartasJugador1
+        );
 
-        if (nuevasCartasJugador2 > 0) {
-            const imgs = manoJugador2Div.querySelectorAll("img");
-            for (let i = 0; i < nuevasCartasJugador2; i++) {
-                const idx = imgs.length - nuevasCartasJugador2 + i;
-                const target = imgs[idx];
-                if (target) {
-                    target.style.opacity = 0;
-                    await animarCarta(target);
-                    target.style.opacity = 1;
-                }
-            }
-        }
+        await animarCartasNuevas(
+            manoJugador2Div,
+            nuevasCartasJugador2
+        );
 
         actualizarNombres();
 
@@ -764,38 +770,61 @@ socket.on(
     "partidaTerminada",
     async (nuevaPartida) => {
 
-            // calcular nuevas cartas del crupier
-            const nuevasCartasCrupier =
-                nuevaPartida.crupier.length - cartasCrupier;
+        const nuevasCartasJugador1 =
+            nuevaPartida.jugadores[0].mano.length -
+            cartasJugador1;
 
-            // actualizar partida y DOM primero
-            partida.jugadores =
-                nuevaPartida.jugadores;
+        const nuevasCartasJugador2 =
+            nuevaPartida.jugadores[1].mano.length -
+            cartasJugador2;
 
-            partida.crupier =
-                nuevaPartida.crupier;
+        const nuevasCartasCrupier =
+            nuevaPartida.crupier.length -
+            cartasCrupier;
 
-            cartasCrupier = partida.crupier.length;
+        partida.jugadores =
+            nuevaPartida.jugadores;
 
-            // renderizar nuevas cartas
-            mostrarCartas();
+        partida.crupier =
+            nuevaPartida.crupier;
 
-            if (nuevasCartasCrupier > 0) {
-                const imgs = manoCrupierDiv.querySelectorAll("img");
-                for (let i = 0; i < nuevasCartasCrupier; i++) {
-                    const idx = imgs.length - nuevasCartasCrupier + i;
-                    const target = imgs[idx];
-                    if (target) {
-                        target.style.opacity = 0;
-                        await animarCarta(target);
-                        target.style.opacity = 1;
-                    }
-                }
-            }
+        partida.turno =
+            nuevaPartida.turno;
 
-            await terminarPartida();
+        partida.baraja =
+            nuevaPartida.baraja;
 
-            mostrarCartas();
+        cartasJugador1 =
+            partida.jugadores[0].mano.length;
+
+        cartasJugador2 =
+            partida.jugadores[1].mano.length;
+
+        cartasCrupier =
+            partida.crupier.length;
+
+        juegoTerminado = true;
+
+        mostrarCartas();
+
+        await animarCartasNuevas(
+            manoJugador1Div,
+            nuevasCartasJugador1
+        );
+
+        await animarCartasNuevas(
+            manoJugador2Div,
+            nuevasCartasJugador2
+        );
+
+        await animarCartasNuevas(
+            manoCrupierDiv,
+            nuevasCartasCrupier
+        );
+
+        await terminarPartida();
+
+        mostrarCartas();
     }
 );
 
