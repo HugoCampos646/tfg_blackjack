@@ -379,7 +379,23 @@ plantarseBtn.addEventListener("click", async () => {
 
     while (calcularPuntos(manoCrupier) < 17) {
 
-        manoCrupier.push(sacarCarta());
+        // animación del crupier
+        await animarCarta(
+            manoCrupierDiv
+        );
+
+        // añadir carta
+        manoCrupier.push(
+            sacarCarta()
+        );
+
+        // mostrar inmediatamente
+        mostrarCartas();
+
+        // pequeña pausa
+        await new Promise(resolve =>
+            setTimeout(resolve, 300)
+        );
     }
 
     const puntosJugador = calcularPuntos(manoJugador);
