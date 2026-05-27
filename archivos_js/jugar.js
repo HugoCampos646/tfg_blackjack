@@ -102,6 +102,56 @@ function sacarCarta() {
     return baraja.pop();
 }
 
+// ANIMACIÓN CARTA
+function animarCarta(destinoDiv) {
+
+    return new Promise((resolve) => {
+
+        const carta =
+            document.createElement("img");
+
+        carta.src =
+            "../assets/cartas/Back-R.png";
+
+        carta.classList.add(
+            "carta-animada"
+        );
+
+        // posición inicial
+        carta.style.top = "20px";
+        carta.style.left = "20px";
+
+        document.body.appendChild(carta);
+
+        // destino
+        const rect =
+            destinoDiv.getBoundingClientRect();
+
+        setTimeout(() => {
+
+            carta.style.top =
+                rect.top + "px";
+
+            carta.style.left =
+                rect.left + "px";
+
+            carta.style.transform =
+                "scale(0.8) rotate(15deg)";
+
+        }, 50);
+
+        // eliminar
+        setTimeout(() => {
+
+            carta.remove();
+
+            resolve();
+
+        }, 600);
+
+    });
+}
+
 // MOSTRAR CARTAS
 function mostrarCartas() {
 
@@ -292,16 +342,32 @@ pedirBtn.addEventListener("click", async () => {
 
     if (juegoTerminado) return;
 
-    manoJugador.push(sacarCarta());
+    // animación
+    await animarCarta(
+        manoJugadorDiv
+    );
 
-    if (calcularPuntos(manoJugador) > 21) {
+    // añadir carta real
+    manoJugador.push(
+        sacarCarta()
+    );
+
+    mostrarCartas();
+
+    // comprobar derrota
+    if (
+        calcularPuntos(
+            manoJugador
+        ) > 21
+    ) {
 
         puntosUsuario -= apuesta;
 
-        await terminarPartida("Te pasaste. Pierdes.", "perdida");
+        await terminarPartida(
+            "Te pasaste. Pierdes.",
+            "perdida"
+        );
     }
-
-    mostrarCartas();
 });
 
 // PLANTARSE
