@@ -291,8 +291,50 @@ async function terminarPartida(textoResultado, tipoResultado) {
     mostrarBotonesFinal();
 }
 
+async function repartirInicial() {
+
+    // jugador 1
+    await animarCarta(manoJugadorDiv);
+
+    manoJugador.push(
+        sacarCarta()
+    );
+
+    mostrarCartas();
+
+    // crupier 1
+    await animarCarta(manoCrupierDiv);
+
+    manoCrupier.push(
+        sacarCarta()
+    );
+
+    mostrarCartas();
+
+    // carta oculta crupier
+    await animarCarta(manoCrupierDiv);
+
+    cartaOculta =
+        sacarCarta();
+
+    manoCrupier.push(
+        cartaOculta
+    );
+
+    mostrarCartas();
+
+    // jugador 2
+    await animarCarta(manoJugadorDiv);
+
+    manoJugador.push(
+        sacarCarta()
+    );
+
+    mostrarCartas();
+}
+
 // INICIAR PARTIDA
-function iniciarJuego() {
+async function iniciarJuego() {
 
     // comprobar si aún tiene puntos
     puntosUsuario = parseInt(localStorage.getItem("puntos")) || 0;
@@ -311,6 +353,8 @@ function iniciarJuego() {
     manoJugador = [];
     manoCrupier = [];
 
+    mostrarCartas();
+
     juegoTerminado = false;
 
     resultadoText.innerText = "";
@@ -322,17 +366,7 @@ function iniciarJuego() {
     plantarseBtn.disabled = false;
 
     // reparto inicial
-    manoJugador.push(sacarCarta());
-
-    manoCrupier.push(sacarCarta());
-
-    cartaOculta = sacarCarta();
-
-    manoCrupier.push(cartaOculta);
-
-    manoJugador.push(sacarCarta());
-
-    mostrarCartas();
+    repartirInicial();
 }
 
 iniciarJuego();
@@ -376,6 +410,12 @@ plantarseBtn.addEventListener("click", async () => {
     if (juegoTerminado) return;
 
     juegoTerminado = true;
+
+    mostrarCartas();
+
+    await new Promise(resolve =>
+        setTimeout(resolve, 500)
+    );
 
     while (calcularPuntos(manoCrupier) < 17) {
 

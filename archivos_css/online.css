@@ -98,10 +98,34 @@ input {
 }
 
 .logo {
+
     color: var(--color-primario);
+
     font-weight: bold;
+
     font-size: 20px;
+
     letter-spacing: 2px;
+
+    animation:
+        brilloLogo 2s ease-in-out infinite alternate;
+}
+
+@keyframes brilloLogo {
+
+    from {
+
+        text-shadow:
+            0 0 5px rgba(255,215,0,0.5);
+    }
+
+    to {
+
+        text-shadow:
+            0 0 10px rgba(255,215,0,0.8),
+            0 0 20px rgba(255,140,0,0.6),
+            0 0 30px rgba(255,140,0,0.4);
+    }
 }
 
 .particulas {

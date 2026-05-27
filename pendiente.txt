@@ -1,7 +1,1 @@
-mejorar interfaz de juego
-
 online hacer qeu se salga de la partida automaticamente
-
-animaciones
-
-actualizar estadisticas
