@@ -21,6 +21,8 @@ const plantarseBtn = document.getElementById("plantarse");
 const reiniciarBtn = document.getElementById("reiniciar");
 const volverMenuBtn = document.getElementById("volverMenu");
 
+const error = document.getElementById("errores");
+
 let baraja = [];
 let manoJugador = [];
 let manoCrupier = [];
@@ -341,7 +343,7 @@ async function iniciarJuego() {
 
     if (puntosUsuario < apuesta) {
 
-        alert("Ya no tienes suficientes puntos para jugar esa apuesta");
+        errores.innerHTML = "Ya no tienes suficientes puntos para jugar esa apuesta";
 
         window.location.href = "../archivos_html/puntosJugar.html";
 
