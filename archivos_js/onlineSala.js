@@ -37,30 +37,16 @@ codigoMesaText.innerText =
     codigoMesa;
 
 
-// unirse a sala (con log diagnóstico)
-console.log("onlineSala: preparando unirseMesa", { codigoMesa, usuario });
 socket.emit("unirseMesa", {
 
     codigo: codigoMesa,
     usuario: usuario
 });
 
-console.log(
-    "Uniéndose a sala:",
-    codigoMesa,
-    usuario
-);
-
-
 // actualizar realtime
 socket.on(
     "actualizarJugadores",
     (jugadores) => {
-
-        console.log(
-            "Jugadores recibidos:",
-            jugadores
-        );
 
         // contador
         estadoMesa.innerText =
@@ -106,8 +92,6 @@ socket.on("mesaLlena", () => {
 
 // partida iniciada
 socket.on("partidaIniciada", (partida) => {
-
-    console.log("onlineSala: partidaIniciada", partida);
 
     localStorage.setItem(
         "partidaOnline",

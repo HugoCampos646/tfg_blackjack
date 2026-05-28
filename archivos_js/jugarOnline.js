@@ -33,10 +33,7 @@ let puntosUsuario =
 
 socket.on("connect", () => {
 
-    console.log("SOCKET CONECTADO");
-
     // Unirse a la room para recibir eventos
-    console.log("jugarOnline: emit joinPartida", { codigoMesa, usuario, partida });
     socket.emit("joinPartida", {
         codigo: codigoMesa,
         usuario: usuario
@@ -135,17 +132,7 @@ async function guardarPuntos() {
         puntosTotales.innerText =
             puntosUsuario;
 
-        console.log(
-            "Puntos guardados:",
-            puntosUsuario
-        );
-
     } catch (error) {
-
-        console.log(
-            "Error al guardar puntos",
-            error
-        );
     }
 }
 
@@ -176,16 +163,7 @@ async function guardarEstadisticas(resultado) {
             })
         });
 
-        console.log(
-            "Estadísticas guardadas"
-        );
-
     } catch (error) {
-
-        console.log(
-            "Error al guardar estadísticas",
-            error
-        );
     }
 }
 
@@ -728,11 +706,6 @@ socket.on(
     "actualizarPartida",
     async (nuevaPartida) => {
 
-        console.log(
-            "jugarOnline: actualizarPartida recibido",
-            nuevaPartida
-        );
-
         // calcular cuántas cartas nuevas llegaron
         const nuevasCartasJugador1 =
             nuevaPartida.jugadores[0].mano.length -
@@ -857,7 +830,6 @@ socket.on(
 pedirBtn.addEventListener(
     "click",
     () => {
-        console.log("CLICK PEDIR");
         socket.emit(
             "pedirCarta",
             {
@@ -873,7 +845,6 @@ pedirBtn.addEventListener(
 plantarseBtn.addEventListener(
     "click",
     () => {
-        console.log("CLICK PLANTARSE");
         socket.emit(
             "plantarse",
             {
