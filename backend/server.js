@@ -20,6 +20,9 @@ const actualizarEstadisticasRoutes = require("./routes/actualizarEstadisticas");
 
 const app = express();
 
+app.use(cors());
+app.use(express.json());
+
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -44,7 +47,7 @@ app.use("/api/actualizarPuntos", actualizarPuntosRoutes);
 app.use("/api/actualizarEstadisticas", actualizarEstadisticasRoutes);
 
 // archivos estáticos
-app.use(express.static(path.join(__dirname, "../")));
+// app.use(express.static(path.join(__dirname, "../")));
 
 
 // SOCKETS
