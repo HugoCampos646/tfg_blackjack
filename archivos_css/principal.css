@@ -3,6 +3,8 @@ body {
     font-family: Arial, sans-serif;
     background-color: var(--color-fondo);
     color: var(--color-texto);
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .top-bar {
@@ -53,8 +55,11 @@ body {
 }
 
 .menu {
+    position: relative;
+    z-index: 2;
     max-width: 700px;
-    margin: 90px auto;
+    margin: 90px auto 160px;
+    padding: 0 20px;
     text-align: center;
     animation: aparecerMenu 0.8s ease;
 }
@@ -93,17 +98,17 @@ h2 {
 
 .mesa-img {
     position: fixed;
-    bottom: -100px;
     left: 50%;
+    bottom: -20px;
     transform: translateX(-50%);
-    width: 1000px;
-    max-width: 90%;
-    opacity: 0.9;
+    width: min(1000px, 92vw);
+    max-height: 42vh;
+    object-fit: contain;
+    opacity: 0.75;
     pointer-events: none;
-    animation: aparecerMesa 1s ease;
+    z-index: 0;
     filter: drop-shadow(0 0 25px rgba(255,215,0,0.15));
     animation: aparecerMesa 1s ease, flotarMesa 5s ease-in-out infinite;
-    opacity: 0.75;
 }
 
 .particulas {
@@ -241,6 +246,34 @@ h2 {
     transform: rotate(-10deg);
 
     animation-delay: 1.5s;
+}
+
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 12px 16px;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .menu {
+        margin: 40px auto 130px;
+    }
+
+    .grid-juego {
+        gap: 18px;
+    }
+
+    .grid-secundario {
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-top: 30px;
+    }
+
+    .mesa-img {
+        bottom: -10px;
+        opacity: 0.45;
+        max-height: 35vh;
+    }
 }
 
 @keyframes flotarCarta {
