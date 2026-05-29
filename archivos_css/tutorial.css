@@ -1,12 +1,65 @@
+body {
+
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+    background-color: var(--color-fondo);
+
+    color: var(--color-texto);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 100vh;
+}
+
+
+/* CONTENEDOR */
+
 .tutorial-selector {
 
-    width: 100%;
-    max-width: 700px;
+    background-color: var(--color-secundario);
 
-    margin: auto;
+    padding: 40px;
+
+    border-radius: 12px;
+
+    width: 700px;
+
+    max-width: 90%;
 
     text-align: center;
+
+    box-shadow: 0 0 25px rgba(0,0,0,0.7);
+
+    animation: aparecer 0.6s ease;
 }
+
+
+/* TITULO */
+
+.tutorial-selector h1 {
+
+    margin-bottom: 15px;
+
+    color: var(--color-primario);
+
+    letter-spacing: 2px;
+}
+
+.tutorial-selector p {
+
+    color: var(--color-texto-secundario);
+
+    margin-bottom: 35px;
+}
+
+
+/* GRID */
 
 .tutorial-grid {
 
@@ -14,6 +67,137 @@
 
     gap: 25px;
 
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 30px;
+}
+
+
+/* TARJETAS */
+
+.tutorial-card {
+
+    background-color: #1f1f1f;
+
+    border-radius: 12px;
+
+    padding: 30px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+
+    cursor: pointer;
+
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.tutorial-card:hover {
+
+    transform: translateY(-4px);
+
+    background-color: #2a2a2a;
+
+    box-shadow:
+        0 0 15px rgba(255,215,0,0.15);
+}
+
+
+/* TITULO CARD */
+
+.tutorial-card h2 {
+
+    margin-top: 0;
+
+    margin-bottom: 10px;
+
+    color: var(--color-primario);
+}
+
+
+/* TEXTO CARD */
+
+.tutorial-card p {
+
+    margin: 0;
+
+    color: var(--color-texto-secundario);
+
+    line-height: 1.5;
+}
+
+
+/* ANIMACION */
+
+@keyframes aparecer {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+}
+
+
+/* PARTICULAS */
+
+.particulas {
+
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+.particulas span {
+
+    position: absolute;
+
+    width: 6px;
+    height: 6px;
+
+    background: rgba(255,255,255,0.15);
+
+    border-radius: 50%;
+
+    animation: subir linear infinite;
+}
+
+@keyframes subir {
+
+    from {
+
+        transform: translateY(100vh);
+
+        opacity: 0;
+    }
+
+    10% {
+
+        opacity: 1;
+    }
+
+    90% {
+
+        opacity: 1;
+    }
+
+    to {
+
+        transform: translateY(-120px);
+
+        opacity: 0;
+    }
 }
