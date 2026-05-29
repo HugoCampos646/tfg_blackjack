@@ -4,43 +4,24 @@ if (!usuario) {
     window.location.href = "../index.html";
 }
 
+// cargar top bar
 cargarTopBar();
 
-document.getElementById(
-    "tutorialBasico"
-).addEventListener("click", () => {
-
-    window.location.href =
-        "../archivos_html/tutorialBasico.html";
+document.getElementById("tutorialBasico").addEventListener("click", () => {
+    window.location.href = "../archivos_html/tutorial.html";
 });
 
-document.getElementById(
-    "tutorialAs"
-).addEventListener("click", () => {
-
-    window.location.href =
-        "../archivos_html/tutorialAs.html";
+document.getElementById("tutorialAs").addEventListener("click", () => {
+    window.location.href = "../archivos_html/tutorialAs.html";
 });
 
-document.getElementById(
-    "tutorialConsejos"
-).addEventListener("click", () => {
-
-    window.location.href =
-        "../archivos_html/tutorialConsejos.html";
+document.getElementById("tutorialConsejos").addEventListener("click", () => {
+    window.location.href = "../archivos_html/tutorialConsejos.html";
 });
 
-document.getElementById(
-    "volverMenu"
-).addEventListener("click", () => {
-
-    window.location.href =
-        "../archivos_html/principal.html";
-});
 
 // partículas
-const contenedorParticulas =
-    document.querySelector(".particulas");
+const contenedorParticulas = document.querySelector(".particulas");
 
 for (let i = 0; i < 35; i++) {
 

@@ -2,151 +2,114 @@ body {
 
     margin: 0;
 
-    font-family: Arial, sans-serif;
-
     background-color: var(--color-fondo);
 
-    color: var(--color-texto);
+    color: white;
+
+    font-family: Arial, sans-serif;
+}
+
+.main {
+
+    height: calc(100vh - 80px);
 
     display: flex;
 
     justify-content: center;
 
     align-items: center;
-
-    min-height: 100vh;
 }
 
-
-/* CONTENEDOR */
-
-.tutorial-selector {
+.contenedor {
 
     background-color: var(--color-secundario);
 
     padding: 40px;
 
-    border-radius: 12px;
+    border-radius: 15px;
 
-    width: 700px;
-
-    max-width: 90%;
+    width: 420px;
 
     text-align: center;
 
     box-shadow: 0 0 25px rgba(0,0,0,0.7);
-
-    animation: aparecer 0.6s ease;
 }
 
-
-/* TITULO */
-
-.tutorial-selector h1 {
-
-    margin-bottom: 15px;
+.contenedor h1 {
 
     color: var(--color-primario);
+
+    margin-top: 0;
+
+    margin-bottom: 30px;
 
     letter-spacing: 2px;
 }
 
-.tutorial-selector p {
+.btn {
 
-    color: var(--color-texto-secundario);
+    width: 100%;
 
-    margin-bottom: 35px;
-}
+    margin-top: 15px;
 
+    padding: 14px;
 
-/* GRID */
+    border: none;
 
-.tutorial-grid {
+    border-radius: 10px;
 
-    display: grid;
+    background-color: var(--color-boton);
 
-    gap: 25px;
+    color: var(--color-secundario);
 
-    margin-top: 30px;
-}
+    font-weight: bold;
 
-
-/* TARJETAS */
-
-.tutorial-card {
-
-    background-color: #1f1f1f;
-
-    border-radius: 12px;
-
-    padding: 30px;
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        background-color 0.2s ease;
+    font-size: 16px;
 
     cursor: pointer;
 
-    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.2s ease;
 }
 
-.tutorial-card:hover {
+.btn:hover {
 
-    transform: translateY(-4px);
+    background-color: var(--color-boton-hover);
 
-    background-color: #2a2a2a;
-
-    box-shadow:
-        0 0 15px rgba(255,215,0,0.15);
+    transform: scale(1.03);
 }
 
+.top-bar {
 
-/* TITULO CARD */
+    display: flex;
 
-.tutorial-card h2 {
+    justify-content: space-between;
 
-    margin-top: 0;
+    align-items: center;
 
-    margin-bottom: 10px;
+    padding: 15px 30px;
+
+    background-color: var(--color-secundario);
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.logo {
 
     color: var(--color-primario);
+
+    font-weight: bold;
+
+    font-size: 20px;
+
+    letter-spacing: 2px;
 }
 
-
-/* TEXTO CARD */
-
-.tutorial-card p {
-
-    margin: 0;
+.usuario {
 
     color: var(--color-texto-secundario);
 
-    line-height: 1.5;
+    font-size: 14px;
 }
-
-
-/* ANIMACION */
-
-@keyframes aparecer {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateY(20px);
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-    }
-}
-
-
-/* PARTICULAS */
 
 .particulas {
 
