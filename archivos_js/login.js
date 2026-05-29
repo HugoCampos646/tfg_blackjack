@@ -27,6 +27,8 @@ async function comprobaciones() {
 
     try {
 
+        info.innerHTML = "Conectando con el servidor, espera un momento.";
+
         const response = await fetch(`${API_URL}/api/login`, {
             method: "POST",
             headers: {
