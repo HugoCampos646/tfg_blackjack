@@ -1,0 +1,216 @@
+/* tutorial.css */
+
+body {
+    margin: 0;
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+
+    font-family: Arial, sans-serif;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 30px;
+
+    background-color: var(--color-secundario);
+
+    box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.logo {
+
+    color: var(--color-primario);
+
+    font-weight: bold;
+
+    font-size: 20px;
+
+    letter-spacing: 2px;
+
+    animation:
+        brilloLogo 2s ease-in-out infinite alternate;
+}
+
+@keyframes brilloLogo {
+
+    from {
+
+        text-shadow:
+            0 0 5px rgba(255,215,0,0.5);
+    }
+
+    to {
+
+        text-shadow:
+            0 0 10px rgba(255,215,0,0.8),
+            0 0 20px rgba(255,140,0,0.6),
+            0 0 30px rgba(255,140,0,0.4);
+    }
+}
+
+.usuario {
+    color: var(--color-texto-secundario);
+
+    font-size: 14px;
+}
+
+.main {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+.juego-container {
+    width: 100%;
+    max-width: 1200px;
+
+    background-color: var(--color-secundario);
+
+    border-radius: 15px;
+
+    padding: 30px;
+
+    box-shadow: 0 0 25px rgba(0,0,0,0.7);
+}
+
+.tutorial-box {
+    background-color: #1d1d1d;
+
+    border-left: 5px solid var(--color-primario);
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    margin-bottom: 30px;
+}
+
+.tutorial-box h2 {
+    margin-top: 0;
+
+    color: var(--color-primario);
+}
+
+#textoTutorial {
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+/* APUESTA */
+.apuesta-box {
+    margin-bottom: 30px;
+
+    padding: 15px;
+
+    background-color: #2a2a2a;
+
+    border-radius: 10px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+/* NUEVO LAYOUT */
+.zonas-juego {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 30px;
+
+    margin-bottom: 25px;
+}
+
+/* ZONAS */
+.zona-cartas {
+    background-color: #1d1d1d;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    text-align: center;
+}
+
+.zona-cartas h2 {
+    margin-top: 0;
+
+    color: var(--color-primario);
+}
+
+/* CARTAS */
+.cartas {
+    min-height: 130px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin: 20px 0;
+}
+
+.cartas img {
+    width: 90px;
+
+    border-radius: 8px;
+
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+/* PUNTOS */
+#puntosJugador,
+#puntosCrupier {
+    font-size: 18px;
+    font-weight: bold;
+
+    color: var(--color-texto-secundario);
+}
+
+/* BOTONES */
+.btn {
+    border: none;
+    border-radius: 10px;
+
+    background-color: var(--color-boton);
+    color: var(--color-secundario);
+
+    font-weight: bold;
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--color-boton-hover);
+
+    transform: scale(1.02);
+}
+
+.grande {
+    padding: 14px 20px;
+}
+
+.oculto {
+    display: none !important;
+}

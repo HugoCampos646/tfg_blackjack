@@ -1,0 +1,95 @@
+<!-- tutorial.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Blackjack - Tutorial</title>
+
+    <link rel="stylesheet" href="../info/coloresGlobales.css">
+    <link rel="stylesheet" href="../info/estilosGlobales.css">
+    <link rel="stylesheet" href="../archivos_css/tutorialBasico.css">
+
+    <script type="module" src="../archivos_js/tutorialBasico.js" defer></script>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+
+        <div class="logo">
+            BLACKJACK
+        </div>
+
+        <div class="usuario">
+            Tutorial interactivo
+        </div>
+
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="main">
+
+        <div class="juego-container">
+
+            <!-- INFO -->
+            <div class="tutorial-box">
+
+                <h2 id="tituloPaso">
+                    Tutorial Blackjack
+                </h2>
+
+                <p id="textoTutorial"></p>
+
+                <button class="btn grande" id="siguiente">
+                    Siguiente
+                </button>
+
+                <button class="btn grande oculto" id="volverMenu">
+                    Volver al menú
+                </button>
+
+            </div>
+
+            <!-- APUESTA -->
+            <div class="apuesta-box">
+                Apuesta:
+                <span>100</span>
+            </div>
+
+            <!-- ZONAS DEL JUEGO -->
+            <div class="zonas-juego">
+
+                <!-- CRUPIER -->
+                <div class="zona-cartas">
+
+                    <h2>Crupier</h2>
+
+                    <div class="cartas" id="manoCrupier"></div>
+
+                    <p id="puntosCrupier">
+                        Puntos: ?
+                    </p>
+
+                </div>
+
+                <!-- JUGADOR -->
+                <div class="zona-cartas">
+
+                    <h2>Jugador</h2>
+
+                    <div class="cartas" id="manoJugador"></div>
+
+                    <p id="puntosJugador">
+                        Puntos: 0
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
