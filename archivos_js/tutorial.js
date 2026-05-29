@@ -1,11 +1,11 @@
 import { usuario, cargarTopBar } from "./cargaTopBar.js";
 
+// cargar top bar
+cargarTopBar();
+
 if (!usuario) {
     window.location.href = "../index.html";
 }
-
-// cargar top bar
-cargarTopBar();
 
 document.getElementById("tutorialBasico").addEventListener("click", () => {
     window.location.href = "../archivos_html/tutorial.html";
