@@ -8,7 +8,7 @@ if (!usuario) {
 }
 
 document.getElementById("tutorialBasico").addEventListener("click", () => {
-    window.location.href = "../archivos_html/tutorial.html";
+    window.location.href = "../archivos_html/tutorialBasico.html";
 });
 
 document.getElementById("tutorialAs").addEventListener("click", () => {
@@ -17,6 +17,10 @@ document.getElementById("tutorialAs").addEventListener("click", () => {
 
 document.getElementById("tutorialConsejos").addEventListener("click", () => {
     window.location.href = "../archivos_html/tutorialConsejos.html";
+});
+
+document.getElementById("volver").addEventListener("click", () => {
+    window.location.href = "../archivos_html/principal.html";
 });
 
 

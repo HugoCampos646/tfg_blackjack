@@ -155,7 +155,7 @@ volverMenuBtn.addEventListener(
     () => {
 
         window.location.href =
-            "../archivos_html/tutorial.html";
+            "../archivos_html/principal.html";
     }
 );
 

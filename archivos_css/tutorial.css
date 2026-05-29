@@ -1,77 +1,18 @@
 body {
-
-    margin: 0;
-
     background-color: var(--color-fondo);
-
-    color: white;
-
-    font-family: Arial;
-}
-
-.main {
-
-    height: 100vh;
+    color: var(--color-texto);
 
     display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-}
-
-.contenedor {
-
-    background-color: var(--color-secundario);
-
-    padding: 40px;
-
-    border-radius: 15px;
-
-    width: 400px;
-
-    text-align: center;
-}
-
-.contenedor h1 {
-
-    color: var(--color-primario);
-}
-
-.btn {
-
-    width: 100%;
-
-    margin-top: 15px;
-
-    padding: 14px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background-color: var(--color-boton);
-
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-.btn:hover {
-
-    background-color: var(--color-boton-hover);
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .top-bar {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
 
     padding: 15px 30px;
-
     background-color: var(--color-secundario);
 
     box-shadow: 0 2px 10px rgba(0,0,0,0.6);
@@ -86,22 +27,81 @@ body {
     font-size: 20px;
 
     letter-spacing: 2px;
+
+    animation:
+        brilloLogo 2s ease-in-out infinite alternate;
+}
+
+@keyframes brilloLogo {
+
+    from {
+
+        text-shadow:
+            0 0 5px rgba(255,215,0,0.5);
+    }
+
+    to {
+
+        text-shadow:
+            0 0 10px rgba(255,215,0,0.8),
+            0 0 20px rgba(255,140,0,0.6),
+            0 0 30px rgba(255,140,0,0.4);
+    }
 }
 
 .usuario {
-
-    color: var(--color-texto-secundario);
-
     font-size: 14px;
+    color: var(--color-texto-secundario);
 }
 
+.main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-/* PARTÍCULAS */
+.perfil-container {
+    background-color: var(--color-secundario);
+    padding: 40px;
+    border-radius: 12px;
+
+    width: 420px;
+    text-align: center;
+
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+}
+
+h2 {
+    margin-bottom: 30px;
+    color: var(--color-primario);
+}
+
+.datos {
+    margin-bottom: 30px;
+}
+
+.campo {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    font-size: 14px;
+    color: var(--color-texto-secundario);
+}
+
+.mesa-img {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    opacity: 0.1;
+    pointer-events: none;
+}
 
 .particulas {
-
     position: fixed;
-
     inset: 0;
 
     overflow: hidden;
@@ -112,11 +112,9 @@ body {
 }
 
 .particulas span {
-
     position: absolute;
 
     width: 6px;
-
     height: 6px;
 
     background: rgba(255,255,255,0.15);
@@ -129,26 +127,20 @@ body {
 @keyframes subir {
 
     from {
-
         transform: translateY(100vh);
-
         opacity: 0;
     }
 
     10% {
-
         opacity: 1;
     }
 
     90% {
-
         opacity: 1;
     }
 
     to {
-
         transform: translateY(-120px);
-
         opacity: 0;
     }
 }

@@ -9,9 +9,9 @@
 
     <link rel="stylesheet" href="../info/coloresGlobales.css">
     <link rel="stylesheet" href="../info/estilosGlobales.css">
-    <link rel="stylesheet" href="../archivos_css/tutorialSelector.css">
+    <link rel="stylesheet" href="../archivos_css/tutorial.css">
 
-    <script type="module" src="../archivos_js/tutorialSelector.js" defer></script>
+    <script type="module" src="../archivos_js/tutorial.js" defer></script>
 
 </head>
 
@@ -19,62 +19,34 @@
 
     <div class="particulas"></div>
 
-    <!-- TOP BAR -->
+    <!-- Barra superior -->
     <div class="top-bar">
-
-        <div class="logo">
-            BLACKJACK
-        </div>
-
+        <div class="logo">BLACKJACK</div>
         <div class="usuario">
-            Tutoriales
+            Usuario: <span id="nombreUsuario"></span><br>
+            Puntos: <span id="puntosUsuario"></span>
         </div>
-
     </div>
 
-    <!-- CONTENIDO -->
+    <!-- Contenedor principal -->
     <div class="main">
+        <div class="perfil-container">
 
-        <div class="contenedor">
+            <h2>TUTORIALES</h2>
 
-            <h1>TUTORIALES</h1>
+            <!-- Acciones -->
+            <div class="acciones">
+                <button class="btn grande" id="tutorialBasico">Tutorial basico</button>
+                <button class="btn grande" id="tutorialAs">Tutorial As</button>
+                <button class="btn grande" id="tutorialConsejos">Consejos basicos</button>
+                <button class="btn grande" id="volver">Volver</button>
+            </div>
 
-            <button
-                class="btn"
-                id="tutorialBasico">
-
-                Reglas básicas
-
-            </button>
-
-            <button
-                class="btn"
-                id="tutorialAs">
-
-                Cómo funciona el As
-
-            </button>
-
-            <button
-                class="btn"
-                id="tutorialConsejos">
-
-                Consejos y estrategia
-
-            </button>
-
-            <hr>
-
-            <button
-                class="btn"
-                onclick="window.location.href='../archivos_html/principal.html'">
-
-                Volver al menú
-
-            </button>
+            <div id="info" class="info">Elije el tutorial que deseas jugar</div>
+            <div id="errores" class="errores"></div>
 
         </div>
-
+        
     </div>
 
 </body>
