@@ -54,6 +54,11 @@ body {
     }
 }
 
+.usuario {
+    font-size: 14px;
+    color: var(--color-texto-secundario);
+}
+
 /* CONTENIDO */
 .main {
     flex: 1;
